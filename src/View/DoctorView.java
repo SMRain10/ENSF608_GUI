@@ -1,5 +1,13 @@
 package View;
 
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 public class DoctorView extends javax.swing.JPanel {
 
     /**
@@ -30,6 +38,7 @@ public class DoctorView extends javax.swing.JPanel {
         resolveMenu = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
+        DefaultTableModel model = new DefaultTableModel();;
         finishButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         createButton = new javax.swing.JButton();
@@ -90,19 +99,21 @@ public class DoctorView extends javax.swing.JPanel {
                 resolveMenuActionPerformed(evt);
             }
         });
-
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null, null, null, null, null, null, null, null},
-                        {null, null, null, null, null, null, null, null, null, null, null},
-                        {null, null, null, null, null, null, null, null, null, null, null},
-                        {null, null, null, null, null, null, null, null, null, null, null}
-                },
-                new String [] {
-                        "DocumentID", "Date", "Notes", "Resolved", "TestType", "Results", "Tech_SSN", "Doc Type",
-                        "Procedure Type", "Anesthetic", "Pharmacy Name"
-                }
-        ));
+        model.setDataVector(new Object[][]{{"Resultzzzz hello how are you doing are you at ucalgary", "Date", "Notes", "Resolved", "TestType", "Results", "Tech_SSN", "Doc Type", "Procedure Type", "Anesthetic", "Pharmacy Name"}},
+                new Object[]{"DocumentID", "Date", "Notes", "Resolved", "TestType", "Results", "Tech_SSN", "Doc Type", "Procedure Type", "Anesthetic", "Pharmacy Name"});
+        jTable.setModel(model);
+//        jTable.setModel(new javax.swing.table.DefaultTableModel(
+//                new Object [][] {
+//                        {null, null, null, null, null, null, null, null, null, null, null},
+//                        {null, null, null, null, null, null, null, null, null, null, null},
+//                        {null, null, null, null, null, null, null, null, null, null, null},
+//                        {null, null, null, null, null, null, null, null, null, null, null}
+//                },
+//                new String [] {
+//                        "DocumentID", "Date", "Notes", "Resolved", "TestType", "Results", "Tech_SSN", "Doc Type",
+//                        "Procedure Type", "Anesthetic", "Pharmacy Name"
+//                }
+//        ));
         jScrollPane1.setViewportView(jTable);
 
         finishButton.setText("Finish");
