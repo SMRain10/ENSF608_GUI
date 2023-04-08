@@ -84,7 +84,7 @@ public class DoctorView extends javax.swing.JPanel {
 
         resolveLabel.setText("Resolved");
 
-        resolveMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        resolveMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No"}));
         resolveMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resolveMenuActionPerformed(evt);
@@ -93,13 +93,14 @@ public class DoctorView extends javax.swing.JPanel {
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
+                        {null, null, null, null, null, null, null, null, null, null, null},
+                        {null, null, null, null, null, null, null, null, null, null, null},
+                        {null, null, null, null, null, null, null, null, null, null, null},
+                        {null, null, null, null, null, null, null, null, null, null, null}
                 },
                 new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
+                        "DocumentID", "Date", "Notes", "Resolved", "TestType", "Results", "Tech_SSN", "Doc Type",
+                        "Procedure Type", "Anesthetic", "Pharmacy Name"
                 }
         ));
         jScrollPane1.setViewportView(jTable);
