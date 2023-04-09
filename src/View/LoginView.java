@@ -125,25 +125,27 @@ public class LoginView extends JPanel {
     }
 
     private void viewApptsButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+        mainView.setCard(5);
+
     }
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        String loginId = ssnInput.getText();
-        System.out.println(loginId);
-
-
-        // Check if the login is successful
-        boolean successfulLogin = authenticateUser(loginId); // replace with your own implementation
-
-        if (successfulLogin) {
+        System.out.println(ssnInput.getText());
+        if (ssnInput.getText().equals("doctor")) {
             // Switch to the AdminView
             MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
             mainView.setCard(3);
-        } else {
+        } else if (ssnInput.getText().equals("nurse")) {
+            MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+            mainView.setCard(6);
+        } else if (ssnInput.getText().equals("admin")) {
+            MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+            mainView.setCard(1);
+        }
+        else {
             JOptionPane.showMessageDialog(this, "Invalid login ID");
         }
-
     }
 
 
@@ -152,21 +154,12 @@ public class LoginView extends JPanel {
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel pageLabel;
     private javax.swing.JButton registerPatientButton;
-    private javax.swing.JPasswordField ssnInput;
+    private javax.swing.JTextField ssnInput;
     private javax.swing.JLabel ssnLabel;
     private javax.swing.JLabel staffLabel;
     private javax.swing.JLabel staffLabel1;
     private javax.swing.JButton viewApptsButton;
     // End of variables declaration
-
-    private boolean authenticateUser(String loginId) {
-        if (loginId.equals("doctor")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 
 }
 

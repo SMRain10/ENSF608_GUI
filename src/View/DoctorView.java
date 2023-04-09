@@ -1,9 +1,11 @@
 package View;
 
 import Controller.Create_DB;
+import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
 import java.util.Arrays;
 
 public class DoctorView extends javax.swing.JPanel {
@@ -115,6 +117,11 @@ public class DoctorView extends javax.swing.JPanel {
         });
 
         cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
 
         createButton.setText("Create");
         createButton.addActionListener(new java.awt.event.ActionListener() {
@@ -306,6 +313,11 @@ public class DoctorView extends javax.swing.JPanel {
                                 .addGap(29, 29, 29))
         );
     }// </editor-fold>
+
+    private void cancelButtonActionPerformed(ActionEvent evt) {
+        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+        mainView.setCard(0);
+    }
 
     private void pNameInputActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:

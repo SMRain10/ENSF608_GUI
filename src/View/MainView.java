@@ -9,6 +9,8 @@ public class MainView extends JFrame {
     private PatientView patientView;
     private DoctorView doctorView;
     private CreateLabView labTestView;
+    private AppointmentView appointmentView;
+    private NurseView nurseView;
 //    private MainMenuView mainMenuView;
     private CardLayout cardLayout;
     private JPanel cardPanel;
@@ -21,6 +23,8 @@ public class MainView extends JFrame {
         patientView = new PatientView();
         doctorView = new DoctorView();
         labTestView = new CreateLabView();
+        appointmentView = new AppointmentView();
+        nurseView = new NurseView();
 
         cardLayout = new CardLayout();
 
@@ -30,6 +34,8 @@ public class MainView extends JFrame {
         cardPanel.add(patientView, "Patient");
         cardPanel.add(doctorView, "Doctor");
         cardPanel.add(labTestView, "CreateLab");
+        cardPanel.add(appointmentView, "Appointment");
+        cardPanel.add(nurseView, "Nurse");
 
         add(cardPanel);
 //        pack();
@@ -62,6 +68,15 @@ public class MainView extends JFrame {
                 cardLayout.show(cardPanel, "CreateLab");
                 pack();
                 break;
+            case 5:
+                cardLayout.show(cardPanel, "Appointment");
+                pack();
+                break;
+            case 6:
+                cardLayout.show(cardPanel, "Nurse");
+                pack();
+                break;
+
 
 
         }
