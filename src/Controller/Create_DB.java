@@ -7,170 +7,66 @@ public class Create_DB {
     static final String USER = "root";
     static final String PASS = "ensfsos";
 
-    // public ArrayList<String> InsertIntoTable() {
-    // ArrayList<String> result = new ArrayList<String>();
 
-    // try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);)
-    // {
-    // String sql = " insert into users (first_name, last_name, date_created,
-    // is_admin, num_points)"+" values (?, ?, ?, ?, ?)";
 
-    // int HealthCareNum;
-    // String Pname;
-    // int PhoneNum;
-    // String Allergies;
-    // String FamilyHistory;
-    // String Smoker;
-    // int Date;
-    // String Gender;
-    // String Pre_existing_conditions;
-    // String City;
-    // String Province;
-    // String StreetAddress;
-    // int AdminSSN;
-
-    // PreparedStatement preparedStmt = conn.prepareStatement(sql);
-    // preparedStmt.setString (1, first_name);
-    // preparedStmt.setString (2, last_name);
-    // preparedStmt.setDate (3, date_created);
-    // preparedStmt.setBoolean(4, is_admin);
-    // preparedStmt.setInt (5, num_points);
-
-    // preparedStmt.execute();
-    // conn.close();
-
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // }
-
-    // return result;
-    // }
-
-    public ArrayList<String> ViewInsurance() {
+    //Returns the maximum document ID for diagnosis doucment
+    public int maxDocID(){
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
             stmt_use.executeUpdate("use HOSPITAL");
 
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM insurance");
+            String querey = "SELECT MAX(DocumentID) FROM DIAGNOSIS";
 
-            while (rs.next()) {
-                String companyID = rs.getString("companyid");
-                String taxcode = rs.getString("taxcode");
-                float insuranceRate = rs.getFloat("insurancerate");
-                System.out.println(
-                        "companyID: " + companyID + "---taxcode:  " + taxcode + "----insurancerate: " + insuranceRate);
-            }
+            ResultSet rs = stmt.executeQuery(querey);
 
-            return null;
+            rs.next();
+            return rs.getInt("MAX(DocumentID)");
 
         } catch (SQLIntegrityConstraintViolationException e) {
             // Handle duplicate primary key error
             System.out.println("update failed");
 
-            return null;
+            return -1;
         } catch (SQLException e) {
             e.printStackTrace();
 
-            return null;
+            return -1;
         }
 
     }
 
-    public String DeleteInsurance() {
+
+    public int maxAppointmentID(){
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
             stmt_use.executeUpdate("use HOSPITAL");
 
-            String table = "Insurance";
+            Statement stmt = conn.createStatement();
+            String querey = "SELECT MAX(ConfirmationID) FROM APPOINTMENT";
 
-            // new values
-            String CompanyID = "AB";
-            String TaxCode = "AB";
-            float InsuranceRate = 0.3f;
+            ResultSet rs = stmt.executeQuery(querey);
 
-            // old id
-            String id = "testcomp";
-
-            String sql = "delete from " + table + " where CompanyID= ?";
-
-            PreparedStatement stmt = conn.prepareStatement(sql);
-
-            // String sql = "update insurance set companyid = 'asf' , taxcode = 'asdf',
-            // insurancerate = 0.7 where companyid = 'testcomp'";
-
-            stmt.setString(1, CompanyID);
-            // stmt.setString(2, TaxCode);
-            // stmt.setFloat(3, InsuranceRate);
-            // stmt.setString(4, id);
-
-            stmt.execute();
-            conn.close();
-
-            return null;
+            rs.next();
+            return rs.getInt("MAX(ConfirmationID)");
 
         } catch (SQLIntegrityConstraintViolationException e) {
             // Handle duplicate primary key error
             System.out.println("update failed");
 
-            return "exists";
+            return -1;
         } catch (SQLException e) {
             e.printStackTrace();
 
-            return null;
+            return -1;
         }
 
     }
 
-    public String UpdateInsurance() {
-
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
-            Statement stmt_use = conn.createStatement();
-            stmt_use.executeUpdate("use HOSPITAL");
-
-            String table = "Insurance";
-
-            // new values
-            String CompanyID = "AB";
-            String TaxCode = "AB";
-            float InsuranceRate = 0.3f;
-
-            // old id
-            String id = "CIBC";
-
-            String sql = "update  " + table + " SET CompanyID= ? , TaxCode = ? , InsuranceRate = ? where CompanyID = ?";
-
-            PreparedStatement stmt = conn.prepareStatement(sql);
-
-            // String sql = "update insurance set companyid = 'asf' , taxcode = 'asdf',
-            // insurancerate = 0.7 where companyid = 'testcomp'";
-
-            stmt.setString(1, CompanyID);
-            stmt.setString(2, TaxCode);
-            stmt.setFloat(3, InsuranceRate);
-            stmt.setString(4, id);
-
-            stmt.execute();
-            // conn.close();
-
-            return null;
-
-        } catch (SQLIntegrityConstraintViolationException e) {
-            // Handle duplicate primary key error
-            System.out.println("update failed");
-
-            return "exists";
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-            return null;
-        }
-
-    }
-
-    public Object[][] searchDoctor(String docId, String name, String healthCareNum) {
+    //returns an array for routine checkups
+    public Object[][] searchRoutineCheckUp(String docId, String name, String healthCareNum) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
@@ -239,159 +135,641 @@ public class Create_DB {
 
     }
 
+    //updates a single routine checkup document
+    public String UpdateRoutineCheckUp(String notes, Boolean resolved, Integer healthCareNumber, Integer documentID) {
 
-    public void InsertDcotor() {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
 
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate("use HOSPITAL");
+            String table = "DIAGNOSIS";
 
-            String table = "Insurance";
-            String CompanyID = "testcomp";
-            String TaxCode = "ted";
-            float InsuranceRate = 0.4f;
+            String sql = "update  " + table
+                    + " SET Notes= ? , Resolved = ? where DocumentID = ? and HealthCareNum = ? and DocType = 'Routine_Checkup'";
 
-            String sql = " insert into " + table + " (CompanyID, TaxCode, InsuranceRate)" + " values (?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
 
-            PreparedStatement preparedStmt = conn.prepareStatement(sql);
-            // preparedStmt.setString (1, table);
-            preparedStmt.setString(1, CompanyID);
-            preparedStmt.setString(2, TaxCode);
-            preparedStmt.setFloat(3, InsuranceRate);
+            // String sql = "update insurance set companyid = 'asf' , taxcode = 'asdf',
+            // insurancerate = 0.7 where companyid = 'testcomp'";
 
-            preparedStmt.execute();
-            conn.close();
+            stmt.setString(1, notes);
+            stmt.setBoolean(2, resolved);
+            stmt.setInt(3, documentID);
+            stmt.setInt(4, healthCareNumber);
 
-
-        } catch (SQLIntegrityConstraintViolationException e) {
-            // Handle duplicate primary key error
-            System.out.println("Insert failed: Primary key already exists");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // DONE
-    public String InsertIntoInsurance() {
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
-
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate("use HOSPITAL");
-
-            String table = "Insurance";
-            String CompanyID = "testcomp";
-            String TaxCode = "ted";
-            float InsuranceRate = 0.4f;
-
-            String sql = " insert into " + table + " (CompanyID, TaxCode, InsuranceRate)" + " values (?, ?, ?)";
-
-            PreparedStatement preparedStmt = conn.prepareStatement(sql);
-            // preparedStmt.setString (1, table);
-            preparedStmt.setString(1, CompanyID);
-            preparedStmt.setString(2, TaxCode);
-            preparedStmt.setFloat(3, InsuranceRate);
-
-            preparedStmt.execute();
-            conn.close();
+            stmt.execute();
 
             return null;
 
         } catch (SQLIntegrityConstraintViolationException e) {
             // Handle duplicate primary key error
-            System.out.println("Insert failed: Primary key already exists");
+            System.out.println("update failed");
 
             return "exists";
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    //inserts a routine checkup document
+    public void InsertRoutineCheckUp(String notes, int healthCareNum, boolean resolved) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("use HOSPITAL");
+
+            String table = "DIAGNOSIS";
+            String docType = "Routine_Checkup";
+            int docNum = maxDocID()+1;
+
+            String sql = " insert into " + table + " (DocumentID, HealthCareNum, Notes, Resolved, DocType)"
+                    + " values (?, ?, ?, ?, ?)";
+
+            PreparedStatement preparedStmt = conn.prepareStatement(sql);
+            preparedStmt.setInt(1, docNum);
+            preparedStmt.setInt(2, healthCareNum);
+            preparedStmt.setString(3, notes);
+            preparedStmt.setBoolean(4, resolved);
+            preparedStmt.setString(5, docType);
+
+            preparedStmt.execute();
+            conn.close();
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("Insert failed: Primary key already exists");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+    //deletes a routine checkup document
+    public void DeleteRoutineCheckUp(int docID) {
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
+
+            String table = "DIAGNOSIS";
+            String sql = "delete from " + table + " where DocumentID= ? and DocType = 'Routine_Checkup'";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, docID);
+
+            stmt.execute();
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+    //inserts a lab test document
+    public void InsertLabTest(String notes, int healthCareNum, int docID, boolean resolved, String testType) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("use HOSPITAL");
+
+            String table = "DIAGNOSIS";
+            String docType = "Lab_Test";
+
+            String sql = " insert into " + table
+                    + " (DocumentID, HealthCareNum, Notes, Resolved, DocType, TestType, Results)"
+                    + " values (?, ?, ?, ?, ?)";
+
+            PreparedStatement preparedStmt = conn.prepareStatement(sql);
+            preparedStmt.setInt(1, docID);
+            preparedStmt.setInt(2, healthCareNum);
+            preparedStmt.setString(3, notes);
+            preparedStmt.setBoolean(4, resolved);
+            preparedStmt.setString(5, docType);
+            preparedStmt.setString(6, testType);
+
+            preparedStmt.execute();
+            conn.close();
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("Insert failed: Primary key already exists");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+    public Object[][] searchLabTest(String docId, String name, String healthCareNum) {
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
+
+            Statement stmt = conn.createStatement();
+
+            String querey = "select DocumentID, Pname, Allergies, Notes, Results from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum and DocType = 'Lab_Test'";
+            String docIDsearch = "and DocumentID like ";
+            String nameSearh = "and Pname like ";
+            String healthCareNumSearch = "and patient.HealthCareNum like";
+            ;
+
+            if (docId != "") {
+                docIDsearch += "'%" + docId + "%'";
+                querey += docIDsearch;
+            }
+            if (name != "") {
+                nameSearh += "'%" + name + "%'";
+                querey += nameSearh;
+            }
+            if (healthCareNum != "") {
+                healthCareNumSearch += "'%" + healthCareNum + "%'";
+                querey += healthCareNumSearch;
+            }
+
+            ResultSet rs = stmt.executeQuery(querey);
+            ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
+            while (rs.next()) {
+                ArrayList<String> temp = new ArrayList<String>();
+                temp.add(rs.getString("DocumentID"));
+                temp.add(rs.getString("Pname"));
+                temp.add(rs.getString("Allergies"));
+                temp.add(rs.getString("Notes"));
+                temp.add(rs.getString("Results"));
+
+                results.add(temp);
+            }
+
+            Object[][] objectArray = new Object[results.size()][];
+
+            for (int i = 0; i < results.size(); i++) {
+                ArrayList<String> innerList = results.get(i);
+                Object[] innerArray = new Object[innerList.size()];
+                for (int j = 0; j < innerList.size(); j++) {
+                    innerArray[j] = innerList.get(j);
+                }
+                objectArray[i] = innerArray;
+            }
+
+            return objectArray;
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
+
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
 
             return null;
         }
 
     }
 
-    public static void main(String[] args) {
 
-        // try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+    public void DeleteLabTest(int docID) {
 
-        // Statement stmt = conn.createStatement();
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
 
-        // stmt.executeUpdate("use HOSPITAL");
+            String table = "DIAGNOSIS";
+            String sql = "delete from " + table + " where DocumentID= ? and DocType = 'Lab_Test'";
 
-        // String query = "INSERT INTO mytable (myintcolumn, mystringcolumn) VALUES (?,
-        // ?)";
-        // stmt.prepareStatement(query);
+            PreparedStatement stmt = conn.prepareStatement(sql);
 
-        // // First Query, get all the students and print out their information
-        // ResultSet rs = stmt.executeQuery("SELECT * FROM STUDENT");
+            stmt.setInt(1, docID);
 
-        // while (rs.next()) {
-        // String firstname = rs.getString("first_name");
-        // String lastname = rs.getString("last_name");
-        // String StudentID = rs.getString("student_id");
-        // String location = rs.getString("location");
-        // System.out.println(
-        // "Student Name: " + firstname + " " + lastname + " ID: " + StudentID + "
-        // location: " + location);
+            stmt.execute();
 
-        // }
-        // System.out.println();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
 
-        // // Second Query, get all the Course names and course titles
-        // Statement stmt2 = conn.createStatement();
-        // ResultSet rs2 = stmt2.executeQuery("SELECT * FROM COURSE");
+        } catch (SQLException e) {
+            e.printStackTrace();
 
-        // while (rs2.next()) {
-        // String Course_Name = rs2.getString("Course_Name");
-        // String title = rs2.getString("Course_Title");
-        // String name = rs2.getString("Course_Name");
-        // System.out.println("Course Name: " + Course_Name + " Course Title:" + title +
-        // " Course Name: " + name);
-        // }
-        // System.out.println();
-
-        // // Third Qeury, find all the registrations
-        // Statement stmt3 = conn.createStatement();
-        // ResultSet rs3 = stmt3.executeQuery("SELECT * FROM REGISTRATION");
-
-        // while (rs3.next()) {
-        // String Registration_ID = rs3.getString("Registration_ID");
-        // String Course_ID = rs3.getString("Course_ID");
-        // String Student_ID = rs3.getString("Student_ID");
-        // System.out.println("Registration ID: " + Registration_ID + " Course ID: " +
-        // Course_ID + " Student ID: "
-        // + Student_ID);
-        // }
-
-        // } catch (SQLException e) {
-        // e.printStackTrace();
-        // }
+        }
 
     }
+
+
+
+
+    public String UpdateLabTest(String notes, Boolean resolved, Integer healthCareNumber, Integer documentID, String testType, String result) {
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
+
+            String table = "DIAGNOSIS";
+
+            String sql = "update  " + table
+                    + " SET Notes= ? , Resolved = ? , testType = ?, result = ? where DocumentID = ? and HealthCareNum = ? and DocType = 'Lab_Test'";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            // String sql = "update insurance set companyid = 'asf' , taxcode = 'asdf',
+            // insurancerate = 0.7 where companyid = 'testcomp'";
+
+            stmt.setString(1, notes);
+            stmt.setBoolean(2, resolved);
+            stmt.setString(3, testType);
+            stmt.setString(4, result);
+            stmt.setInt(5, documentID);
+            stmt.setInt(6, healthCareNumber);
+
+            stmt.execute();
+
+            return null;
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
+
+            return "exists";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void Registration(String name, int healthCareNum,String phone, String allergies, String familyHistory, String smoker, String birthDate, String gender,
+    String preExistingConditions, String city, String province, String streetAddress) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("use HOSPITAL");
+
+            String table = "Patient";
+
+
+            String sql = " insert into " + table
+                    + " (HealthCareNum, Pname, PhoneNum, Allergies, Familyhistory, Smoker, BirthDate, Gender, Pre_exisiting_Conditions, City, Province, StreetAddress)"
+                    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement preparedStmt = conn.prepareStatement(sql);
+            preparedStmt.setInt(1, healthCareNum);
+            preparedStmt.setString(2, name);
+            preparedStmt.setString(3, phone);
+            preparedStmt.setString(4, allergies);
+            preparedStmt.setString(5, familyHistory);
+            preparedStmt.setString(6, smoker);
+            preparedStmt.setString(7, birthDate);
+            preparedStmt.setString(8, gender);
+            preparedStmt.setString(9, preExistingConditions);
+            preparedStmt.setString(10, city);
+            preparedStmt.setString(11, province);
+            preparedStmt.setString(12, streetAddress);
+
+
+            preparedStmt.execute();
+            conn.close();
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("Insert failed: Primary key already exists");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+
+
+
+
+    public void AdminRegistration(String name, int healthCareNum,String phone, String allergies, String familyHistory, String smoker, String birthDate, String gender,
+    String preExistingConditions, String city, String province, String streetAddress, int admintSSN) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("use HOSPITAL");
+
+            String table = "Patient";
+
+
+            String sql = " insert into " + table
+                    + " (HealthCareNum, Pname, PhoneNum, Allergies, Familyhistory, Smoker, BirthDate, Gender, Pre_exisiting_Conditions, City, Province, StreetAddress, AdminSSN)"
+                    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement preparedStmt = conn.prepareStatement(sql);
+            preparedStmt.setInt(1, healthCareNum);
+            preparedStmt.setString(2, name);
+            preparedStmt.setString(3, phone);
+            preparedStmt.setString(4, allergies);
+            preparedStmt.setString(5, familyHistory);
+            preparedStmt.setString(6, smoker);
+            preparedStmt.setString(7, birthDate);
+            preparedStmt.setString(8, gender);
+            preparedStmt.setString(9, preExistingConditions);
+            preparedStmt.setString(10, city);
+            preparedStmt.setString(11, province);
+            preparedStmt.setString(12, streetAddress);
+            preparedStmt.setInt(13, admintSSN);
+
+
+            preparedStmt.execute();
+            conn.close();
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("Insert failed: Primary key already exists");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+
+
+
+    public String UpdatePrescription(String notes, int quantity, String drugName, int docID) {
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
+
+            String sql = "update  DRUG_INFO as d inner join DIAGNOSIS as g on d.DocumentID = g.DocumentID SET g.Notes = ?, d.Quantity = ?, d.DrugName = ? where d.DocumentID = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            // String sql = "update insurance set companyid = 'asf' , taxcode = 'asdf',
+            // insurancerate = 0.7 where companyid = 'testcomp'";
+
+            stmt.setString(1, notes);
+            stmt.setInt(2, quantity);
+            stmt.setString(3, drugName);
+            stmt.setInt(4, docID);
+
+            stmt.execute();
+
+            return null;
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
+
+            return "exists";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
+
+
+    
+    public void DeletePrescription(int docID) {
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
+
+            String table = "DIAGNOSIS";
+            String sql = "delete from " + table + " where DocumentID= ? and DocType = 'Prescription'";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, docID);
+
+            stmt.execute();
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+
+
+
+    public Object[][] searchPrescription(String docId, String name, String healthCareNum, String drugName) {
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
+
+            Statement stmt = conn.createStatement();
+
+            String querey = "select Quantity, DrugName, DRUG_INFO.DocumentID, patient.pname, Notes from DRUG_INFO, diagnosis, patient where DRUG_INFO.DocumentID = DIAGNOSIS.DocumentID and DIAGNOSIS.HealthCareNum = patient.HealthCareNum ";
+            String docIDsearch = "and DocumentID like ";
+            String nameSearh = "and patient.Pname like ";
+            String healthCareNumSearch = "and patient.HealthCareNum like ";
+            String drugNameSearch = "and DRUG_INFO.drugName like ";
+            ;
+
+            if (docId != "") {
+                docIDsearch += "'%" + docId + "%'";
+                querey += docIDsearch;
+            }
+            if (name != "") {
+                nameSearh += "'%" + name + "%'";
+                querey += nameSearh;
+            }
+            if (healthCareNum != "") {
+                healthCareNumSearch += "'%" + healthCareNum + "%'";
+                querey += healthCareNumSearch;
+            }
+            if (drugName != "") {
+                drugNameSearch += "'%" + drugName + "%'";
+                querey += drugNameSearch;
+            }
+
+            ResultSet rs = stmt.executeQuery(querey);
+            ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
+            while (rs.next()) {
+                ArrayList<String> temp = new ArrayList<String>();
+                temp.add(rs.getString("Quantity"));
+                temp.add(rs.getString("DrugName"));
+                temp.add(rs.getString("DocumentID"));
+                temp.add(rs.getString("PName"));
+                temp.add(rs.getString("Notes"));
+
+                results.add(temp);
+            }
+
+            Object[][] objectArray = new Object[results.size()][];
+
+            for (int i = 0; i < results.size(); i++) {
+                ArrayList<String> innerList = results.get(i);
+                Object[] innerArray = new Object[innerList.size()];
+                for (int j = 0; j < innerList.size(); j++) {
+                    innerArray[j] = innerList.get(j);
+                }
+                objectArray[i] = innerArray;
+            }
+
+            return objectArray;
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
+
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return null;
+        }
+
+    }
+
+    
+
+
+    public void InsertPrescription(String notes, int healthCareNum, int docID, boolean resolved, int quantity, String drugName) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("use HOSPITAL");
+
+            String table = "DIAGNOSIS";
+            String docType = "Prescription";
+
+            String sql = " insert into " + table
+                    + " (DocumentID, HealthCareNum, Notes, Resolved, DocType)"
+                    + " values (?, ?, ?, ?, ?)";
+
+            PreparedStatement preparedStmt = conn.prepareStatement(sql);
+            preparedStmt.setInt(1, docID);
+            preparedStmt.setInt(2, healthCareNum);
+            preparedStmt.setString(3, notes);
+            preparedStmt.setBoolean(4, resolved);
+            preparedStmt.setString(5, docType);
+
+            preparedStmt.execute();
+
+            String sql2 = " insert into DRUG_INFO"
+                    + " (DocumentID, Quantity, DrugName)"
+                    + " values (?, ?, ?)";
+
+            PreparedStatement preparedStmt2 = conn.prepareStatement(sql2);
+            preparedStmt2.setInt(1, docID);
+            preparedStmt2.setInt(2, quantity);
+            preparedStmt2.setString(3, drugName);
+            preparedStmt2.execute();
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("Insert failed: Primary key already exists");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+
+
+
+    public void InsertAppointment(int healthCareNo, int doctorSSN, int adminSSN ,String hopsitalName, String ward, String roomNo, String roomType, String appDate, String reasonForVisit) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("use HOSPITAL");
+
+            String table = "APPOINTMENT";
+            int confirmationID = maxAppointmentID();
+
+            String sql = " insert into " + table
+                    + " (confirmationid, appt_date, reasonforvisit)"
+                    + " values (?, ?, ?)";
+
+            PreparedStatement preparedStmt = conn.prepareStatement(sql);
+            preparedStmt.setInt(1, confirmationID);
+            preparedStmt.setString(2, appDate);
+            preparedStmt.setString(3, reasonForVisit);
+
+            preparedStmt.execute();
+
+            String sql_2 = " insert into CONDUCTED_IN"
+                    + " (ConfirmationID, Hospital, RoomNo, Ward)"
+                    + " values (?, ?, ?, ?)";
+
+            PreparedStatement preparedStmt_2 = conn.prepareStatement(sql_2);
+            preparedStmt_2.setInt(1, confirmationID);
+            preparedStmt_2.setString(2, hopsitalName);
+            preparedStmt_2.setString(3, roomNo);
+            preparedStmt_2.setString(4, ward);
+            preparedStmt_2.execute();
+
+
+            String sql_3 = " insert into APPT_SCHEDULE"
+                    + " (HealthCareNo, AdminSSN, MedicalSSN, ConfirmationID)"
+                    + " values (?, ?, ?, ?)";
+
+            PreparedStatement preparedStmt_3 = conn.prepareStatement(sql_3);
+            preparedStmt_3.setInt(1, healthCareNo);
+            preparedStmt_3.setInt(2, adminSSN);
+            preparedStmt_3.setInt(3, doctorSSN);
+            preparedStmt_3.setInt(4, confirmationID);
+            preparedStmt_3.execute();
+            
+
+
+
+
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("Insert failed: Primary key already exists");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
