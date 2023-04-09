@@ -62,7 +62,7 @@ public class DoctorView extends javax.swing.JPanel {
         // Added code
         dconn = new Create_DB();
         model = new DefaultTableModel();
-        data = dconn.searchDoctor("","","");
+        data = dconn.searchRoutineCheckUp("","","");
 
 
         pageLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -327,7 +327,7 @@ public class DoctorView extends javax.swing.JPanel {
         if (pNameInput.getText().equals("") && HcInput.getText().equals("") && docIdInput.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please enter at least one search criteria");
         } else {
-            data = dconn.searchDoctor(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
+            data = dconn.searchRoutineCheckUp(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
             model.setDataVector(data, colNames);
         }
     }
