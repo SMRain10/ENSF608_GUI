@@ -1,14 +1,14 @@
 package View;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import Controller.Create_DB;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Arrays;
 
 public class DoctorView extends javax.swing.JPanel {
+
+
 
     /**
      * Creates new form DoctorView
@@ -26,36 +26,42 @@ public class DoctorView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        pageLabel = new javax.swing.JLabel();
-        pNameLabel = new javax.swing.JLabel();
-        pNameInput = new javax.swing.JTextField();
-        HCNumLabel = new javax.swing.JLabel();
-        pNameInput1 = new javax.swing.JTextField();
-        searchButton = new javax.swing.JButton();
-        noteLabel = new javax.swing.JLabel();
-        notesInput = new javax.swing.JTextField();
-        resolveLabel = new javax.swing.JLabel();
-        resolveMenu = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
-        DefaultTableModel model = new DefaultTableModel();;
-        finishButton = new javax.swing.JButton();
-        cancelButton = new javax.swing.JButton();
-        createButton = new javax.swing.JButton();
-        createPresButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
-        createLabTestButton = new javax.swing.JButton();
-        docIDLabel = new javax.swing.JLabel();
-        docIdInput = new javax.swing.JTextField();
-        updateButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        famHistText = new javax.swing.JTextArea();
-        famHistoryLabel = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        smokerTextArea = new javax.swing.JTextArea();
-        smokerLabel = new javax.swing.JLabel();
-        HcInput = new javax.swing.JTextField();
-        pInfoLabel = new javax.swing.JLabel();
+
+        pageLabel = new JLabel();
+        pNameLabel = new JLabel();
+        pNameInput = new JTextField();
+        HCNumLabel = new JLabel();
+        searchButton = new JButton();
+        noteLabel = new JLabel();
+        notesInput = new JTextField();
+        resolveLabel = new JLabel();
+        resolveMenu = new JComboBox<>();
+        jScrollPane1 = new JScrollPane();
+        jTable = new JTable();
+
+        finishButton = new JButton();
+        cancelButton = new JButton();
+        createButton = new JButton();
+        createPresButton = new JButton();
+        deleteButton = new JButton();
+        createLabTestButton = new JButton();
+        docIDLabel = new JLabel();
+        docIdInput = new JTextField();
+        updateButton = new JButton();
+        jScrollPane2 = new JScrollPane();
+        famHistText = new JTextArea();
+        famHistoryLabel = new JLabel();
+        jScrollPane3 = new JScrollPane();
+        smokerTextArea = new JTextArea();
+        smokerLabel = new JLabel();
+        HcInput = new JTextField();
+        pInfoLabel = new JLabel();
+
+        // Added code
+        dconn = new Create_DB();
+        model = new DefaultTableModel();
+        data = dconn.searchDoctor("","","");
+
 
         pageLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         pageLabel.setText("Doctor Page");
@@ -69,12 +75,6 @@ public class DoctorView extends javax.swing.JPanel {
         });
 
         HCNumLabel.setText("HC #");
-
-        pNameInput1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pNameInput1ActionPerformed(evt);
-            }
-        });
 
         searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -99,21 +99,12 @@ public class DoctorView extends javax.swing.JPanel {
                 resolveMenuActionPerformed(evt);
             }
         });
-        model.setDataVector(new Object[][]{{"Resultzzzz hello how are you doing are you at ucalgary", "Date", "Notes", "Resolved", "TestType", "Results", "Tech_SSN", "Doc Type", "Procedure Type", "Anesthetic", "Pharmacy Name"}},
-                new Object[]{"DocumentID", "Date", "Notes", "Resolved", "TestType", "Results", "Tech_SSN", "Doc Type", "Procedure Type", "Anesthetic", "Pharmacy Name"});
+
+        model.setDataVector(new Object[][] {null, null, null, null, null, null, null, null, null, null, null}, colNames);
+
+        model.setDataVector(data, colNames);
         jTable.setModel(model);
-//        jTable.setModel(new javax.swing.table.DefaultTableModel(
-//                new Object [][] {
-//                        {null, null, null, null, null, null, null, null, null, null, null},
-//                        {null, null, null, null, null, null, null, null, null, null, null},
-//                        {null, null, null, null, null, null, null, null, null, null, null},
-//                        {null, null, null, null, null, null, null, null, null, null, null}
-//                },
-//                new String [] {
-//                        "DocumentID", "Date", "Notes", "Resolved", "TestType", "Results", "Tech_SSN", "Doc Type",
-//                        "Procedure Type", "Anesthetic", "Pharmacy Name"
-//                }
-//        ));
+
         jScrollPane1.setViewportView(jTable);
 
         finishButton.setText("Finish");
@@ -253,7 +244,7 @@ public class DoctorView extends javax.swing.JPanel {
                                                                         .addComponent(famHistoryLabel)
                                                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(pNameInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(35, 35, 35)
                                                                 .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(49, 49, 49)
@@ -276,7 +267,6 @@ public class DoctorView extends javax.swing.JPanel {
                                                 .addGap(6, 6, 6)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(pNameInput1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(docIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(searchButton))
@@ -321,12 +311,13 @@ public class DoctorView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }
 
-    private void pNameInput1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        if (pNameInput.getText().equals("") && HcInput.getText().equals("") && docIdInput.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter at least one search criteria");
+        } else {
+            data = dconn.searchDoctor(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
+            model.setDataVector(data, colNames);
+        }
     }
 
     private void notesInputActionPerformed(java.awt.event.ActionEvent evt) {
@@ -354,7 +345,9 @@ public class DoctorView extends javax.swing.JPanel {
     }
 
     private void createLabTestButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
+        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+        mainView.setCard(4);
     }
 
     private void docIdInputActionPerformed(java.awt.event.ActionEvent evt) {
@@ -371,34 +364,41 @@ public class DoctorView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify
-    private javax.swing.JLabel HCNumLabel;
-    private javax.swing.JTextField HcInput;
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JButton createButton;
-    private javax.swing.JButton createLabTestButton;
-    private javax.swing.JButton createPresButton;
-    private javax.swing.JButton deleteButton;
-    private javax.swing.JLabel docIDLabel;
-    private javax.swing.JTextField docIdInput;
-    private javax.swing.JTextArea famHistText;
-    private javax.swing.JLabel famHistoryLabel;
-    private javax.swing.JButton finishButton;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable;
-    private javax.swing.JLabel noteLabel;
-    private javax.swing.JTextField notesInput;
-    private javax.swing.JLabel pInfoLabel;
-    private javax.swing.JTextField pNameInput;
-    private javax.swing.JTextField pNameInput1;
-    private javax.swing.JLabel pNameLabel;
-    private javax.swing.JLabel pageLabel;
-    private javax.swing.JLabel resolveLabel;
-    private javax.swing.JComboBox<String> resolveMenu;
-    private javax.swing.JButton searchButton;
-    private javax.swing.JLabel smokerLabel;
-    private javax.swing.JTextArea smokerTextArea;
-    private javax.swing.JButton updateButton;
+    private JLabel HCNumLabel;
+    private JTextField HcInput;
+    private JButton cancelButton;
+    private JButton createButton;
+    private JButton createLabTestButton;
+    private JButton createPresButton;
+    private JButton deleteButton;
+    private JLabel docIDLabel;
+    private JTextField docIdInput;
+    private JTextArea famHistText;
+    private JLabel famHistoryLabel;
+    private JButton finishButton;
+    private JScrollPane jScrollPane1;
+    private JScrollPane jScrollPane2;
+    private JScrollPane jScrollPane3;
+    private JTable jTable;
+    private JLabel noteLabel;
+    private JTextField notesInput;
+    private JLabel pInfoLabel;
+    private JTextField pNameInput;
+    private JLabel pNameLabel;
+    private JLabel pageLabel;
+    private JLabel resolveLabel;
+    private JComboBox<String> resolveMenu;
+    private JButton searchButton;
+    private JLabel smokerLabel;
+    private JTextArea smokerTextArea;
+    private JButton updateButton;
+
+    //Added variables
+
+    private DefaultTableModel model;
+    private Create_DB dconn;
+    private Object[][] data;
+    private String[] colNames = {"DocumentID","Name", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing conditions", "Notes", "Resolved"};
     // End of variables declaration
+
 }

@@ -51,6 +51,19 @@
 //
 //        private void search() {
 //        }
-//    }
+//
 //
 //}
+
+//        jTable.setModel(new javax.swing.table.DefaultTableModel(
+//                new Object [][] {
+//                        {null, null, null, null, null, null, null, null, null, null, null},
+//                        {null, null, null, null, null, null, null, null, null, null, null},
+//                        {null, null, null, null, null, null, null, null, null, null, null},
+//                        {null, null, null, null, null, null, null, null, null, null, null}
+//                },
+//                new String [] {
+//                        "DocumentID", "Date", "Notes", "Resolved", "TestType", "Results", "Tech_SSN", "Doc Type",
+//                        "Procedure Type", "Anesthetic", "Pharmacy Name"
+//                }
+//        ));
