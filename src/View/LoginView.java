@@ -119,8 +119,11 @@ public class LoginView extends javax.swing.JPanel {
             MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
             mainView.setLabTechView(new LabTechView());
             mainView.setCard(8);
-        }
-        else {
+        } else if (ssnInput.getText().equals("surgeon")) {
+            MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+            mainView.setSurgeonView(new SurgeonView());
+            mainView.setCard(9);
+        } else {
             JOptionPane.showMessageDialog(this, "Invalid login ID");
         }
     }

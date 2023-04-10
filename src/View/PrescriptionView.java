@@ -44,7 +44,6 @@ public class PrescriptionView extends javax.swing.JPanel {
         updatePrescriptionButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        loginPageButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         searchButton = new javax.swing.JButton();
 
@@ -83,14 +82,7 @@ public class PrescriptionView extends javax.swing.JPanel {
         jTable1.setModel(model);
         jScrollPane1.setViewportView(jTable1);
 
-        loginPageButton.setText("Login Page");
-        loginPageButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginPageButtonActionPerformed(evt);
-            }
-        });
-
-        backButton.setText("Back");
+        backButton.setText("Exit");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
@@ -145,7 +137,6 @@ public class PrescriptionView extends javax.swing.JPanel {
                                 .addGap(437, 437, 437)
                                 .addComponent(pageLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(loginPageButton)
                                 .addGap(37, 37, 37))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -158,7 +149,7 @@ public class PrescriptionView extends javax.swing.JPanel {
                                 .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(pageLabel)
-                                        .addComponent(loginPageButton))
+                                )
                                 .addGap(49, 49, 49)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(pNameLabel)
@@ -204,20 +195,14 @@ public class PrescriptionView extends javax.swing.JPanel {
 
     }
 
-    private void loginPageButtonActionPerformed(ActionEvent evt) {
-        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
-        mainView.setLoginView(new LoginView());
-        mainView.setCard(0);
-    }
-
     private void createPrescriptionButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
     }
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
         MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
-        mainView.setDoctorView(new DoctorView());
-        mainView.setCard(3);
+        mainView.setLoginView(new LoginView());
+        mainView.setCard(0);
     }
 
 
@@ -235,7 +220,6 @@ public class PrescriptionView extends javax.swing.JPanel {
     private javax.swing.JLabel drugQuantityLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton loginPageButton;
     private javax.swing.JTextField pNameInput;
     private javax.swing.JLabel pNameLabel;
     private javax.swing.JLabel pageLabel;
