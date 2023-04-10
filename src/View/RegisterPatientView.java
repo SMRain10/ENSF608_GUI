@@ -21,8 +21,11 @@ public class RegisterPatientView extends javax.swing.JPanel {
     //Contains the code for the GUI and intializes the components.
     private void initComponents() {
 
+        //CD code
         dconn = new Create_DB();
 
+
+        //netbeans variables
         step1Label = new javax.swing.JLabel();
         HcnInput = new javax.swing.JTextField();
         bdMonthInput = new javax.swing.JComboBox<>();
@@ -321,7 +324,41 @@ public class RegisterPatientView extends javax.swing.JPanel {
 
     private void registerPatientActionPerformed(java.awt.event.ActionEvent evt) {
 
-        String birthday = bdYearInput.getSelectedItem() + "-" + bdMonthInput.getSelectedItem() + "-" + bdDayInput.getSelectedItem();
+        String monthToDigit = "01";
+
+        if(bdMonthInput.getSelectedItem() == "Janurary"){
+                monthToDigit = "01";
+        } else if (bdMonthInput.getSelectedItem() == "February"){
+                monthToDigit = "02";
+        }else if (bdMonthInput.getSelectedItem() == "March"){
+                monthToDigit = "03";
+        }else if (bdMonthInput.getSelectedItem() == "April"){
+                monthToDigit = "04";
+        }else if (bdMonthInput.getSelectedItem() == "May"){
+                monthToDigit = "05";
+        }else if (bdMonthInput.getSelectedItem() == "June"){
+                monthToDigit = "06";
+        }else if (bdMonthInput.getSelectedItem() == "July"){
+                monthToDigit = "07";
+        }else if (bdMonthInput.getSelectedItem() == "August"){
+                monthToDigit = "08";
+        }else if (bdMonthInput.getSelectedItem() == "September"){
+                monthToDigit = "09";
+        }
+        else if (bdMonthInput.getSelectedItem() == "October"){
+                monthToDigit = "10";
+        }
+        else if (bdMonthInput.getSelectedItem() == "November"){
+                monthToDigit = "11";
+        }
+        else if (bdMonthInput.getSelectedItem() == "December"){
+                monthToDigit = "12";
+        }
+                
+
+
+
+        String birthday = bdYearInput.getSelectedItem() + "-" + monthToDigit + "-" + bdDayInput.getSelectedItem();
         
         if (pNameInput.getText().equals("") || HcnInput.getText().equals("") || smokerInput.getSelectedValue() == null || genderInput.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Must enter name, healthcare number, smoker status and gender.");
