@@ -1,7 +1,9 @@
 package View;
+import Controller.Create_DB;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import javax.swing.table.DefaultTableModel;
 
 public class AppointmentView extends javax.swing.JPanel {
 
@@ -21,6 +23,13 @@ public class AppointmentView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
+        //added by CD
+        dconn = new Create_DB();
+        model = new DefaultTableModel();
+        
+
+
+        //netbeans info
         pageLabel = new javax.swing.JLabel();
         HcInput = new javax.swing.JTextField();
         pInfoLabel = new javax.swing.JLabel();
@@ -90,28 +99,42 @@ public class AppointmentView extends javax.swing.JPanel {
                         {null, null, null, null}
                 },
                 new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
+                        "ConfirmationID", "Appt_Date", "Pname", "HealthCareNum", "Reason"
                 }
         ));
+        jTable.setModel(model);
+        
+
+
         jScrollPane1.setViewportView(jTable);
 
         yearLabel.setText("Year");
 
-        yearDropInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        yearDropInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","1900","1901","1902","1903","1904"
+        ,"1905","1906","1907","1908","1909","1910","1911","1912","1913","1914","1915","1916","1917","1918"
+        ,"1919","1920","1921","1922","1923","1924","1925","1926","1927","1928","1929","1930","1931"
+        ,"1932","1933","1934","1935","1936","1937","1938","1939","1940","1941","1942","1943","1944"
+        ,"1945","1946","1947","1948","1949","1950","1951","1952","1953","1954","1955","1956","1957"
+        ,"1958","1959","1960","1961","1962","1963","1964","1965","1966","1967","1968","1969","1970"
+        ,"1971","1972","1973","1974","1975","1976","1977","1978","1979","1980","1981","1982","1983"
+        ,"1984","1985","1986","1987","1988","1989","1990","1991","1992","1993","1994","1995","1996"
+        ,"1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009"
+        ,"2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023" }));
 
         step2LAbel.setText("Specify Appointment");
 
-        monthDropInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        monthDropInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","January", "February", "March"
+        , "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
 
         monthLabel.setText("Month");
 
         dayLabelInput.setText("Day");
 
-        dayDropInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        dayDropInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31" }));
 
         timeLabel.setText("Time");
 
-        timeInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        timeInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","8:00", "9:00", "10:00", "11:00", "12:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00" }));
 
         adminSsnLabel.setText("AdminSSN");
 
@@ -126,7 +149,7 @@ public class AppointmentView extends javax.swing.JPanel {
         pNameLabel6.setText("RoomType");
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "General", "Operation", "Labratory"};
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -370,14 +393,71 @@ public class AppointmentView extends javax.swing.JPanel {
     }
 
     private void updateApptButtonActionPerformed(ActionEvent evt) {
+
+
+        if(docIdInput.getText() != ""){
+
+
+        String monthToDigit = "01";
+
+        if(monthDropInput.getSelectedItem() == "Janurary"){
+                monthToDigit = "01";
+        } else if (monthDropInput.getSelectedItem() == "February"){
+                monthToDigit = "02";
+        }else if (monthDropInput.getSelectedItem() == "March"){
+                monthToDigit = "03";
+        }else if (monthDropInput.getSelectedItem() == "April"){
+                monthToDigit = "04";
+        }else if (monthDropInput.getSelectedItem() == "May"){
+                monthToDigit = "05";
+        }else if (monthDropInput.getSelectedItem() == "June"){
+                monthToDigit = "06";
+        }else if (monthDropInput.getSelectedItem() == "July"){
+                monthToDigit = "07";
+        }else if (monthDropInput.getSelectedItem() == "August"){
+                monthToDigit = "08";
+        }else if (monthDropInput.getSelectedItem() == "September"){
+                monthToDigit = "09";
+        }
+        else if (monthDropInput.getSelectedItem() == "October"){
+                monthToDigit = "10";
+        }
+        else if (monthDropInput.getSelectedItem() == "November"){
+                monthToDigit = "11";
+        }
+        else if (monthDropInput.getSelectedItem() == "December"){
+                monthToDigit = "12";
+        }else if (monthDropInput.getSelectedItem() == ""){
+                monthToDigit = "";
+        }
+
+        String app_time = yearDropInput.getSelectedItem() + "-" + monthToDigit + "-" + dayDropInput.getSelectedItem() + " "+ timeInput.getSelectedItem() + ":00";
+
+        if(yearDropInput.getSelectedItem().equals("") && yearDropInput.getSelectedItem().equals("") && yearDropInput.getSelectedItem().equals("")){
+                app_time = "";
+        }
+
+        dconn.UpdateAppointment(hospitalNameInput.getText(),wardInput.getText(),roomInput.getText(),app_time,pNameInput6.getText(),docIdInput.getText());
+        }else {
+                JOptionPane.showMessageDialog(null, "Must have Document Number.");
+        }
         // TODO add your handling code here:
     }
 
     private void deleteApptButtonActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
+
+        dconn.DeleteAppointment(docIdInput.getText());
+
     }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
+
+        String appDate = yearDropInput.getSelectedItem() + "-" + monthDropInput.getSelectedItem() + "-" + dayDropInput.getSelectedItem() + " " + timeInput.getSelectedItem() + ":00" ;
+        
+        data = dconn.searchAppointment(pNameInput.getText(),HcInput.getText(),appDate, docIdInput.getText(), pNameInput6.getText());
+        model.setDataVector(data, colNames);
+
         // TODO add your handling code here:
     }
     private void finishButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -387,7 +467,59 @@ public class AppointmentView extends javax.swing.JPanel {
     }
 
     private void createApptButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
+
+
+        String monthToDigit = "01";
+
+        if(monthDropInput.getSelectedItem() == "Janurary"){
+                monthToDigit = "01";
+        } else if (monthDropInput.getSelectedItem() == "February"){
+                monthToDigit = "02";
+        }else if (monthDropInput.getSelectedItem() == "March"){
+                monthToDigit = "03";
+        }else if (monthDropInput.getSelectedItem() == "April"){
+                monthToDigit = "04";
+        }else if (monthDropInput.getSelectedItem() == "May"){
+                monthToDigit = "05";
+        }else if (monthDropInput.getSelectedItem() == "June"){
+                monthToDigit = "06";
+        }else if (monthDropInput.getSelectedItem() == "July"){
+                monthToDigit = "07";
+        }else if (monthDropInput.getSelectedItem() == "August"){
+                monthToDigit = "08";
+        }else if (monthDropInput.getSelectedItem() == "September"){
+                monthToDigit = "09";
+        }
+        else if (monthDropInput.getSelectedItem() == "October"){
+                monthToDigit = "10";
+        }
+        else if (monthDropInput.getSelectedItem() == "November"){
+                monthToDigit = "11";
+        }
+        else if (monthDropInput.getSelectedItem() == "December"){
+                monthToDigit = "12";
+        }else if (monthDropInput.getSelectedItem() == ""){
+                monthToDigit = "";
+        }
+
+        String app_time = yearDropInput.getSelectedItem() + "-" + monthToDigit + "-" + dayDropInput.getSelectedItem() + " "+ timeInput.getSelectedItem() + ":00";
+
+
+
+
+
+
+        if (adminSsnInput.getText().equals("") || drSSNInput.getText().equals("") || hospitalNameInput.getText().equals("") || wardInput.getText().equals("") || roomInput.getText().equals("") || HcInput.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Must enter name, healthcare number, smoker status and gender.");
+            } else {
+                dconn.InsertAppointment(docIdInput.getText(), drSSNInput.getText(), adminSsnInput.getText(), hospitalNameInput.getText(), wardInput.getText(), roomInput.getText(),jList1.getSelectedValue(),app_time,pNameInput6.getText());
+            }
+
+
         // TODO add your handling code here:
+
+        
     }
 
 
@@ -434,5 +566,13 @@ public class AppointmentView extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> yearDropInput;
     private javax.swing.JLabel yearLabel;
     // End of variables declaration
+
+
+    //Added by CD
+    private Create_DB dconn;
+    private Object[][] data;
+    private DefaultTableModel model;
+    private String[] colNames = {"ConfirmationID","Hospital", "Ward","RoomNo","Appt_Date", "Pname", "HealthCareNum", "Reason"};
+
 }
 
