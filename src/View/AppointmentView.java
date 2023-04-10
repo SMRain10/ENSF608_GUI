@@ -32,7 +32,7 @@ public class AppointmentView extends javax.swing.JPanel {
         docIdInput = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
         yearLabel = new javax.swing.JLabel();
         yearDropInput = new javax.swing.JComboBox<>();
         step2LAbel = new javax.swing.JLabel();
@@ -58,16 +58,13 @@ public class AppointmentView extends javax.swing.JPanel {
         jList1 = new javax.swing.JList<>();
         pNameLabel7 = new javax.swing.JLabel();
         pNameInput6 = new javax.swing.JTextField();
-        submitButton = new javax.swing.JButton();
+        finishButton = new javax.swing.JButton();
+        createApptButton = new javax.swing.JButton();
+        deleteApptButton = new javax.swing.JButton();
+        updateApptButton = new javax.swing.JButton();
 
         pageLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         pageLabel.setText("View/Change Appointments");
-
-        HcInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HcInputActionPerformed(evt);
-            }
-        });
 
         pInfoLabel.setText("Patient Info");
 
@@ -77,22 +74,11 @@ public class AppointmentView extends javax.swing.JPanel {
 
         HCNumLabel.setText("HC #");
 
-        pNameInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pNameInputActionPerformed(evt);
-            }
-        });
 
         searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
-            }
-        });
-
-        docIdInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                docIdInputActionPerformed(evt);
             }
         });
 
@@ -108,8 +94,6 @@ public class AppointmentView extends javax.swing.JPanel {
                 }
         ));
         jScrollPane1.setViewportView(jTable);
-
-        jButton2.setText("Back");
 
         yearLabel.setText("Year");
 
@@ -129,45 +113,15 @@ public class AppointmentView extends javax.swing.JPanel {
 
         timeInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        adminSsnInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminSsnInputActionPerformed(evt);
-            }
-        });
-
         adminSsnLabel.setText("AdminSSN");
-
-        drSSNInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                drSSNInputActionPerformed(evt);
-            }
-        });
 
         drSSNLabel.setText("Doctor SSN");
 
         hospitalNameLabel.setText("Hospital Name");
 
-        hospitalNameInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hospitalNameInputActionPerformed(evt);
-            }
-        });
-
         wardLabel.setText("Ward");
 
-        wardInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wardInputActionPerformed(evt);
-            }
-        });
-
         roomLabel.setText("Room");
-
-        roomInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomInputActionPerformed(evt);
-            }
-        });
 
         pNameLabel6.setText("RoomType");
 
@@ -180,16 +134,37 @@ public class AppointmentView extends javax.swing.JPanel {
 
         pNameLabel7.setText("Reason for Visit");
 
-        pNameInput6.addActionListener(new java.awt.event.ActionListener() {
+        finishButton.setText("Finished");
+        finishButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pNameInput6ActionPerformed(evt);
+                finishButtonActionPerformed(evt);
             }
         });
 
-        submitButton.setText("Submit");
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
+        createApptButton.setText("Create");
+        createApptButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
+                createApptButtonActionPerformed(evt);
+            }
+        });
+
+        deleteApptButton.setText("Delete");
+        deleteApptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteApptButtonActionPerformed(evt);
+            }
+        });
+
+        updateApptButton.setText("Update");
+        updateApptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateApptButtonActionPerformed(evt);
+            }
+        });
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
             }
         });
 
@@ -204,9 +179,9 @@ public class AppointmentView extends javax.swing.JPanel {
                                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 869, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(74, 74, 74))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jButton2)
+                                                .addComponent(backButton)
                                                 .addGap(30, 30, 30)
-                                                .addComponent(submitButton)
+                                                .addComponent(finishButton)
                                                 .addGap(60, 60, 60))))
                         .addComponent(jSeparator1)
                         .addGroup(layout.createSequentialGroup()
@@ -261,15 +236,24 @@ public class AppointmentView extends javax.swing.JPanel {
                                                                         .addComponent(dayDropInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addGap(18, 18, 18)
-                                                                                .addComponent(yearDropInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                                .addGap(18, 18, 18)
+                                                                                                .addComponent(yearDropInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                                .addGap(42, 42, 42)
+                                                                                                .addComponent(yearLabel)))
                                                                                 .addGap(42, 42, 42)
-                                                                                .addComponent(yearLabel)))
-                                                                .addGap(42, 42, 42)
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(timeLabel)
-                                                                        .addComponent(timeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                        .addComponent(timeLabel)
+                                                                                        .addComponent(timeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addGap(18, 18, 18)
+                                                                                .addComponent(createApptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addGap(49, 49, 49)
+                                                                                .addComponent(updateApptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addGap(49, 49, 49)
+                                                                                .addComponent(deleteApptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,60 +347,47 @@ public class AppointmentView extends javax.swing.JPanel {
                                                 .addComponent(timeLabel)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(timeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(108, 108, 108)
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(createApptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(updateApptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(deleteApptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(26, 26, 26)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(40, 40, 40)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jButton2)
-                                        .addComponent(submitButton))
+                                        .addComponent(backButton)
+                                        .addComponent(finishButton))
                                 .addGap(24, 24, 24))
         );
     }// </editor-fold>
 
-    private void HcInputActionPerformed(java.awt.event.ActionEvent evt) {
+    private void backButtonActionPerformed(ActionEvent evt) {
+        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+        mainView.setRegisterPatientView(new RegisterPatientView());
+        mainView.setCard(1);
+    }
+
+    private void updateApptButtonActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
     }
 
-    private void pNameInputActionPerformed(java.awt.event.ActionEvent evt) {
+    private void deleteApptButtonActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
     }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
-
-    private void docIdInputActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void adminSsnInputActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void drSSNInputActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void hospitalNameInputActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void wardInputActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void roomInputActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void pNameInput6ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void finishButtonActionPerformed(java.awt.event.ActionEvent evt) {
         MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
         mainView.setLoginView(new LoginView());
         mainView.setCard(0);
+    }
+
+    private void createApptButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
     }
 
 
@@ -425,16 +396,18 @@ public class AppointmentView extends javax.swing.JPanel {
     private javax.swing.JTextField HcInput;
     private javax.swing.JTextField adminSsnInput;
     private javax.swing.JLabel adminSsnLabel;
+    private javax.swing.JButton backButton;
+    private javax.swing.JButton createApptButton;
     private javax.swing.JComboBox<String> dayDropInput;
     private javax.swing.JLabel dayLabelInput;
+    private javax.swing.JButton deleteApptButton;
     private javax.swing.JLabel docIDLabel;
     private javax.swing.JTextField docIdInput;
     private javax.swing.JTextField drSSNInput;
     private javax.swing.JLabel drSSNLabel;
+    private javax.swing.JButton finishButton;
     private javax.swing.JTextField hospitalNameInput;
     private javax.swing.JLabel hospitalNameLabel;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton submitButton;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -455,9 +428,11 @@ public class AppointmentView extends javax.swing.JPanel {
     private javax.swing.JLabel step2LAbel;
     private javax.swing.JComboBox<String> timeInput;
     private javax.swing.JLabel timeLabel;
+    private javax.swing.JButton updateApptButton;
     private javax.swing.JTextField wardInput;
     private javax.swing.JLabel wardLabel;
     private javax.swing.JComboBox<String> yearDropInput;
     private javax.swing.JLabel yearLabel;
     // End of variables declaration
 }
+

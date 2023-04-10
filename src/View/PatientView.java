@@ -415,7 +415,7 @@ public class PatientView extends javax.swing.JPanel {
     }
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        dconn.Registration("",Integer.parseInt(HcnInput.getText()),Integer.parseInt(-1+phoneInput.getText()),
+        dconn.Registration("",Integer.parseInt(HcnInput.getText()),"",
                 "","","yes","1991-1-1","male","","",
                 "","");
     }

@@ -318,7 +318,7 @@ public class RegisterPatientView extends javax.swing.JPanel {
     }
 
     private void registerPatientActionPerformed(java.awt.event.ActionEvent evt) {
-        dconn.Registration("", Integer.parseInt(HcnInput.getText()),-1,"","","No",
+        dconn.Registration("", Integer.parseInt(HcnInput.getText()),"","","","No",
                 "","","","","","");
         successText.setText("Patient Registered");
     }
