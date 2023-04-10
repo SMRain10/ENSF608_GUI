@@ -17,6 +17,7 @@ public class MainView extends JFrame {
     private RegisterPatientView registerPatientView;
     private PrescriptionView prescriptionView;
     private LabTechView labTechView;
+    private SurgeonView surgeonView;
 
     public MainView() {
         super("ENSF 608 Hospital Management System");
@@ -31,6 +32,7 @@ public class MainView extends JFrame {
         registerPatientView = new RegisterPatientView();
         prescriptionView = new PrescriptionView();
         labTechView = new LabTechView();
+        surgeonView = new SurgeonView();
 
         cardLayout = new CardLayout();
 
@@ -90,8 +92,11 @@ public class MainView extends JFrame {
                 cardLayout.show(cardPanel, "LabTech");
                 pack();
                 break;
-
-
+            case 9:
+                cardPanel.add(surgeonView, "Surgeon");
+                cardLayout.show(cardPanel, "Surgeon");
+                pack();
+                break;
         }
     }
     //Getter and setters for the views. Used for switching between views from in individual view classes.
@@ -173,5 +178,13 @@ public class MainView extends JFrame {
 
     public void setLabTechView(LabTechView labTechView) {
         this.labTechView = labTechView;
+    }
+
+    public SurgeonView getSurgeonView() {
+        return surgeonView;
+    }
+
+    public void setSurgeonView(SurgeonView surgeonView) {
+        this.surgeonView = surgeonView;
     }
 }
