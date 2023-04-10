@@ -26,6 +26,9 @@ public class RegisterPatientView extends javax.swing.JPanel {
 
 
         //netbeans variables
+
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         step1Label = new javax.swing.JLabel();
         HcnInput = new javax.swing.JTextField();
         bdMonthInput = new javax.swing.JComboBox<>();
@@ -50,7 +53,6 @@ public class RegisterPatientView extends javax.swing.JPanel {
         smokerInput = new javax.swing.JList<>();
         birthdateLabel = new javax.swing.JLabel();
         genderLabel = new javax.swing.JLabel();
-        genderInput = new javax.swing.JTextField();
         pecLabel = new javax.swing.JLabel();
         pecInput = new javax.swing.JTextField();
         addressLabel = new javax.swing.JLabel();
@@ -62,7 +64,8 @@ public class RegisterPatientView extends javax.swing.JPanel {
         provinceInput = new javax.swing.JList<>();
         backButton = new javax.swing.JButton();
         createApptButton = new javax.swing.JButton();
-        successText = new javax.swing.JTextField();
+        successText = new javax.swing.JLabel();
+        genderInput = new javax.swing.JComboBox<>();
 
         step1Label.setText("Please fill out all boxes below.");
 
@@ -77,16 +80,16 @@ public class RegisterPatientView extends javax.swing.JPanel {
 
         yearLabel.setText("Year");
 
-        bdYearInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1900","1901","1902","1903","1904"
-                ,"1905","1906","1907","1908","1909","1910","1911","1912","1913","1914","1915","1916","1917","1918"
-                ,"1919","1920","1921","1922","1923","1924","1925","1926","1927","1928","1929","1930","1931"
-                ,"1932","1933","1934","1935","1936","1937","1938","1939","1940","1941","1942","1943","1944"
-                ,"1945","1946","1947","1948","1949","1950","1951","1952","1953","1954","1955","1956","1957"
-                ,"1958","1959","1960","1961","1962","1963","1964","1965","1966","1967","1968","1969","1970"
-                ,"1971","1972","1973","1974","1975","1976","1977","1978","1979","1980","1981","1982","1983"
-                ,"1984","1985","1986","1987","1988","1989","1990","1991","1992","1993","1994","1995","1996"
-                ,"1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009"
-                ,"2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023" }));
+        bdYearInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023","2022","2021","2020","2019",
+                "2018","2017","2016","2015","2014","2013","2012","2011","2010","2009","2008","2007","2006","2005",
+                "2004","2003","2002","2001","2000","1999","1998","1997","1996","1995","1994","1993","1992","1991",
+                "1990","1989","1988","1987","1986","1985","1984","1983","1982","1981","1980","1979","1978","1977",
+                "1976","1975","1974","1973","1972","1971","1970","1969","1968","1967","1966","1965","1964","1963",
+                "1962","1961","1960","1959","1958","1957","1956","1955","1954","1953","1952","1951","1950","1949",
+                "1948","1947","1946","1945","1944","1943","1942","1941","1940","1939","1938","1937","1936","1935",
+                "1934","1933","1932","1931","1930","1929","1928","1927","1926","1925","1924","1923","1922","1921",
+                "1920","1919","1918","1917","1916","1915","1914","1913","1912","1911","1910","1909","1908","1907",
+                "1906","1905","1904","1903","1902","1901","1900" }));
 
         registerPatient.setText("Register Patient");
         registerPatient.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +110,7 @@ public class RegisterPatientView extends javax.swing.JPanel {
         smokerLabel.setText("Smoker");
         birthdateLabel.setText("Birth Date");
         genderLabel.setText("Gender");
+        genderInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
         pecLabel.setText("Pre-existing Conditions");
         addressLabel.setText("Address");
         cityLabel.setText("City");
@@ -360,11 +364,11 @@ public class RegisterPatientView extends javax.swing.JPanel {
 
         String birthday = bdYearInput.getSelectedItem() + "-" + monthToDigit + "-" + bdDayInput.getSelectedItem();
         
-        if (pNameInput.getText().equals("") || HcnInput.getText().equals("") || smokerInput.getSelectedValue() == null || genderInput.getText().equals("")) {
+        if (pNameInput.getText().equals("") || HcnInput.getText().equals("") || smokerInput.getSelectedValue() == null || genderInput.getSelectedItem().equals("")) {
                 JOptionPane.showMessageDialog(null, "Must enter name, healthcare number, smoker status and gender.");
             } else {
                 dconn.Registration(pNameInput.getText(), Integer.parseInt(HcnInput.getText()),phoneInput.getText(),allergyInput.getText(),famHistoryInput.getText(),smokerInput.getSelectedValue(),
-                birthday,genderInput.getText(),pecInput.getText(),cityInput.getText(),provinceInput.getSelectedValue(),addressInput.getText());
+                birthday, (String) genderInput.getSelectedItem(),pecInput.getText(),cityInput.getText(),provinceInput.getSelectedValue(),addressInput.getText());
         successText.setText("Patient Registered");
             }
 
@@ -401,11 +405,13 @@ public class RegisterPatientView extends javax.swing.JPanel {
     private javax.swing.JLabel dayLabel;
     private javax.swing.JTextField famHistoryInput;
     private javax.swing.JLabel famHistoryLabel;
-    private javax.swing.JTextField genderInput;
+    private javax.swing.JComboBox<String> genderInput;
     private javax.swing.JLabel genderLabel;
     private javax.swing.JLabel hcnLabel;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField pNameInput;
     private javax.swing.JLabel pNameLabel;
     private javax.swing.JLabel pageLabel;
@@ -419,8 +425,9 @@ public class RegisterPatientView extends javax.swing.JPanel {
     private javax.swing.JList<String> smokerInput;
     private javax.swing.JLabel smokerLabel;
     private javax.swing.JLabel step1Label;
-    private javax.swing.JTextField successText;
+    private javax.swing.JLabel successText;
     private javax.swing.JLabel yearLabel;
+
 
 
     //Added by SR
