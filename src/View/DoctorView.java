@@ -62,7 +62,7 @@ public class DoctorView extends javax.swing.JPanel {
         // Added code
         dconn = new Create_DB();
         model = new DefaultTableModel();
-        data = dconn.searchRoutineCheckUp("","","");
+//        data = dconn.searchRoutineCheckUp("","","");
 
 
         pageLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -104,7 +104,7 @@ public class DoctorView extends javax.swing.JPanel {
 
         model.setDataVector(new Object[][] {null, null, null, null, null, null, null, null, null, null, null}, colNames);
 
-        model.setDataVector(data, colNames);
+//        model.setDataVector(data, colNames);
         jTable.setModel(model);
 
         jScrollPane1.setViewportView(jTable);
@@ -349,7 +349,8 @@ public class DoctorView extends javax.swing.JPanel {
     }
 
     private void createPresButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+        mainView.setCard(7);
     }
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {

@@ -33,9 +33,35 @@ public class AppointmentView extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        yearLabel = new javax.swing.JLabel();
+        yearDropInput = new javax.swing.JComboBox<>();
+        step2LAbel = new javax.swing.JLabel();
+        monthDropInput = new javax.swing.JComboBox<>();
+        monthLabel = new javax.swing.JLabel();
+        dayLabelInput = new javax.swing.JLabel();
+        dayDropInput = new javax.swing.JComboBox<>();
+        timeLabel = new javax.swing.JLabel();
+        timeInput = new javax.swing.JComboBox<>();
+        adminSsnInput = new javax.swing.JTextField();
+        adminSsnLabel = new javax.swing.JLabel();
+        drSSNInput = new javax.swing.JTextField();
+        drSSNLabel = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        hospitalNameLabel = new javax.swing.JLabel();
+        hospitalNameInput = new javax.swing.JTextField();
+        wardLabel = new javax.swing.JLabel();
+        wardInput = new javax.swing.JTextField();
+        roomLabel = new javax.swing.JLabel();
+        roomInput = new javax.swing.JTextField();
+        pNameLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        pNameLabel7 = new javax.swing.JLabel();
+        pNameInput6 = new javax.swing.JTextField();
+        submitButton = new javax.swing.JButton();
 
         pageLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        pageLabel.setText("View Appointments");
+        pageLabel.setText("View/Change Appointments");
 
         HcInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,21 +98,98 @@ public class AppointmentView extends javax.swing.JPanel {
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
-                        {null, null},
-                        {null, null},
-                        {null, null},
-                        {null, null}
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null},
+                        {null, null, null, null}
                 },
                 new String [] {
-                        "Health Care Number", "Date"
+                        "Title 1", "Title 2", "Title 3", "Title 4"
                 }
         ));
         jScrollPane1.setViewportView(jTable);
 
         jButton2.setText("Back");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+
+        yearLabel.setText("Year");
+
+        yearDropInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        step2LAbel.setText("Specify Appointment");
+
+        monthDropInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        monthLabel.setText("Month");
+
+        dayLabelInput.setText("Day");
+
+        dayDropInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        timeLabel.setText("Time");
+
+        timeInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        adminSsnInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                adminSsnInputActionPerformed(evt);
+            }
+        });
+
+        adminSsnLabel.setText("AdminSSN");
+
+        drSSNInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drSSNInputActionPerformed(evt);
+            }
+        });
+
+        drSSNLabel.setText("Doctor SSN");
+
+        hospitalNameLabel.setText("Hospital Name");
+
+        hospitalNameInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hospitalNameInputActionPerformed(evt);
+            }
+        });
+
+        wardLabel.setText("Ward");
+
+        wardInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wardInputActionPerformed(evt);
+            }
+        });
+
+        roomLabel.setText("Room");
+
+        roomInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roomInputActionPerformed(evt);
+            }
+        });
+
+        pNameLabel6.setText("RoomType");
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList1);
+
+        pNameLabel7.setText("Reason for Visit");
+
+        pNameInput6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pNameInput6ActionPerformed(evt);
+            }
+        });
+
+        submitButton.setText("Submit");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
             }
         });
 
@@ -94,6 +197,18 @@ public class AppointmentView extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 57, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 869, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(74, 74, 74))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jButton2)
+                                                .addGap(30, 30, 30)
+                                                .addComponent(submitButton)
+                                                .addGap(60, 60, 60))))
+                        .addComponent(jSeparator1)
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
@@ -102,38 +217,122 @@ public class AppointmentView extends javax.swing.JPanel {
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(80, 80, 80)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(pInfoLabel)
+                                                        .addComponent(adminSsnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(adminSsnLabel)
+                                                        .addComponent(roomInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(roomLabel))
+                                                .addGap(35, 35, 35)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(drSSNInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(drSSNLabel))
+                                                                .addGap(28, 28, 28)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(hospitalNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(hospitalNameLabel))
+                                                                .addGap(38, 38, 38)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(wardInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(wardLabel)))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(pNameLabel6)
+                                                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGap(64, 64, 64)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(pNameLabel7)
+                                                                        .addComponent(pNameInput6, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(80, 80, 80)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(step2LAbel)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(monthDropInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(35, 35, 35)
-                                                                                .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGap(22, 22, 22)
+                                                                                .addComponent(monthLabel)))
+                                                                .addGap(18, 18, 18)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(pNameLabel)
-                                                                                .addGap(135, 135, 135)
-                                                                                .addComponent(HCNumLabel)))
+                                                                                .addGap(24, 24, 24)
+                                                                                .addComponent(dayLabelInput))
+                                                                        .addComponent(dayDropInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addGap(18, 18, 18)
+                                                                                .addComponent(yearDropInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addGap(42, 42, 42)
+                                                                                .addComponent(yearLabel)))
+                                                                .addGap(42, 42, 42)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(timeLabel)
+                                                                        .addComponent(timeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(pNameLabel))
+                                                                .addGap(35, 35, 35)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(HCNumLabel)
+                                                                        .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                                 .addGap(49, 49, 49)
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addComponent(docIDLabel)
                                                                         .addGroup(layout.createSequentialGroup()
                                                                                 .addComponent(docIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                 .addGap(50, 50, 50)
-                                                                                .addComponent(searchButton)))))))
-                                .addContainerGap(198, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 869, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton2))
-                                .addGap(74, 74, 74))
+                                                                                .addComponent(searchButton))))
+                                                        .addComponent(pInfoLabel))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
-                                .addComponent(pageLabel)
-                                .addGap(65, 65, 65)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(pageLabel)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGap(29, 29, 29)
+                                                                .addComponent(adminSsnLabel)
+                                                                .addGap(6, 6, 6)
+                                                                .addComponent(adminSsnInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(hospitalNameLabel)
+                                                                .addGap(6, 6, 6)
+                                                                .addComponent(hospitalNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(drSSNLabel)
+                                                .addGap(6, 6, 6)
+                                                .addComponent(drSSNInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(wardLabel)
+                                                .addGap(6, 6, 6)
+                                                .addComponent(wardInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(roomLabel)
+                                                        .addComponent(pNameLabel6))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(roomInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(pNameLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(pNameInput6)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(pInfoLabel)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(pNameLabel)
                                         .addComponent(HCNumLabel)
@@ -144,20 +343,35 @@ public class AppointmentView extends javax.swing.JPanel {
                                         .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(docIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(searchButton))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pInfoLabel)
-                                .addGap(143, 143, 143)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(step2LAbel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(monthLabel)
+                                                .addGap(4, 4, 4)
+                                                .addComponent(monthDropInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(dayLabelInput)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(dayDropInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(yearLabel)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(yearDropInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(timeLabel)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(timeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(108, 108, 108)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
-                                .addComponent(jButton2)
-                                .addGap(46, 46, 46))
+                                .addGap(40, 40, 40)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton2)
+                                        .addComponent(submitButton))
+                                .addGap(24, 24, 24))
         );
     }// </editor-fold>
-
-    private void jButton2ActionPerformed(ActionEvent evt) {
-        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
-        mainView.setCard(0);
-    }
 
     private void HcInputActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -175,20 +389,75 @@ public class AppointmentView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }
 
+    private void adminSsnInputActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void drSSNInputActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void hospitalNameInputActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void wardInputActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void roomInputActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void pNameInput6ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+        mainView.setLoginView(new LoginView());
+        mainView.setCard(0);
+    }
+
 
     // Variables declaration - do not modify
     private javax.swing.JLabel HCNumLabel;
     private javax.swing.JTextField HcInput;
+    private javax.swing.JTextField adminSsnInput;
+    private javax.swing.JLabel adminSsnLabel;
+    private javax.swing.JComboBox<String> dayDropInput;
+    private javax.swing.JLabel dayLabelInput;
     private javax.swing.JLabel docIDLabel;
     private javax.swing.JTextField docIdInput;
+    private javax.swing.JTextField drSSNInput;
+    private javax.swing.JLabel drSSNLabel;
+    private javax.swing.JTextField hospitalNameInput;
+    private javax.swing.JLabel hospitalNameLabel;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton submitButton;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable;
+    private javax.swing.JComboBox<String> monthDropInput;
+    private javax.swing.JLabel monthLabel;
     private javax.swing.JLabel pInfoLabel;
     private javax.swing.JTextField pNameInput;
+    private javax.swing.JTextField pNameInput6;
     private javax.swing.JLabel pNameLabel;
+    private javax.swing.JLabel pNameLabel6;
+    private javax.swing.JLabel pNameLabel7;
     private javax.swing.JLabel pageLabel;
+    private javax.swing.JTextField roomInput;
+    private javax.swing.JLabel roomLabel;
     private javax.swing.JButton searchButton;
+    private javax.swing.JLabel step2LAbel;
+    private javax.swing.JComboBox<String> timeInput;
+    private javax.swing.JLabel timeLabel;
+    private javax.swing.JTextField wardInput;
+    private javax.swing.JLabel wardLabel;
+    private javax.swing.JComboBox<String> yearDropInput;
+    private javax.swing.JLabel yearLabel;
     // End of variables declaration
 }
-
