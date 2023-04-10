@@ -1,5 +1,9 @@
+package Controller;
+
 import java.sql.*;
 import java.util.ArrayList;
+
+
 
 public class Create_DB {
 
@@ -71,10 +75,10 @@ public class Create_DB {
 
             Statement stmt = conn.createStatement();
 
-            String querey = "select DocumentID, Pname, Allergies, Familyhistory, Smoker, BirthDate, Pre_exisiting_Conditions, Notes, Resolved from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum ";
-            String docIDsearch = "and DocumentID like ";
-            String nameSearh = "and Pname like ";
-            String healthCareNumSearch = "and patient.HealthCareNum like";
+            String querey = "select distinct DocumentID, Pname, Allergies, Familyhistory, Smoker, BirthDate, Pre_exisiting_Conditions, Notes, Resolved from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum ";
+            String docIDsearch = " and DocumentID like ";
+            String nameSearh = " and Pname like ";
+            String healthCareNumSearch = " and patient.HealthCareNum like";
             ;
 
             if (docId != "") {
@@ -275,7 +279,7 @@ public class Create_DB {
 
             Statement stmt = conn.createStatement();
 
-            String querey = "select DocumentID, Pname, Allergies, Notes, Results from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum and DocType = 'Lab_Test'";
+            String querey = "select distinct DocumentID, Pname, Allergies, Notes, Results from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum and DocType = 'Lab_Test'";
             String docIDsearch = "and DocumentID like ";
             String nameSearh = "and Pname like ";
             String healthCareNumSearch = "and patient.HealthCareNum like";
@@ -433,9 +437,14 @@ public class Create_DB {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 
             String phoneI = null;
+            String birthDateNull = null;
 
             if (phone != "") {
                 phoneI = phone;
+            }
+
+            if(birthDate != ""){
+                birthDateNull = birthDate;
             }
 
             Statement stmt = conn.createStatement();
@@ -454,7 +463,7 @@ public class Create_DB {
             preparedStmt.setString(4, allergies);
             preparedStmt.setString(5, familyHistory);
             preparedStmt.setString(6, smoker);
-            preparedStmt.setString(7, birthDate);
+            preparedStmt.setString(7, birthDateNull);
             preparedStmt.setString(8, gender);
             preparedStmt.setString(9, preExistingConditions);
             preparedStmt.setString(10, city);
@@ -592,7 +601,7 @@ public class Create_DB {
 
             Statement stmt = conn.createStatement();
 
-            String querey = "select Quantity, DrugName, DRUG_INFO.DocumentID, patient.pname, Notes from DRUG_INFO, diagnosis, patient where DRUG_INFO.DocumentID = DIAGNOSIS.DocumentID and DIAGNOSIS.HealthCareNum = patient.HealthCareNum ";
+            String querey = "select distinct Quantity, DrugName, DRUG_INFO.DocumentID, patient.pname, Notes from DRUG_INFO, diagnosis, patient where DRUG_INFO.DocumentID = DIAGNOSIS.DocumentID and DIAGNOSIS.HealthCareNum = patient.HealthCareNum ";
             String docIDsearch = "and DocumentID like ";
             String nameSearh = "and patient.Pname like ";
             String healthCareNumSearch = "and patient.HealthCareNum like ";
@@ -753,7 +762,7 @@ public class Create_DB {
 
     }
 
-    public Object[][] searchAppointment(String name, String healthCareNum, String date, String confirmationID) {
+    public Object[][] searchAppointment(String name, String healthCareNum, String date, String confirmationID, String reason) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
@@ -761,15 +770,14 @@ public class Create_DB {
 
             Statement stmt = conn.createStatement();
 
-            String querey = "select appointment.ConfirmationID,  appointment.Appt_Date, patient.Pname, patient.HealthCareNum "
+            String querey = "select distinct appointment.ConfirmationID, CONDUCTED_IN.hospital ,CONDUCTED_IN.Ward ,CONDUCTED_IN.RoomNo, appointment.Appt_Date, patient.Pname, patient.HealthCareNum,APPOINTMENT.ReasonForVisit "
                     + "from appointment, CONDUCTED_IN, APPT_SCHEDULE, patient  WHERE appointment.ConfirmationID = CONDUCTED_IN.ConfirmationID"
                     +
                     " and APPT_SCHEDULE.ConfirmationID = appointment.ConfirmationID and patient.HealthCareNum = APPT_SCHEDULE.HealthCareNo ";
             String confirmationIDsearch = "and APPT_SCHEDULE.confirmationID like ";
             String nameSearh = "and patient.Pname like ";
             String healthCareNumSearch = "and patient.HealthCareNum like ";
-            String dateSearch = "and DRUG_INFO.drugName like ";
-            ;
+            String dateSearch = "and APPOINTMENT.Appt_Date like ";
 
             if (confirmationID != "") {
                 confirmationIDsearch += "'%" + confirmationID + "%'";
@@ -783,19 +791,23 @@ public class Create_DB {
                 healthCareNumSearch += "'%" + healthCareNum + "%'";
                 querey += healthCareNumSearch;
             }
-            if (date != "") {
-                dateSearch += "'%" + date + "%'";
-                querey += dateSearch;
-            }
+            // if (date != "") {
+            //     dateSearch += "'%" + date + "%'";
+            //     querey += dateSearch;
+            // }
 
             ResultSet rs = stmt.executeQuery(querey);
             ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
             while (rs.next()) {
                 ArrayList<String> temp = new ArrayList<String>();
                 temp.add(rs.getString("ConfirmationID"));
+                temp.add(rs.getString("Hospital"));
+                temp.add(rs.getString("Ward"));
+                temp.add(rs.getString("RoomNo"));
                 temp.add(rs.getString("Appt_Date"));
                 temp.add(rs.getString("Pname"));
                 temp.add(rs.getString("HealthCareNum"));
+                temp.add(rs.getString("ReasonForVisit"));
 
                 results.add(temp);
             }
@@ -852,47 +864,91 @@ public class Create_DB {
 
     }
 
-    public String UpdateAppointment(int healthCareNo, int doctorSSN, String hopsitalName, String ward,
-            String roomNo, String roomType, String appDate, String reasonForVisit, String confirmationID) {
+    public String UpdateAppointment(String doctorSSN, String hopsitalName, String ward,
+            String roomNo, String appDate, String reasonForVisit, String confirmationID) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
             stmt_use.executeUpdate("use HOSPITAL");
 
-            String sql = "update  APPOINTMENT SET Appt_Date = ?, ReasonForVisit = ? where ConfirmationID = ?";
+            String appDate_q = "";
+            String reasonForVisit_q = "";
 
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            Statement stmt_new = conn.createStatement();
 
-            stmt.setString(1, appDate);
-            stmt.setString(2, reasonForVisit);
-            stmt.setString(3, confirmationID);
+            if(!(appDate.isEmpty()) && reasonForVisit == ""){
+                appDate_q = " Appt_Date = " + appDate;
+            } else if (!(appDate.isEmpty())){
+                appDate_q = " Appt_Date = " + appDate + ", ";
+            }
 
-            stmt.execute();
+            if(reasonForVisit != ""){
+                reasonForVisit_q = " ReasonForVisit = '" +  reasonForVisit + "'";
+            }
 
-            String sql_2 = "update CONDUCTED_IN SET Hospital = ?, RoomNo = ?, Ward = ? where ConfirmationID = ?";
+            String querey = "update APPOINTMENT SET " + appDate_q + reasonForVisit_q + " where ConfirmationID = " + confirmationID;
 
-            PreparedStatement stmt_2 = conn.prepareStatement(sql_2);
+            // String querey = "update APPOINTMENT SET ReasonForVisit = 'test' where ConfirmationID = " + confirmationID;
 
-            stmt_2.setString(1, hopsitalName);
-            stmt_2.setString(2, roomNo);
-            stmt_2.setString(3, ward);
-            stmt_2.setString(4, confirmationID);
+            if(!(appDate.isEmpty() && reasonForVisit.isEmpty())){
+                stmt_new.executeUpdate(querey);
+            }
 
-            stmt_2.execute();
 
-            String sql_3 = "update APPT_SCHEDULE SET MedicalSSN = ? where ConfirmationID = ?";
+ 
+            String hopsitalName_q = "";
+            String ward_q = "";
+            String roomNo_q = "";
+            String roomType_q = "";
+            
 
-            PreparedStatement stmt_3 = conn.prepareStatement(sql_3);
+            
 
-            stmt_3.setInt(1, doctorSSN);
-            stmt_3.setString(2, confirmationID);
+            if(hopsitalName != "" && roomNo == "" && ward != ""){
+                hopsitalName_q = " Hospital = " + hopsitalName;
+            } else {
+                hopsitalName_q = " Hospital = " + hopsitalName + ", ";
+            }
 
-            stmt_3.execute();
+            if(roomNo != "" && ward == ""){
+                roomNo_q = " RoomNo = " + roomNo;
+            } else {
+                roomNo_q = " RoomNo = " + roomNo + ", ";
+            }
+
+            if(ward != ""){
+                ward_q = " Ward = " + ward;
+            }
+
+
+            String querey_2 = "update CONDUCTED_IN SET " + hopsitalName_q + roomNo_q + ward_q + " where ConfirmationID = " + confirmationID;
+
+            if(!(hopsitalName.isEmpty() || roomNo.isEmpty() || ward.isEmpty())){
+                System.out.println( "-"+  hopsitalName+ "-");
+                System.out.println("-" + roomNo+ "-");
+                System.out.println("-" + ward + "-");
+
+                Statement stmt_new_2 = conn.createStatement();
+                stmt_new_2.executeUpdate(querey_2);
+            }
+
+
+
+            Statement stmt_new_3 = conn.createStatement();
+
+
+            String querey_3 = "update APPT_SCHEDULE SET MedicalSSN = " + doctorSSN + " where ConfirmationID = " + confirmationID;
+
+            if(!doctorSSN.isEmpty()){
+                stmt_new_3.executeUpdate(querey_3);
+            }
+
 
             return null;
 
         } catch (SQLIntegrityConstraintViolationException e) {
             // Handle duplicate primary key error
+            e.printStackTrace();
             System.out.println("update failed");
 
             return "exists";
