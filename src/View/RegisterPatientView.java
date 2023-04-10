@@ -21,6 +21,8 @@ public class RegisterPatientView extends javax.swing.JPanel {
     //Contains the code for the GUI and intializes the components.
     private void initComponents() {
 
+        dconn = new Create_DB();
+
         step1Label = new javax.swing.JLabel();
         HcnInput = new javax.swing.JTextField();
         bdMonthInput = new javax.swing.JComboBox<>();
@@ -318,9 +320,17 @@ public class RegisterPatientView extends javax.swing.JPanel {
     }
 
     private void registerPatientActionPerformed(java.awt.event.ActionEvent evt) {
-        dconn.Registration("", Integer.parseInt(HcnInput.getText()),"","","","No",
-                "","","","","","");
+
+        String birthday = bdYearInput.getSelectedItem() + "-" + bdMonthInput.getSelectedItem() + "-" + bdDayInput.getSelectedItem();
+        
+        if (pNameInput.getText().equals("") || HcnInput.getText().equals("") || smokerInput.getSelectedValue() == null || genderInput.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Must enter name, healthcare number, smoker status and gender.");
+            } else {
+                dconn.Registration(pNameInput.getText(), Integer.parseInt(HcnInput.getText()),phoneInput.getText(),allergyInput.getText(),famHistoryInput.getText(),smokerInput.getSelectedValue(),
+                birthday,genderInput.getText(),pecInput.getText(),cityInput.getText(),provinceInput.getSelectedValue(),addressInput.getText());
         successText.setText("Patient Registered");
+            }
+
     }
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,6 +387,6 @@ public class RegisterPatientView extends javax.swing.JPanel {
 
 
     //Added by SR
-    private Create_DB dconn = new Create_DB();
+    private Create_DB dconn;
     // End of variables declaration
 }
