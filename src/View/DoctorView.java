@@ -70,12 +70,6 @@ public class DoctorView extends javax.swing.JPanel {
 
         pNameLabel.setText("Patient Name");
 
-        pNameInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pNameInputActionPerformed(evt);
-            }
-        });
-
         HCNumLabel.setText("HC #");
 
         searchButton.setText("Search");
@@ -87,20 +81,9 @@ public class DoctorView extends javax.swing.JPanel {
 
         noteLabel.setText("Notes");
 
-        notesInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                notesInputActionPerformed(evt);
-            }
-        });
-
         resolveLabel.setText("Resolved");
 
         resolveMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No"}));
-        resolveMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resolveMenuActionPerformed(evt);
-            }
-        });
 
         model.setDataVector(new Object[][] {null, null, null, null, null, null, null, null, null, null, null}, colNames);
 
@@ -153,11 +136,6 @@ public class DoctorView extends javax.swing.JPanel {
 
         docIDLabel.setText("Document ID");
 
-        docIdInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                docIdInputActionPerformed(evt);
-            }
-        });
 
         updateButton.setText("Update");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -177,12 +155,6 @@ public class DoctorView extends javax.swing.JPanel {
         jScrollPane3.setViewportView(smokerTextArea);
 
         smokerLabel.setText("Smoker");
-
-        HcInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HcInputActionPerformed(evt);
-            }
-        });
 
         pInfoLabel.setText("Patient Info");
 
@@ -316,32 +288,25 @@ public class DoctorView extends javax.swing.JPanel {
 
     private void cancelButtonActionPerformed(ActionEvent evt) {
         MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+        mainView.setLoginView(new LoginView());
         mainView.setCard(0);
-    }
-
-    private void pNameInputActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if (pNameInput.getText().equals("") && HcInput.getText().equals("") && docIdInput.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please enter at least one search criteria");
         } else {
-            data = dconn.searchRoutineCheckUp(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
+
+            data = dconn.searcAlldiagnosis(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
             model.setDataVector(data, colNames);
         }
     }
 
-    private void notesInputActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void resolveMenuActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
 
     private void finishButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+        mainView.setLoginView(new LoginView());
+        mainView.setCard(0);
     }
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -363,18 +328,9 @@ public class DoctorView extends javax.swing.JPanel {
         mainView.setCard(4);
     }
 
-    private void docIdInputActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
-
-    private void HcInputActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
 
     // Variables declaration - do not modify
     private JLabel HCNumLabel;
