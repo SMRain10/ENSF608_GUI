@@ -29,35 +29,27 @@ public class DoctorView extends javax.swing.JPanel {
     private void initComponents() {
 
 
-        pageLabel = new JLabel();
-        pNameLabel = new JLabel();
-        pNameInput = new JTextField();
-        HCNumLabel = new JLabel();
-        searchButton = new JButton();
-        noteLabel = new JLabel();
-        notesInput = new JTextField();
-        resolveLabel = new JLabel();
-        resolveMenu = new JComboBox<>();
-        jScrollPane1 = new JScrollPane();
-        jTable = new JTable();
-
-        finishButton = new JButton();
-        cancelButton = new JButton();
-        createButton = new JButton();
-        createPresButton = new JButton();
-        deleteButton = new JButton();
-        createLabTestButton = new JButton();
-        docIDLabel = new JLabel();
-        docIdInput = new JTextField();
-        updateButton = new JButton();
-        jScrollPane2 = new JScrollPane();
-        famHistText = new JTextArea();
-        famHistoryLabel = new JLabel();
-        jScrollPane3 = new JScrollPane();
-        smokerTextArea = new JTextArea();
-        smokerLabel = new JLabel();
-        HcInput = new JTextField();
-        pInfoLabel = new JLabel();
+        pageLabel = new javax.swing.JLabel();
+        pNameLabel = new javax.swing.JLabel();
+        HCNumLabel = new javax.swing.JLabel();
+        pNameInput = new javax.swing.JTextField();
+        searchButton = new javax.swing.JButton();
+        noteLabel = new javax.swing.JLabel();
+        notesInput = new javax.swing.JTextField();
+        resolveLabel = new javax.swing.JLabel();
+        resolveMenu = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable = new javax.swing.JTable();
+        finishButton = new javax.swing.JButton();
+        createButton = new javax.swing.JButton();
+        createPresButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        createLabTestButton = new javax.swing.JButton();
+        docIDLabel = new javax.swing.JLabel();
+        docIdInput = new javax.swing.JTextField();
+        updateButton = new javax.swing.JButton();
+        HcInput = new javax.swing.JTextField();
+        pInfoLabel = new javax.swing.JLabel();
 
         // Added code
         dconn = new Create_DB();
@@ -99,13 +91,6 @@ public class DoctorView extends javax.swing.JPanel {
             }
         });
 
-        cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
-
         createButton.setText("Create");
         createButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,18 +129,6 @@ public class DoctorView extends javax.swing.JPanel {
             }
         });
 
-        famHistText.setColumns(20);
-        famHistText.setRows(5);
-        jScrollPane2.setViewportView(famHistText);
-
-        famHistoryLabel.setText("Family History");
-
-        smokerTextArea.setColumns(20);
-        smokerTextArea.setRows(5);
-        jScrollPane3.setViewportView(smokerTextArea);
-
-        smokerLabel.setText("Smoker");
-
         pInfoLabel.setText("Patient Info");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -163,38 +136,12 @@ public class DoctorView extends javax.swing.JPanel {
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
+                                .addGap(407, 407, 407)
+                                .addComponent(pageLabel)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(80, 80, 80)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(resolveMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(resolveLabel))
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                                .addComponent(createPresButton)
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(createLabTestButton))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(pNameLabel))
-                                                                .addGap(35, 35, 35)
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(pageLabel)
-                                                                        .addComponent(HCNumLabel))))
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                .addComponent(cancelButton)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(finishButton)
-                                                                .addGap(47, 47, 47))
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGap(122, 122, 122)
-                                                                .addComponent(docIDLabel)
-                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(notesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,20 +155,10 @@ public class DoctorView extends javax.swing.JPanel {
                                                                 .addComponent(createButton)))
                                                 .addGap(64, 64, 64))
                                         .addGroup(layout.createSequentialGroup()
+                                                .addComponent(pInfoLabel)
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 869, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(pInfoLabel)
-                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                .addGap(4, 4, 4)
-                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(smokerLabel)
-                                                                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                                                .addGap(24, 24, 24)
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(famHistoryLabel)
-                                                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(35, 35, 35)
@@ -229,38 +166,46 @@ public class DoctorView extends javax.swing.JPanel {
                                                                 .addGap(49, 49, 49)
                                                                 .addComponent(docIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(50, 50, 50)
-                                                                .addComponent(searchButton)))
-                                                .addContainerGap(26, Short.MAX_VALUE))))
+                                                                .addComponent(searchButton))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(pNameLabel)
+                                                                .addGap(135, 135, 135)
+                                                                .addComponent(HCNumLabel)
+                                                                .addGap(170, 170, 170)
+                                                                .addComponent(docIDLabel))
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                .addGroup(layout.createSequentialGroup()
+                                                                        .addComponent(createPresButton)
+                                                                        .addGap(18, 18, 18)
+                                                                        .addComponent(createLabTestButton)
+                                                                        .addGap(0, 0, Short.MAX_VALUE)
+                                                                        .addComponent(finishButton))
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 869, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(resolveMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(resolveLabel))))
+                                                .addGap(0, 51, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addComponent(pageLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(pNameLabel)
-                                                        .addComponent(HCNumLabel)
-                                                        .addComponent(docIDLabel))
-                                                .addGap(6, 6, 6)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(docIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(searchButton))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(pInfoLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(famHistoryLabel)
-                                                        .addComponent(smokerLabel))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(64, 64, 64))
-                                        .addComponent(noteLabel))
+                                .addGap(68, 68, 68)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(pNameLabel)
+                                        .addComponent(HCNumLabel)
+                                        .addComponent(docIDLabel))
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(docIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(searchButton))
+                                .addGap(63, 63, 63)
+                                .addComponent(pInfoLabel)
+                                .addGap(24, 24, 24)
+                                .addComponent(noteLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(layout.createSequentialGroup()
@@ -274,22 +219,15 @@ public class DoctorView extends javax.swing.JPanel {
                                 .addComponent(resolveLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(resolveMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(finishButton)
-                                        .addComponent(cancelButton)
                                         .addComponent(createPresButton)
                                         .addComponent(createLabTestButton))
                                 .addGap(29, 29, 29))
         );
-    }// </editor-fold>
-
-    private void cancelButtonActionPerformed(ActionEvent evt) {
-        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
-        mainView.setLoginView(new LoginView());
-        mainView.setCard(0);
     }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,6 +253,7 @@ public class DoctorView extends javax.swing.JPanel {
 
     private void createPresButtonActionPerformed(java.awt.event.ActionEvent evt) {
         MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+        mainView.setPrescriptionView(new PrescriptionView());
         mainView.setCard(7);
     }
 
@@ -333,34 +272,27 @@ public class DoctorView extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify
-    private JLabel HCNumLabel;
-    private JTextField HcInput;
-    private JButton cancelButton;
-    private JButton createButton;
-    private JButton createLabTestButton;
-    private JButton createPresButton;
-    private JButton deleteButton;
-    private JLabel docIDLabel;
-    private JTextField docIdInput;
-    private JTextArea famHistText;
-    private JLabel famHistoryLabel;
-    private JButton finishButton;
-    private JScrollPane jScrollPane1;
-    private JScrollPane jScrollPane2;
-    private JScrollPane jScrollPane3;
-    private JTable jTable;
-    private JLabel noteLabel;
-    private JTextField notesInput;
-    private JLabel pInfoLabel;
-    private JTextField pNameInput;
-    private JLabel pNameLabel;
-    private JLabel pageLabel;
-    private JLabel resolveLabel;
-    private JComboBox<String> resolveMenu;
-    private JButton searchButton;
-    private JLabel smokerLabel;
-    private JTextArea smokerTextArea;
-    private JButton updateButton;
+    private javax.swing.JLabel HCNumLabel;
+    private javax.swing.JTextField HcInput;
+    private javax.swing.JButton createButton;
+    private javax.swing.JButton createLabTestButton;
+    private javax.swing.JButton createPresButton;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JLabel docIDLabel;
+    private javax.swing.JTextField docIdInput;
+    private javax.swing.JButton finishButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable;
+    private javax.swing.JLabel noteLabel;
+    private javax.swing.JTextField notesInput;
+    private javax.swing.JLabel pInfoLabel;
+    private javax.swing.JTextField pNameInput;
+    private javax.swing.JLabel pNameLabel;
+    private javax.swing.JLabel pageLabel;
+    private javax.swing.JLabel resolveLabel;
+    private javax.swing.JComboBox<String> resolveMenu;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JButton updateButton;
 
     //Added variables
 
