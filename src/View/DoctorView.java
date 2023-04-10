@@ -62,7 +62,7 @@ public class DoctorView extends javax.swing.JPanel {
         // Added code
         dconn = new Create_DB();
         model = new DefaultTableModel();
-//        data = dconn.searchRoutineCheckUp("","","");
+
 
 
         pageLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
