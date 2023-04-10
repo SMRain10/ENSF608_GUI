@@ -1,6 +1,9 @@
 package View;
 
+import Controller.Create_DB;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 
 public class PrescriptionView extends javax.swing.JPanel {
@@ -21,6 +24,10 @@ public class PrescriptionView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
+        // SR added initialization
+        dconn = new Create_DB();
+        model = new DefaultTableModel();
+
         docIDLabel = new javax.swing.JLabel();
         pNameLabel = new javax.swing.JLabel();
         HCNumLabel = new javax.swing.JLabel();
@@ -39,6 +46,7 @@ public class PrescriptionView extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         loginPageButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        searchButton = new javax.swing.JButton();
 
         docIDLabel.setText("Document ID");
 
@@ -65,17 +73,14 @@ public class PrescriptionView extends javax.swing.JPanel {
 
         updatePrescriptionButton.setText("Update");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(model);
         jScrollPane1.setViewportView(jTable1);
 
         loginPageButton.setText("Login Page");
@@ -97,7 +102,7 @@ public class PrescriptionView extends javax.swing.JPanel {
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(94, 94, 94)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +134,9 @@ public class PrescriptionView extends javax.swing.JPanel {
                                                                 .addComponent(updatePrescriptionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(49, 49, 49)
                                                                 .addComponent(deletePrescriptionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(70, 70, 70))))
+                                                                .addGap(70, 70, 70)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(searchButton))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(83, 83, 83)
                                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -161,8 +168,9 @@ public class PrescriptionView extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(docIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(66, 66, 66)
+                                        .addComponent(docIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(searchButton))
+                                .addGap(65, 65, 65)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(drugNameLabel)
                                         .addComponent(drugQuantityLabel))
@@ -184,6 +192,17 @@ public class PrescriptionView extends javax.swing.JPanel {
                                 .addGap(35, 35, 35))
         );
     }// </editor-fold>
+
+    private void searchButtonActionPerformed(ActionEvent evt) {
+        if (pNameInput.getText().equals("") && HcInput.getText().equals("") && docIdInput.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter at least one search criteria");
+        } else {
+
+            data = dconn.searcAlldiagnosis(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
+            model.setDataVector(data, colNames);
+        }
+
+    }
 
     private void loginPageButtonActionPerformed(ActionEvent evt) {
         MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
@@ -221,5 +240,13 @@ public class PrescriptionView extends javax.swing.JPanel {
     private javax.swing.JLabel pNameLabel;
     private javax.swing.JLabel pageLabel;
     private javax.swing.JButton updatePrescriptionButton;
+    private javax.swing.JButton searchButton;
+
+    // SR Added declarations
+    private Create_DB dconn;
+    private Object[][] data;
+    private String[] colNames = {"DocumentID","Name", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing conditions", "Notes", "Resolved"};
+
+    private DefaultTableModel model;
     // End of variables declaration
 }
