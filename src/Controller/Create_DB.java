@@ -298,6 +298,7 @@ public class Create_DB {
 
     }
 
+    //CDD
     public Object[][] searchLabTest(String docId, String name, String healthCareNum) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
