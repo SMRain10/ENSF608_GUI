@@ -460,9 +460,8 @@ public class Create_DB {
 
     }
 
-   
-    public String UpdateLabTest(String notes, Boolean resolved, Integer healthCareNumber, Integer documentID,
-            String testType, String result) {
+   //SR
+    public String UpdateLabTest(Integer healthCareNumber, Integer documentID, String result) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
@@ -471,16 +470,13 @@ public class Create_DB {
             String table = "DIAGNOSIS";
 
             String sql = "update  " + table
-                    + " SET Notes= ? , Resolved = ? , testType = ?, result = ? where DocumentID = ? and HealthCareNum = ? and DocType = 'Lab_Test'";
+                    + " SET Results = ? where DocumentID = ? and HealthCareNum = ? and DocType = 'Lab_Test'";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, notes);
-            stmt.setBoolean(2, resolved);
-            stmt.setString(3, testType);
-            stmt.setString(4, result);
-            stmt.setInt(5, documentID);
-            stmt.setInt(6, healthCareNumber);
+            stmt.setString(1, result);
+            stmt.setInt(2, documentID);
+            stmt.setInt(3, healthCareNumber);
 
             stmt.execute();
 
