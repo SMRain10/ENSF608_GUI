@@ -1302,7 +1302,7 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
     }
 
     
-    public Object[][] searchBill(String invoiceNo, String costingCode, String companyID) {
+  public Object[][] searchBill(String healthCareNum,String invoiceNo, String costingCode, String companyID) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
@@ -1310,11 +1310,12 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
 
             Statement stmt = conn.createStatement();
 
-            String querey = "select distinct Bill.InvoiceNo, CostingCode, CompanyID, Cost from Send_to, Bill where Send_to.InvoiceNo = Bill.InvoiceNo ";
+            String querey = "select  patient.HealthCareNum, Bill.InvoiceNo, CostingCode, CompanyID, Cost from Send_to, Bill, patient, DIAGNOSIS where Send_to.InvoiceNo = Bill.InvoiceNo " + 
+            " and Bill.InvoiceNo = DIAGNOSIS.DocumentID and DIAGNOSIS.HealthCareNum = patient.HealthCareNum ";
             String invoiceNosearch = "and Send_to.InvoiceNo like ";
             String costingCodeSearh = "and Send_to.CostingCode like ";
             String companyIDSearch = "and Send_to.CompanyID like";
-            ;
+            String healthCareNumDSearch = "and Send_to.CompanyID like";
 
             if (invoiceNo != "") {
                 invoiceNosearch += "'%" + invoiceNo + "%'";
@@ -1328,16 +1329,20 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
                 companyIDSearch += "'%" + companyID + "%'";
                 querey += companyIDSearch;
             }
+            if (healthCareNum != "") {
+                healthCareNumDSearch += "'%" + healthCareNum + "%'";
+                querey += healthCareNumDSearch;
+            }
 
             ResultSet rs = stmt.executeQuery(querey);
             ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
             while (rs.next()) {
                 ArrayList<String> temp = new ArrayList<String>();
+                temp.add(rs.getString("HealthCareNum"));
                 temp.add(rs.getString("invoiceNo"));
                 temp.add(rs.getString("costingCode"));
                 temp.add(rs.getString("companyID"));
                 temp.add(rs.getString("cost"));
-                
 
                 results.add(temp);
             }
@@ -1367,6 +1372,7 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
         }
 
     }
+
     
     
 }
