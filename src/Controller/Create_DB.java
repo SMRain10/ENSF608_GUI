@@ -1073,7 +1073,8 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
     
     
 
-    public void InsertProcedure(String notes, int healthCareNum, boolean resolved, String testType,
+    // ++++++++++++Samuel worked on this+++++++++++++++++
+    public void InsertProcedure(String notes, int healthCareNum, String resolved,
             String procedureType, String anesthetic) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 
@@ -1087,13 +1088,13 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
 
             String sql = " insert into " + table
                     + " (DocumentID, HealthCareNum, Notes, Resolved, DocType, ProcedureType, Anesthetic)"
-                    + " values (?, ?, ?, ?, ?)";
+                    + " values (?, ?, ?, ?, ?,?,?)";
 
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
             preparedStmt.setInt(1, docNum);
             preparedStmt.setInt(2, healthCareNum);
             preparedStmt.setString(3, notes);
-            preparedStmt.setBoolean(4, resolved);
+            preparedStmt.setString(4, resolved);
             preparedStmt.setString(5, docType);
             preparedStmt.setString(6, procedureType);
             preparedStmt.setString(7, anesthetic);
@@ -1111,8 +1112,9 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
         }
 
     }
-
-    public void DeleteProceduret(int docID) {
+    //+++++++++Samuel worked on this++++++++++++
+    //only change was typo in method name
+    public void DeleteProcedure(int docID) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
@@ -1138,7 +1140,9 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
 
     }
 
-    public String UpdateProcedure(String notes, Boolean resolved, Integer healthCareNumber, Integer documentID,
+    //+++++++++Samuel worked on this++++++++++++
+    //only change was typo in method name
+    public String UpdateProcedure(String notes, String resolved, Integer healthCareNumber, Integer documentID,
             String procedureType, String anesthetic) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
@@ -1153,7 +1157,7 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setString(1, notes);
-            stmt.setBoolean(2, resolved);
+            stmt.setString(2, resolved);
             stmt.setString(3, procedureType);
             stmt.setString(4, anesthetic);
             stmt.setInt(5, documentID);
@@ -1176,3 +1180,4 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
     }
 
 }
+
