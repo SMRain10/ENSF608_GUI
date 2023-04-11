@@ -304,7 +304,7 @@ public class SurgeonView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Patient Name, HC# and Document ID must be completed");
         } else {
 
-            dconn.InsertProcedure(notesInput.getText(), Integer.parseInt(HcInput.getText()), resolvedInput.getSelectedItem(), surgeryTypeInput.getSelectedItem().toString(), anestheticInput.getSelectedItem().toString());
+            dconn.InsertProcedure(notesInput.getText(), Integer.parseInt(HcInput.getText()), resolvedInput.getSelectedItem().toString(), surgeryTypeInput.getSelectedItem().toString(), anestheticInput.getSelectedItem().toString());
             model.setDataVector(data, colNames);
             data = dconn.searcAlldiagnosis(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
             model.setDataVector(data, colNames);
@@ -337,7 +337,7 @@ public class SurgeonView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "HC# and Document ID must be completed");
         }
         else {
-            dconn.UpdateProcedure(notesInput.getText(), resolvedInput.getSelectedItem(), Integer.parseInt(HcInput.getText()),
+            dconn.UpdateProcedure(notesInput.getText(), resolvedInput.getSelectedItem().toString(), Integer.parseInt(HcInput.getText()),
                     Integer.parseInt(docIdInput.getText()), surgeryTypeInput.getSelectedItem().toString(),
                     anestheticInput.getSelectedItem().toString());
             System.out.println(notesInput.getText());
