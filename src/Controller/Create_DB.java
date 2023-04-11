@@ -139,7 +139,7 @@ public class Create_DB {
     }
 
     // updates a single routine checkup document
-    public String UpdateRoutineCheckUp(String notes, Boolean resolved, Integer healthCareNumber, Integer documentID) {
+    public String UpdateRoutineCheckUp(String notes, String resolved, String healthCareNumber, String documentID) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
@@ -147,17 +147,43 @@ public class Create_DB {
 
             String table = "DIAGNOSIS";
 
-            String sql = "update  " + table
-                    + " SET Notes= ? , Resolved = ? where DocumentID = ? and HealthCareNum = ? and DocType = 'Routine_Checkup'";
 
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            if(!(notes.equals(""))){
+                String sql = "update  " + table
+                    + " SET Notes= '" + notes + "'  where DocumentID = " + documentID  + " and HealthCareNum = " + healthCareNumber;
+                    Statement stmt = conn.prepareStatement(sql);
 
-            stmt.setString(1, notes);
-            stmt.setBoolean(2, resolved);
-            stmt.setInt(3, documentID);
-            stmt.setInt(4, healthCareNumber);
 
-            stmt.execute();
+            stmt.executeUpdate(sql);
+
+            }
+
+
+            if(!(resolved.equals(""))){
+                String sql = "update  " + table
+                    + " SET Resolved = " + resolved  +" where DocumentID = " + documentID  + " and HealthCareNum = " + healthCareNumber;
+                    Statement stmt = conn.prepareStatement(sql);
+
+
+
+                    stmt.executeUpdate(sql);
+
+            }
+
+
+
+
+            // String sql = "update  " + table
+            //         + " SET Notes= ? , Resolved = ? where DocumentID = ? and HealthCareNum = ? and DocType = 'Routine_Checkup'";
+
+            // PreparedStatement stmt = conn.prepareStatement(sql);
+
+            // stmt.setString(1, notes);
+            // stmt.setBoolean(2, resolved);
+            // stmt.setInt(3, documentID);
+            // stmt.setInt(4, healthCareNumber);
+
+            // stmt.execute();
 
             return null;
 
@@ -235,8 +261,8 @@ public class Create_DB {
 
     }
 
-    // inserts a lab test document
-    public void InsertLabTest(String notes, int healthCareNum, boolean resolved, String testType) {
+   // inserts a lab test document
+    public void InsertLabTest(String notes, int healthCareNum, String testType) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 
             Statement stmt = conn.createStatement();
@@ -248,19 +274,18 @@ public class Create_DB {
             int docNum = maxDocID() + 1;
 
             String sql = " insert into " + table
-                    + " (DocumentID, HealthCareNum, Notes, Resolved, DocType, TestType, Results)"
+                    + " (DocumentID, HealthCareNum, Notes, DocType, TestType)"
                     + " values (?, ?, ?, ?, ?)";
 
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
             preparedStmt.setInt(1, docNum);
             preparedStmt.setInt(2, healthCareNum);
             preparedStmt.setString(3, notes);
-            preparedStmt.setBoolean(4, resolved);
-            preparedStmt.setString(5, docType);
-            preparedStmt.setString(6, testType);
+            preparedStmt.setString(4, docType);
+            preparedStmt.setString(5, testType);
 
             preparedStmt.execute();
-            conn.close();
+
 
         } catch (SQLIntegrityConstraintViolationException e) {
             // Handle duplicate primary key error
@@ -281,7 +306,7 @@ public class Create_DB {
 
             Statement stmt = conn.createStatement();
 
-            String querey = "select distinct DocumentID, Pname, Allergies, Notes, Results from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum and DocType = 'Lab_Test'";
+            String querey = "select distinct DocumentID, Pname, Allergies, Notes, Results, DocType from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum and DocType = 'Lab_Test'";
             String docIDsearch = "and DocumentID like ";
             String nameSearh = "and Pname like ";
             String healthCareNumSearch = "and patient.HealthCareNum like";
@@ -309,6 +334,7 @@ public class Create_DB {
                 temp.add(rs.getString("Allergies"));
                 temp.add(rs.getString("Notes"));
                 temp.add(rs.getString("Results"));
+                temp.add(rs.getString("DocType"));
 
                 results.add(temp);
             }
