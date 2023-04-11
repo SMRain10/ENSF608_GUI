@@ -19,6 +19,7 @@ public class MainView extends JFrame {
     private LabTechView labTechView;
     private SurgeonView surgeonView;
     private BillView billingView;
+    private EmergencyContactView emergencyContactView;
 
     public MainView() {
         super("ENSF 608 Hospital Management System");
@@ -35,6 +36,7 @@ public class MainView extends JFrame {
         labTechView = new LabTechView();
         surgeonView = new SurgeonView();
         billingView = new BillView();
+        emergencyContactView = new EmergencyContactView();
 
         cardLayout = new CardLayout();
 
@@ -102,6 +104,11 @@ public class MainView extends JFrame {
             case 10:
                 cardPanel.add(billingView, "Bill");
                 cardLayout.show(cardPanel, "Bill");
+                pack();
+                break;
+            case 11:
+                cardPanel.add(emergencyContactView, "EmergencyContact");
+                cardLayout.show(cardPanel, "EmergencyContact");
                 pack();
                 break;
         }
@@ -201,5 +208,13 @@ public class MainView extends JFrame {
 
     public void setBillingView(BillView billingView) {
         this.billingView = billingView;
+    }
+
+    public EmergencyContactView getEmergencyContactView() {
+        return emergencyContactView;
+    }
+
+    public void setEmergencyContactView(EmergencyContactView emergencyContactView) {
+        this.emergencyContactView = emergencyContactView;
     }
 }
