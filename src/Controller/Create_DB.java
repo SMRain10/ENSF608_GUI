@@ -1309,5 +1309,73 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
 
     }
 
+    
+    public Object[][] searchBill(String invoiceNo, String costingCode, String companyID) {
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
+
+            Statement stmt = conn.createStatement();
+
+            String querey = "select distinct Bill.InvoiceNo, CostingCode, CompanyID, Cost from Send_to, Bill where Send_to.InvoiceNo = Bill.InvoiceNo ";
+            String invoiceNosearch = "and Send_to.InvoiceNo like ";
+            String costingCodeSearh = "and Send_to.CostingCode like ";
+            String companyIDSearch = "and Send_to.CompanyID like";
+            ;
+
+            if (invoiceNo != "") {
+                invoiceNosearch += "'%" + invoiceNo + "%'";
+                querey += invoiceNosearch;
+            }
+            if (costingCode != "") {
+                costingCodeSearh += "'%" + costingCode + "%'";
+                querey += costingCodeSearh;
+            }
+            if (companyID != "") {
+                companyIDSearch += "'%" + companyID + "%'";
+                querey += companyIDSearch;
+            }
+
+            ResultSet rs = stmt.executeQuery(querey);
+            ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
+            while (rs.next()) {
+                ArrayList<String> temp = new ArrayList<String>();
+                temp.add(rs.getString("invoiceNo"));
+                temp.add(rs.getString("costingCode"));
+                temp.add(rs.getString("companyID"));
+                temp.add(rs.getString("cost"));
+                
+
+                results.add(temp);
+            }
+
+            Object[][] objectArray = new Object[results.size()][];
+
+            for (int i = 0; i < results.size(); i++) {
+                ArrayList<String> innerList = results.get(i);
+                Object[] innerArray = new Object[innerList.size()];
+                for (int j = 0; j < innerList.size(); j++) {
+                    innerArray[j] = innerList.get(j);
+                }
+                objectArray[i] = innerArray;
+            }
+
+            return objectArray;
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
+
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return null;
+        }
+
+    }
+    
+    
 }
 
