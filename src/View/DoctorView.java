@@ -79,7 +79,7 @@ public class DoctorView extends javax.swing.JPanel {
 
         model.setDataVector(new Object[][] {null, null, null, null, null, null, null, null, null, null, null}, colNames);
 
-//        model.setDataVector(data, colNames);
+        model.setDataVector(data, colNames);
         jTable.setModel(model);
 
         jScrollPane1.setViewportView(jTable);
@@ -306,6 +306,11 @@ public class DoctorView extends javax.swing.JPanel {
         }
         // TODO add your handling code here:
         dconn.UpdateRoutineCheckUp(notesInput.getText(), resolved , (HcInput.getText()) , (docIdInput.getText()));
+
+
+        data = dconn.searcAlldiagnosis(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
+        model.setDataVector(data, colNames);
+
 
 
     }
