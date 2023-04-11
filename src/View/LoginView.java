@@ -2,6 +2,7 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -26,6 +27,8 @@ public class LoginView extends javax.swing.JPanel {
         loginButton = new javax.swing.JButton();
         ssnInput = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
+        billingButton = new javax.swing.JButton();
+
 
         setPreferredSize(new java.awt.Dimension(1000, 900));
 
@@ -35,6 +38,13 @@ public class LoginView extends javax.swing.JPanel {
         staffLabel.setText("Hospital Staff Login");
 
         ssnLabel.setText("Enter SSN");
+
+        billingButton.setText("Billing");
+        billingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                billingButtonActionPerformed(evt);
+            }
+        });
 
         loginButton.setText("Login");
         // Login button listener. Method is implemented near the end of this file.
@@ -66,7 +76,10 @@ public class LoginView extends javax.swing.JPanel {
                                                                                 .addGap(18, 18, 18)
                                                                                 .addComponent(loginButton))
                                                                         .addComponent(ssnLabel)))
-                                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(100, 100, 100)
+                                                .addComponent(billingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(313, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -86,12 +99,21 @@ public class LoginView extends javax.swing.JPanel {
                                         .addComponent(ssnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(55, 55, 55)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(376, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
+                                .addComponent(billingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54))
         );
-    }// </editor-fold>
+    }
+
+    private void billingButtonActionPerformed(ActionEvent evt) {
+        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+        mainView.setBillingView(new BillView());
+        mainView.setCard(10);
+    }
 
 
     // Variables declaration - do not modify
+    private javax.swing.JButton billingButton;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton loginButton;
