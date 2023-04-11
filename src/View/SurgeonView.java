@@ -384,7 +384,7 @@ public class SurgeonView extends javax.swing.JPanel {
     //----------------Samuel included these----
     private Create_DB dconn;
     private Object[][] data;
-    private String[] colNames = {"DocumentID","Notes", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing conditions", "Notes", "Resolved"};
+    private String[] colNames = {"DocumentID","Notes", "Resolved", "Patient Name", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing Condition"};
 
     private DefaultTableModel model;
 

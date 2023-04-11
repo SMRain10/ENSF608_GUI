@@ -170,7 +170,7 @@ public class NurseView extends javax.swing.JPanel {
     // -----------------------------SR Added ------------------------------
     private Create_DB dconn;
     private Object[][] data;
-    private String[] colNames = {"DocumentID","Name", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing conditions", "Notes", "Resolved"};
+    private String[] colNames = {"DocumentID","Notes", "Resolved", "Patient Name", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing Condition"};
 
     private DefaultTableModel model;
 
