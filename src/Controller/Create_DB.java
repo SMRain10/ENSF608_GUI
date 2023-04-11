@@ -174,20 +174,6 @@ public class Create_DB {
             }
 
 
-
-
-            // String sql = "update  " + table
-            //         + " SET Notes= ? , Resolved = ? where DocumentID = ? and HealthCareNum = ? and DocType = 'Routine_Checkup'";
-
-            // PreparedStatement stmt = conn.prepareStatement(sql);
-
-            // stmt.setString(1, notes);
-            // stmt.setBoolean(2, resolved);
-            // stmt.setInt(3, documentID);
-            // stmt.setInt(4, healthCareNumber);
-
-            // stmt.execute();
-
             return null;
 
         } catch (SQLIntegrityConstraintViolationException e) {
@@ -496,7 +482,94 @@ public class Create_DB {
 
     }
 
-    
+
+       public void DeleteEmergencyContact(int healthCareNum) {
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
+
+            String table = "Emergency_contact";
+            String sql = "delete from " + table + " where DocumentID = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, healthCareNum);
+
+            stmt.execute();
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+
+    public Object[][] searchEmergencyContact(String healthCareNum) {
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
+
+            Statement stmt = conn.createStatement();
+
+            String querey = "select distinct HealthCareNum, Cname, PhoneNum, Relationship from Emergency_contact ";
+            String docIDsearch = " where HealthCareNum like ";
+
+
+            if (healthCareNum != "") {
+                docIDsearch += "'%" + healthCareNum + "%'";
+                querey += docIDsearch;
+            }
+   
+
+            ResultSet rs = stmt.executeQuery(querey);
+            ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
+            while (rs.next()) {
+                ArrayList<String> temp = new ArrayList<String>();
+                temp.add(rs.getString("HealthCareNum"));
+                temp.add(rs.getString("Cname"));
+                temp.add(rs.getString("PhoneNum"));
+                temp.add(rs.getString("Relationship"));
+
+                results.add(temp);
+            }
+
+            Object[][] objectArray = new Object[results.size()][];
+
+            for (int i = 0; i < results.size(); i++) {
+                ArrayList<String> innerList = results.get(i);
+                Object[] innerArray = new Object[innerList.size()];
+                for (int j = 0; j < innerList.size(); j++) {
+                    innerArray[j] = innerList.get(j);
+                }
+                objectArray[i] = innerArray;
+            }
+
+            return objectArray;
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
+
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return null;
+        }
+
+    }
+
+
+
+
+
     public void addEmergencyContact(int healthCareNum, String phone, String name, String relationship) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
@@ -527,6 +600,12 @@ public class Create_DB {
         }
 
     }
+    
+    
+    
+    
+    
+    
 
 
     public void Registration(String name, int healthCareNum, String phone, String allergies, String familyHistory,
