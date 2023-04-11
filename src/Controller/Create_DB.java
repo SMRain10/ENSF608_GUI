@@ -494,6 +494,7 @@ public class Create_DB {
 
     }
 
+    
     public void addEmergencyContact(int healthCareNum, String phone, String name, String relationship) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
@@ -524,6 +525,7 @@ public class Create_DB {
         }
 
     }
+
 
     public void Registration(String name, int healthCareNum, String phone, String allergies, String familyHistory,
             String smoker, String birthDate, String gender,
