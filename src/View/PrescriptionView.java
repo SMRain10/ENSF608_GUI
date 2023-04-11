@@ -69,8 +69,22 @@ public class PrescriptionView extends javax.swing.JPanel {
         });
 
         deletePrescriptionButton.setText("Delete");
+        //+++++++++Samuel added
+        deletePrescriptionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+        //complete
 
         updatePrescriptionButton.setText("Update");
+        //+++++++++Samuel added
+        updatePrescriptionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
+        //complete
 
         searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -184,20 +198,58 @@ public class PrescriptionView extends javax.swing.JPanel {
         );
     }// </editor-fold>
 
+    //+++++++++Samuel editted+++++++++++++
     private void searchButtonActionPerformed(ActionEvent evt) {
         if (pNameInput.getText().equals("") && HcInput.getText().equals("") && docIdInput.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please enter at least one search criteria");
         } else {
 
-            data = dconn.searcAlldiagnosis(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
+            data = dconn.searchPrescription(docIdInput.getText(), pNameInput.getText(), HcInput.getText(), drugNameInput.getText());
             model.setDataVector(data, colNames);
         }
 
     }
 
     private void createPrescriptionButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if (HcInput.getText().equals("")
+                || drugQuantityInput.getText().equals("")
+                || drugNameInput.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter HealthCare number, Drug and Quantity");
+        } else {
+
+            dconn.InsertPrescription(Integer.parseInt(HcInput.getText()), Integer.parseInt(drugQuantityInput.getText()), drugNameInput.getText());
+            data = dconn.searchPrescription(docIdInput.getText(), pNameInput.getText(), HcInput.getText(), drugNameInput.getText());
+            model.setDataVector(data, colNames);
+        }
 
     }
+
+    //++++++Samuel added
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt){
+        if (docIdInput.getText().equals(""))
+                 {
+            JOptionPane.showMessageDialog(null, "Please enter Document ID");
+        } else {
+            dconn.DeletePrescription(Integer.parseInt(docIdInput.getText()));
+            data = dconn.searchPrescription(docIdInput.getText(), pNameInput.getText(), HcInput.getText(), drugNameInput.getText());
+            model.setDataVector(data, colNames);
+        }
+    }
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt){
+        if (docIdInput.getText().equals("")
+                || drugQuantityInput.getText().equals("")
+                || drugNameInput.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Please enter Document ID");
+        } else {
+            dconn.UpdatePrescription(Integer.parseInt(drugQuantityInput.getText()),drugNameInput.getText(),Integer.parseInt(docIdInput.getText()));
+            data = dconn.searchPrescription(docIdInput.getText(), pNameInput.getText(), HcInput.getText(), drugNameInput.getText());
+            model.setDataVector(data, colNames);
+        }
+
+    }
+    //+++++editing completed+++++++++
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
         MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
@@ -229,7 +281,7 @@ public class PrescriptionView extends javax.swing.JPanel {
     // SR Added declarations
     private Create_DB dconn;
     private Object[][] data;
-    private String[] colNames = {"DocumentID","Name", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing conditions", "Notes", "Resolved"};
+    private String[] colNames = {"Quantity","Drug Name", "DocumentID", "Patient Name", "Notes"};
 
     private DefaultTableModel model;
     // End of variables declaration
