@@ -1,6 +1,9 @@
 package View;
 
+import Controller.Create_DB;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 
 public class LabTechView extends javax.swing.JPanel {
@@ -20,6 +23,10 @@ public class LabTechView extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
+
+        // Added by SR
+        dconn = new Create_DB();
+        model = new DefaultTableModel();
 
         pageLabel2 = new javax.swing.JLabel();
         HcnInput = new javax.swing.JTextField();
@@ -64,17 +71,9 @@ public class LabTechView extends javax.swing.JPanel {
             }
         });
 
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
+        model.setDataVector(new Object[][]{null,null,null,null,null}, colNames);
+
+        jTable.setModel(model);
         resultsTable.setViewportView(jTable);
 
         searchResultsLabel.setText("Search Results");
@@ -85,6 +84,11 @@ public class LabTechView extends javax.swing.JPanel {
         pageLabel1.setText("Lab Tech Page");
 
         updateLabButton.setText("Update");
+        updateLabButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateLabButtonActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -203,9 +207,19 @@ public class LabTechView extends javax.swing.JPanel {
     private javax.swing.JLabel searchResultsLabel;
     private javax.swing.JLabel successLabel;
     private javax.swing.JButton updateLabButton;
-    private void updateLabButtonActionPerformed(ActionEvent evt) {
-        // TODO add your handling code here:
 
+
+    // ----------------- Added by SR -----------------
+
+    private DefaultTableModel model;
+    private Create_DB dconn;
+    private Object[][] data;
+    private String[] colNames = new String[]{"Document ID", "Health Care Number","Patient Name", "Allergies", "Notes", "Result"};
+    private void updateLabButtonActionPerformed(ActionEvent evt) {
+
+        dconn.UpdateLabTest(Integer.parseInt(HcnInput.getText()), Integer.parseInt(docIDInput.getText()), jTextArea1.getText());
+        data = dconn.searchLabTest(docIDInput.getText(),HcnInput.getText());
+        model.setDataVector(data, colNames);
         successLabel.setText("Test results updated successfully");
     }
 
@@ -216,6 +230,8 @@ public class LabTechView extends javax.swing.JPanel {
     }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        data = dconn.searchLabTest(docIDInput.getText(),HcnInput.getText());
+        model.setDataVector(data, colNames);
+
     }
 }
