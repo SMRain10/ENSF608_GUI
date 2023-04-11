@@ -483,18 +483,19 @@ public class Create_DB {
     }
 
 
-       public void DeleteEmergencyContact(int healthCareNum) {
+       public void DeleteEmergencyContact(int healthCareNum, String cName) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
             stmt_use.executeUpdate("use HOSPITAL");
 
             String table = "Emergency_contact";
-            String sql = "delete from " + table + " where DocumentID = ?";
+            String sql = "delete from " + table + " where HealthCareNum = ? and Cname = ? ";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, healthCareNum);
+            stmt.setString(2, cName);
 
             stmt.execute();
 
