@@ -88,7 +88,7 @@ public class AppointmentView extends javax.swing.JPanel {
 
         pInfoLabel.setText("Patient Info");
 
-        docIDLabel.setText("Document ID");
+        docIDLabel.setText("Appointment Confirmation ID");
 
         pNameLabel.setText("Patient Name");
         reasonSearchLabel.setText("Reason for Search");
@@ -123,7 +123,7 @@ public class AppointmentView extends javax.swing.JPanel {
 
         yearLabel.setText("Year");
 
-        yearDropInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025"}));
+        yearDropInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"", "2023", "2024", "2025"}));
 
         step2LAbel.setText("Specify Appointment");
 
@@ -150,7 +150,7 @@ public class AppointmentView extends javax.swing.JPanel {
 
         roomLabel.setText("Room");
 
-        confirmationIdLabel.setText("Confirmation ID");
+        confirmationIdLabel.setText("Appointment Confirmation ID");
 
         reasonVisitLabel.setText("Reason for Visit");
 
@@ -464,68 +464,75 @@ public class AppointmentView extends javax.swing.JPanel {
     private void updateApptButtonActionPerformed(ActionEvent evt) {
 
 
-//        if(docIdInput.getText() != ""){
-//
-//
-//        String monthToDigit = "01";
-//
-//        if(monthDropInput.getSelectedItem() == "Janurary"){
-//                monthToDigit = "01";
-//        } else if (monthDropInput.getSelectedItem() == "February"){
-//                monthToDigit = "02";
-//        }else if (monthDropInput.getSelectedItem() == "March"){
-//                monthToDigit = "03";
-//        }else if (monthDropInput.getSelectedItem() == "April"){
-//                monthToDigit = "04";
-//        }else if (monthDropInput.getSelectedItem() == "May"){
-//                monthToDigit = "05";
-//        }else if (monthDropInput.getSelectedItem() == "June"){
-//                monthToDigit = "06";
-//        }else if (monthDropInput.getSelectedItem() == "July"){
-//                monthToDigit = "07";
-//        }else if (monthDropInput.getSelectedItem() == "August"){
-//                monthToDigit = "08";
-//        }else if (monthDropInput.getSelectedItem() == "September"){
-//                monthToDigit = "09";
-//        }
-//        else if (monthDropInput.getSelectedItem() == "October"){
-//                monthToDigit = "10";
-//        }
-//        else if (monthDropInput.getSelectedItem() == "November"){
-//                monthToDigit = "11";
-//        }
-//        else if (monthDropInput.getSelectedItem() == "December"){
-//                monthToDigit = "12";
-//        }else if (monthDropInput.getSelectedItem() == ""){
-//                monthToDigit = "";
-//        }
-//
-//        String app_time = yearDropInput.getSelectedItem() + "-" + monthToDigit + "-" + dayDropInput.getSelectedItem() + " "+ timeInput.getSelectedItem() + ":00";
-//
-//        if(yearDropInput.getSelectedItem().equals("") && yearDropInput.getSelectedItem().equals("") && yearDropInput.getSelectedItem().equals("")){
-//                app_time = "";
-//        }
-//
-//        dconn.UpdateAppointment(hospitalNameInput.getText(),wardInput.getText(),roomInput.getText(),app_time,pNameInput6.getText(),docIdInput.getText());
-//        }else {
-//                JOptionPane.showMessageDialog(null, "Must have Document Number.");
-//        }
-//        // TODO add your handling code here:
+       if(!(confirmationIdTopInput.getText().equals(""))){
+
+
+       String monthToDigit = "01";
+
+       if(monthDropInput.getSelectedItem() == "Janurary"){
+               monthToDigit = "01";
+       } else if (monthDropInput.getSelectedItem() == "February"){
+               monthToDigit = "02";
+       }else if (monthDropInput.getSelectedItem() == "March"){
+               monthToDigit = "03";
+       }else if (monthDropInput.getSelectedItem() == "April"){
+               monthToDigit = "04";
+       }else if (monthDropInput.getSelectedItem() == "May"){
+               monthToDigit = "05";
+       }else if (monthDropInput.getSelectedItem() == "June"){
+               monthToDigit = "06";
+       }else if (monthDropInput.getSelectedItem() == "July"){
+               monthToDigit = "07";
+       }else if (monthDropInput.getSelectedItem() == "August"){
+               monthToDigit = "08";
+       }else if (monthDropInput.getSelectedItem() == "September"){
+               monthToDigit = "09";
+       }
+       else if (monthDropInput.getSelectedItem() == "October"){
+               monthToDigit = "10";
+       }
+       else if (monthDropInput.getSelectedItem() == "November"){
+               monthToDigit = "11";
+       }
+       else if (monthDropInput.getSelectedItem() == "December"){
+               monthToDigit = "12";
+       }else if (monthDropInput.getSelectedItem() == ""){
+               monthToDigit = "";
+       }
+
+       String app_time = yearDropInput.getSelectedItem() + "-" + monthToDigit + "-" + dayDropInput.getSelectedItem() + " "+ timeInput.getSelectedItem() + ":00";
+
+       if(yearDropInput.getSelectedItem().equals("") && yearDropInput.getSelectedItem().equals("") && yearDropInput.getSelectedItem().equals("")){
+               app_time = "";
+       }
+
+       dconn.UpdateAppointment(hospitalNameInput.getText(),wardInput.getText(),roomInput.getText(),app_time,reasonVisitInput.getText(),confirmationIdTopInput.getText());
+
+       String appDate = yearDropInput.getSelectedItem() + "-" + monthDropInput.getSelectedItem() + "-" + dayDropInput.getSelectedItem() + " " + timeInput.getSelectedItem() + ":00" ;
+       data = dconn.searchAppointment(pNameInput.getText(),healthCareNumberBotInput.getText(),appDate,confirmationIdBotInput.getText(),pNameInput.getText());
+       model.setDataVector(data, colNames);
+
+
+
+       }else {
+               JOptionPane.showMessageDialog(null, "Must have Document Number.");
+       }
+       // TODO add your handling code here:
     }
 
     private void deleteApptButtonActionPerformed(ActionEvent evt) {
 
-//        dconn.DeleteAppointment(docIdInput.getText());
+       dconn.DeleteAppointment(confirmationIdTopInput.getText());
 
     }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
 
-//        String appDate = yearDropInput.getSelectedItem() + "-" + monthDropInput.getSelectedItem() + "-" + dayDropInput.getSelectedItem() + " " + timeInput.getSelectedItem() + ":00" ;
-//
-//        data = dconn.searchAppointment(pNameInput.getText(),HcInput.getText(),appDate, docIdInput.getText(), pNameInput6.getText());
-//        model.setDataVector(data, colNames);
+       String appDate = yearDropInput.getSelectedItem() + "-" + monthDropInput.getSelectedItem() + "-" + dayDropInput.getSelectedItem() + " " + timeInput.getSelectedItem() + ":00" ;
+
+       data = dconn.searchAppointment(pNameInput.getText(),healthCareNumberBotInput.getText(),appDate,confirmationIdBotInput.getText(),reasonSearchInput.getText());
+       model.setDataVector(data, colNames);
 
         // TODO add your handling code here:
     }
@@ -539,51 +546,51 @@ public class AppointmentView extends javax.swing.JPanel {
 
 
 
-//        String monthToDigit = "01";
-//
-//        if(monthDropInput.getSelectedItem() == "Janurary"){
-//                monthToDigit = "01";
-//        } else if (monthDropInput.getSelectedItem() == "February"){
-//                monthToDigit = "02";
-//        }else if (monthDropInput.getSelectedItem() == "March"){
-//                monthToDigit = "03";
-//        }else if (monthDropInput.getSelectedItem() == "April"){
-//                monthToDigit = "04";
-//        }else if (monthDropInput.getSelectedItem() == "May"){
-//                monthToDigit = "05";
-//        }else if (monthDropInput.getSelectedItem() == "June"){
-//                monthToDigit = "06";
-//        }else if (monthDropInput.getSelectedItem() == "July"){
-//                monthToDigit = "07";
-//        }else if (monthDropInput.getSelectedItem() == "August"){
-//                monthToDigit = "08";
-//        }else if (monthDropInput.getSelectedItem() == "September"){
-//                monthToDigit = "09";
-//        }
-//        else if (monthDropInput.getSelectedItem() == "October"){
-//                monthToDigit = "10";
-//        }
-//        else if (monthDropInput.getSelectedItem() == "November"){
-//                monthToDigit = "11";
-//        }
-//        else if (monthDropInput.getSelectedItem() == "December"){
-//                monthToDigit = "12";
-//        }else if (monthDropInput.getSelectedItem() == ""){
-//                monthToDigit = "";
-//        }
-//
-//        String app_time = yearDropInput.getSelectedItem() + "-" + monthToDigit + "-" + dayDropInput.getSelectedItem() + " "+ timeInput.getSelectedItem() + ":00";
-//
-//
-//
-//
-//
-//
-//        if (adminSsnInput.getText().equals("") || drSSNInput.getText().equals("") || hospitalNameInput.getText().equals("") || wardInput.getText().equals("") || roomInput.getText().equals("") || HcInput.getText().equals("")) {
-//                JOptionPane.showMessageDialog(null, "Must enter name, healthcare number, smoker status and gender.");
-//            } else {
-//                dconn.InsertAppointment(docIdInput.getText(), drSSNInput.getText(), adminSsnInput.getText(), hospitalNameInput.getText(), wardInput.getText(), roomInput.getText(),jList1.getSelectedValue(),app_time,pNameInput6.getText());
-//            }
+       String monthToDigit = "01";
+
+       if(monthDropInput.getSelectedItem() == "Janurary"){
+               monthToDigit = "01";
+       } else if (monthDropInput.getSelectedItem() == "February"){
+               monthToDigit = "02";
+       }else if (monthDropInput.getSelectedItem() == "March"){
+               monthToDigit = "03";
+       }else if (monthDropInput.getSelectedItem() == "April"){
+               monthToDigit = "04";
+       }else if (monthDropInput.getSelectedItem() == "May"){
+               monthToDigit = "05";
+       }else if (monthDropInput.getSelectedItem() == "June"){
+               monthToDigit = "06";
+       }else if (monthDropInput.getSelectedItem() == "July"){
+               monthToDigit = "07";
+       }else if (monthDropInput.getSelectedItem() == "August"){
+               monthToDigit = "08";
+       }else if (monthDropInput.getSelectedItem() == "September"){
+               monthToDigit = "09";
+       }
+       else if (monthDropInput.getSelectedItem() == "October"){
+               monthToDigit = "10";
+       }
+       else if (monthDropInput.getSelectedItem() == "November"){
+               monthToDigit = "11";
+       }
+       else if (monthDropInput.getSelectedItem() == "December"){
+               monthToDigit = "12";
+       }else if (monthDropInput.getSelectedItem() == ""){
+               monthToDigit = "";
+       }
+
+       String app_time = yearDropInput.getSelectedItem() + "-" + monthToDigit + "-" + dayDropInput.getSelectedItem() + " "+ timeInput.getSelectedItem() + ":00";
+
+
+
+
+
+
+       if (adminSsnInput.getText().equals("") || drSSNInput.getText().equals("") || hospitalNameInput.getText().equals("") || wardInput.getText().equals("") || roomInput.getText().equals("") || confirmationIdTopInput.getText().equals("")) {
+               JOptionPane.showMessageDialog(null, "Must enter name, healthcare number, smoker status and gender.");
+           } else {
+               dconn.InsertAppointment(confirmationIdTopInput.getText(), drSSNInput.getText(), adminSsnInput.getText(), hospitalNameInput.getText(), wardInput.getText(), roomInput.getText(),app_time,reasonVisitInput.getText());
+           }
 
 
         // TODO add your handling code here:
