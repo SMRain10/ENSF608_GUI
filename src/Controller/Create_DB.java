@@ -804,8 +804,9 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
 
     }
 
+    
     public void InsertAppointment(String healthCareNo, String doctorSSN, String adminSSN, String hopsitalName, String ward,
-            String roomNo, String roomType, String appDate, String reasonForVisit) {
+            String roomNo, String appDate, String reasonForVisit) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 
             Statement stmt = conn.createStatement();
@@ -873,7 +874,7 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
             String confirmationIDsearch = "and APPT_SCHEDULE.confirmationID like ";
             String nameSearh = "and patient.Pname like ";
             String healthCareNumSearch = "and patient.HealthCareNum like ";
-            String dateSearch = "and APPOINTMENT.Appt_Date like ";
+            String reasonSearch = "and APPOINTMENT.ReasonForVisit like ";
 
             if (confirmationID != "") {
                 confirmationIDsearch += "'%" + confirmationID + "%'";
@@ -887,6 +888,14 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
                 healthCareNumSearch += "'%" + healthCareNum + "%'";
                 querey += healthCareNumSearch;
             }
+            if (reason != "") {
+                reasonSearch += "'%" + reason + "%'";
+                querey += reasonSearch;
+            }
+
+
+
+
             // if (date != "") {
             //     dateSearch += "'%" + date + "%'";
             //     querey += dateSearch;
@@ -1061,6 +1070,8 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
         }
 
     }
+    
+    
 
     public void InsertProcedure(String notes, int healthCareNum, boolean resolved, String testType,
             String procedureType, String anesthetic) {
