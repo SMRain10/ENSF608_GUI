@@ -66,7 +66,7 @@ public class Create_DB {
 
     }
 
-    // returns an array for routine checkups
+        // returns an array for routine checkups
     public Object[][] searcAlldiagnosis(String docId, String name, String healthCareNum) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
@@ -75,7 +75,7 @@ public class Create_DB {
 
             Statement stmt = conn.createStatement();
 
-            String querey = "select distinct DocumentID, Pname, Allergies, Familyhistory, Smoker, BirthDate, Pre_exisiting_Conditions, Notes, Resolved from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum ";
+            String querey = "select distinct DocumentID, Notes, Pname, Allergies, Familyhistory, Smoker, BirthDate, Pre_exisiting_Conditions, Notes, Resolved from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum ";
             String docIDsearch = " and DocumentID like ";
             String nameSearh = " and Pname like ";
             String healthCareNumSearch = " and patient.HealthCareNum like";
@@ -99,13 +99,15 @@ public class Create_DB {
             while (rs.next()) {
                 ArrayList<String> temp = new ArrayList<String>();
                 temp.add(rs.getString("DocumentID"));
+                temp.add(rs.getString("Notes"));
+                temp.add(rs.getString("Resolved"));
                 temp.add(rs.getString("Pname"));
                 temp.add(rs.getString("Allergies"));
                 temp.add(rs.getString("Familyhistory"));
                 temp.add(rs.getString("Smoker"));
                 temp.add(rs.getString("BirthDate"));
-                temp.add(rs.getString("Notes"));
-                temp.add(rs.getString("Resolved"));
+                temp.add(rs.getString("Pre_exisiting_Conditions"));
+                
 
                 results.add(temp);
             }
