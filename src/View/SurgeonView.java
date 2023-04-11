@@ -1,6 +1,9 @@
 package View;
 
+import Controller.Create_DB;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class SurgeonView extends javax.swing.JPanel {
 
@@ -50,6 +53,11 @@ public class SurgeonView extends javax.swing.JPanel {
         surgeryTypeInput = new javax.swing.JComboBox<>();
 
         updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         pageLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         pageLabel.setText("Surgeon Page");
@@ -70,17 +78,14 @@ public class SurgeonView extends javax.swing.JPanel {
 
         pInfoLabel.setText("Patient Info");
 
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
-                },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-        ));
+        //------------Samuel added this--------------
+        dconn = new Create_DB();
+        model = new DefaultTableModel();
+        jTable.setModel(model);
+
+        //edit ends here
+
+
         jScrollPane1.setViewportView(jTable);
 
         exitButton.setText("Exit");
@@ -267,8 +272,16 @@ public class SurgeonView extends javax.swing.JPanel {
         );
     }// </editor-fold>
 
+    //+++++++++Samuel worked on this++++++++++++
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        if (pNameInput.getText().equals("") && HcInput.getText().equals("") && docIdInput.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter at least one search criteria");
+        } else {
+
+            data = dconn.searcAlldiagnosis(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
+            model.setDataVector(data, colNames);
+        }
     }
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -277,8 +290,19 @@ public class SurgeonView extends javax.swing.JPanel {
         mainView.setCard(0);
     }
 
+    //+++++++++Samuel worked on this++++++++++++
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        if (pNameInput.getText().equals("") || HcInput.getText().equals("") ) {
+            JOptionPane.showMessageDialog(null, "Patient Name, HC# and Document ID must be completed");
+        } else {
+
+            dconn.InsertProcedure(notesInput.getText(), Integer.parseInt(HcInput.getText()), "Yes", surgeryTypeInput.getSelectedItem().toString(), anestheticInput.getSelectedItem().toString());
+            //model.setDataVector(data, colNames);
+            data = dconn.searcAlldiagnosis(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
+            model.setDataVector(data, colNames);
+            successLabel.setText("Procedure inserted successfully");
+        }
     }
 
     private void createPresButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,9 +310,34 @@ public class SurgeonView extends javax.swing.JPanel {
         mainView.setPrescriptionView(new PrescriptionView());
         mainView.setCard(7);
     }
-
+    //+++++++++Samuel worked on this++++++++++++
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        if (docIdInput.getText().equals("") ) {
+            JOptionPane.showMessageDialog(null, "P Document ID must be completed");
+        } else {
+
+            dconn.DeleteProcedure(Integer.parseInt(docIdInput.getText()));
+            data = dconn.searcAlldiagnosis(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
+            model.setDataVector(data, colNames);
+            successLabel.setText("Procedure deleted successfully");
+        }
+    }
+    //+++++++++Samuel worked on this++++++++++++
+    // created this method
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt){
+        if (HcInput.getText().equals("") || docIdInput.getText().equals("") ) {
+            JOptionPane.showMessageDialog(null, "HC# and Document ID must be completed");
+        }
+        else {
+            dconn.UpdateProcedure(notesInput.getText(), "Yes", Integer.parseInt(HcInput.getText()),
+                    Integer.parseInt(docIdInput.getText()), surgeryTypeInput.getSelectedItem().toString(),
+                    anestheticInput.getSelectedItem().toString());
+            System.out.println(notesInput.getText());
+            data = dconn.searcAlldiagnosis(docIdInput.getText(), pNameInput.getText(), HcInput.getText());
+            model.setDataVector(data, colNames);
+            successLabel.setText("Procedure updated successfully");
+        }
     }
 
 
@@ -321,5 +370,14 @@ public class SurgeonView extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> surgeryTypeInput;
     private javax.swing.JLabel surgeryTypeLabel;
     private javax.swing.JButton updateButton;
+
     // End of variables declaration
+
+    //----------------Samuel included these----
+    private Create_DB dconn;
+    private Object[][] data;
+    private String[] colNames = {"DocumentID","Name", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing conditions", "Notes", "Resolved"};
+
+    private DefaultTableModel model;
+
 }
