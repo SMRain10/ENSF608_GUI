@@ -24,12 +24,18 @@ public class CreateLabView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
+
+        //cd code
+        dconn = new Create_DB();
+        model = new DefaultTableModel();
+
+        //
         pageLabel = new javax.swing.JLabel();
-        HcInput = new javax.swing.JTextField();
+        HealthCardNumInput = new javax.swing.JTextField();
         HCNumLabel = new javax.swing.JLabel();
         testTypeInput = new javax.swing.JTextField();
         testTypeLabel = new javax.swing.JLabel();
-        docIDInput = new javax.swing.JTextField();
+        labDocIdInput = new javax.swing.JTextField();
         docIDLabel = new javax.swing.JLabel();
         exitButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
@@ -85,11 +91,13 @@ public class CreateLabView extends javax.swing.JPanel {
                         {null, null, null, null},
                         {null, null, null, null},
                         {null, null, null, null}
-                },
-                new String [] {
-                        "Title 1", "Title 2", "Title 3", "Title 4"
-                }
+                },colNames
         ));
+
+        model.setDataVector(data, colNames);
+        searchTable.setModel(model);
+
+
         jScrollPane1.setViewportView(searchTable);
 
         searchResultsLabel.setText("Search Results");
@@ -131,11 +139,11 @@ public class CreateLabView extends javax.swing.JPanel {
                                                 .addGap(257, 257, 257)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(HCNumLabel)
-                                                        .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(HealthCardNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(54, 54, 54)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(docIDLabel)
-                                                        .addComponent(docIDInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(labDocIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(83, 83, 83)
                                                 .addComponent(searchButton)))
                                 .addGap(0, 190, Short.MAX_VALUE))
@@ -186,7 +194,7 @@ public class CreateLabView extends javax.swing.JPanel {
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addComponent(docIDLabel)
                                                                 .addGap(6, 6, 6)
-                                                                .addComponent(docIDInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(labDocIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGap(34, 34, 34)
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,7 +205,7 @@ public class CreateLabView extends javax.swing.JPanel {
                                                                         .addGroup(layout.createSequentialGroup()
                                                                                 .addComponent(HCNumLabel)
                                                                                 .addGap(6, 6, 6)
-                                                                                .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                                                .addComponent(HealthCardNumInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                                         .addComponent(searchButton))
                                 .addGap(43, 43, 43)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -236,14 +244,26 @@ public class CreateLabView extends javax.swing.JPanel {
     }
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+
+        data = dconn.searchLabTest(labDocIdInput.getText(), pNameInput.getText(), HealthCardNumInput.getText());
+
+
+        model.setDataVector(data, colNames);
+        searchTable.setModel(model);
+
     }
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+
+        System.out.println(HealthCardNumInput.getText());
+
+        dconn.InsertLabTest(notesInput.getText(),Integer.parseInt(HealthCardNumInput.getText()), testTypeInput.getText() );
     }
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        dconn.DeleteLabTest(Integer.parseInt(labDocIdInput.getText()));
     }
 
 
@@ -251,11 +271,11 @@ public class CreateLabView extends javax.swing.JPanel {
     // Variables declaration - do not modify
     private javax.swing.JLabel HCNumLabel;
     private javax.swing.JLabel HCNumLabel1;
-    private javax.swing.JTextField HcInput;
+    private javax.swing.JTextField HealthCardNumInput;
     private javax.swing.JButton backButton;
     private javax.swing.JButton createButton;
     private javax.swing.JButton deleteButton;
-    private javax.swing.JTextField docIDInput;
+    private javax.swing.JTextField labDocIdInput;
     private javax.swing.JLabel docIDLabel;
     private javax.swing.JButton exitButton;
     private javax.swing.JScrollPane jScrollPane1;
@@ -278,7 +298,7 @@ public class CreateLabView extends javax.swing.JPanel {
 
     private Create_DB dconn;
     private Object[][] data;
-    private String[] colNames = {"DocumentID","Name", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing conditions", "Notes", "Resolved"};
+    private String[] colNames = {"DocumentID","Name", "Allergies", "Notes", "Results", "DocType"};
 
     private DefaultTableModel model;
 }
