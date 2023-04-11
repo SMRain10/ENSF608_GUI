@@ -280,7 +280,7 @@ public class EmergencyContactView extends javax.swing.JPanel {
     }
 
     private void deleteButtonActionPerformed(ActionEvent evt) {
-        dconn.DeleteEmergencyContact(Integer.parseInt(HcnInput.getText()),eNameInput.getText());
+        dconn.DeleteEmergencyContact(Integer.parseInt(HcnInput.getText()),contactNameToDeleteInput.getText());
     }
 
     private void viewButtonActionPerformed(ActionEvent evt) {
