@@ -433,7 +433,8 @@ public class Create_DB {
 
     }
 
-    public void DeleteLabTest(int docID) {
+    //CDD
+   public void DeleteLabTest(int docID) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
@@ -459,6 +460,7 @@ public class Create_DB {
 
     }
 
+   
     public String UpdateLabTest(String notes, Boolean resolved, Integer healthCareNumber, Integer documentID,
             String testType, String result) {
 
