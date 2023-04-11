@@ -275,13 +275,17 @@ public class EmergencyContactView extends javax.swing.JPanel {
     private String[] colNames = {"Healtcare Number", "Name", "Phone Number", "Relationship"};
 
     private void createButtonActionPerformed(ActionEvent evt) {
+        dconn.addEmergencyContact(Integer.parseInt(HcnInput.getText()) ,ePhoneNumberInput.getText(),eNameInput.getText(),relationshipInput.getText());
 
     }
 
     private void deleteButtonActionPerformed(ActionEvent evt) {
+        dconn.DeleteEmergencyContact(Integer.parseInt(HcnInput.getText()));
     }
 
     private void viewButtonActionPerformed(ActionEvent evt) {
+        data = dconn.searchEmergencyContact(HcnInput.getText());
+        model.setDataVector(data, colNames);
     }
 
     private void backButtonActionPerformed(ActionEvent evt) {
