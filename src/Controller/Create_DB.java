@@ -2,6 +2,7 @@ package Controller;
 
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
 
 
@@ -536,11 +537,7 @@ public class Create_DB {
             String phoneI = null;
             String birthDateNull = null;
 
-            if (phone != "") {
-                phoneI = phone;
-            }
-
-            if(birthDate != ""){
+            if (birthDate != "") {
                 birthDateNull = birthDate;
             }
 
@@ -556,16 +553,58 @@ public class Create_DB {
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
             preparedStmt.setInt(1, healthCareNum);
             preparedStmt.setString(2, name);
-            preparedStmt.setString(3, phoneI);
-            preparedStmt.setString(4, allergies);
-            preparedStmt.setString(5, familyHistory);
-            preparedStmt.setString(6, smoker);
+
+            if (phone.equals("")) {
+                preparedStmt.setString(3, null);
+            } else {
+                preparedStmt.setString(3, phone);
+            }
+
+            if (allergies.equals("")) {
+                preparedStmt.setString(4, null);
+            } else {
+                preparedStmt.setString(4, allergies);
+            }
+
+            if (familyHistory.equals("")) {
+                preparedStmt.setString(5, null);
+            } else {
+                preparedStmt.setString(5, familyHistory);
+            }
+
+            if (smoker.equals("")) {
+                preparedStmt.setString(6, null);
+            } else {
+                preparedStmt.setString(6, smoker);
+            }
+
             preparedStmt.setString(7, birthDateNull);
-            preparedStmt.setString(8, gender);
-            preparedStmt.setString(9, preExistingConditions);
-            preparedStmt.setString(10, city);
+
+            if (gender.equals("")) {
+                preparedStmt.setString(8, null);
+            } else {
+                preparedStmt.setString(8, gender);
+            }
+
+            if (preExistingConditions.equals("")) {
+                preparedStmt.setString(9, null);
+            } else {
+                preparedStmt.setString(9, preExistingConditions);
+            }
+
+            if (streetAddress.equals("")) {
+                preparedStmt.setString(12, null);
+            } else {
+                preparedStmt.setString(12, streetAddress);
+            }
+
+            if (city.equals("")) {
+                preparedStmt.setString(10, null);
+            } else {
+                preparedStmt.setString(10, city);
+            }
+
             preparedStmt.setString(11, province);
-            preparedStmt.setString(12, streetAddress);
 
             preparedStmt.execute();
             conn.close();
@@ -573,6 +612,7 @@ public class Create_DB {
         } catch (SQLIntegrityConstraintViolationException e) {
             // Handle duplicate primary key error
             System.out.println("Insert failed: Primary key already exists");
+            JOptionPane.showMessageDialog(null, "Insert failed: Primary key already exists.");
 
         } catch (SQLException e) {
             e.printStackTrace();
