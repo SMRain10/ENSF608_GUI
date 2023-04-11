@@ -75,7 +75,7 @@ public class DoctorView extends javax.swing.JPanel {
 
         resolveLabel.setText("Resolved");
 
-        resolveMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No"}));
+        resolveMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","Yes", "No"}));
 
         model.setDataVector(new Object[][] {null, null, null, null, null, null, null, null, null, null, null}, colNames);
 
@@ -248,6 +248,25 @@ public class DoctorView extends javax.swing.JPanel {
     }
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
+        String resolved = "";
+
+        if(resolveMenu.getSelectedItem().equals("Yes")){
+            resolved = "true";
+        } else if (resolveMenu.getSelectedItem().equals("No")){
+            resolved = "false";
+        }
+
+        if(notesInput.getText().equals("") || resolved.equals("") || HcInput.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Missing resolved, notes or healthcare number.");
+
+        } else{
+            dconn.InsertRoutineCheckUp(notesInput.getText(),Integer.parseInt(HcInput.getText()) ,Boolean.parseBoolean(resolved) );
+        }
+
+
+
+        
         // TODO add your handling code here:
     }
 
@@ -258,6 +277,15 @@ public class DoctorView extends javax.swing.JPanel {
     }
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
+        if(docIdInput.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Must enter Document number.");
+
+        } else{
+            dconn.DeleteRoutineCheckUp( Integer.parseInt(docIdInput.getText()) );
+        }
+
+        
         // TODO add your handling code here:
     }
 
@@ -268,7 +296,18 @@ public class DoctorView extends javax.swing.JPanel {
     }
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {
+
+        String resolved = "";
+
+        if(resolveMenu.getSelectedItem().equals("Yes")){
+            resolved = "true";
+        } else if (resolveMenu.getSelectedItem().equals("No")){
+            resolved = "false";
+        }
         // TODO add your handling code here:
+        dconn.UpdateRoutineCheckUp(notesInput.getText(), resolved , (HcInput.getText()) , (docIdInput.getText()));
+
+
     }
 
     // Variables declaration - do not modify
@@ -299,7 +338,7 @@ public class DoctorView extends javax.swing.JPanel {
     private DefaultTableModel model;
     private Create_DB dconn;
     private Object[][] data;
-    private String[] colNames = {"DocumentID","Name", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing conditions", "Notes", "Resolved"};
+    private String[] colNames = {"DocumentID", "Notes","Resolved","Name", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing conditions"};
     // End of variables declaration
 
 }
