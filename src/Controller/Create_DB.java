@@ -297,6 +297,73 @@ public class Create_DB {
         }
 
     }
+    //SR
+    public Object[][] searchLabTest(String docId, String healthCareNum) {
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
+
+            Statement stmt = conn.createStatement();
+
+            String querey = "select distinct DocumentID, patient.HealthCareNum, Pname, Allergies, Notes, Results from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum and DocType = 'Lab_Test'";
+            String docIDsearch = "and DocumentID like ";
+//            String nameSearh = "and Pname like ";
+            String healthCareNumSearch = "and patient.HealthCareNum like";
+            ;
+
+            if (docId != "") {
+                docIDsearch += "'%" + docId + "%'";
+                querey += docIDsearch;
+            }
+//            if (name != "") {
+//                nameSearh += "'%" + name + "%'";
+//                querey += nameSearh;
+//            }
+            if (healthCareNum != "") {
+                healthCareNumSearch += "'%" + healthCareNum + "%'";
+                querey += healthCareNumSearch;
+            }
+
+            ResultSet rs = stmt.executeQuery(querey);
+            ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
+            while (rs.next()) {
+                ArrayList<String> temp = new ArrayList<String>();
+                temp.add(rs.getString("DocumentID"));
+                temp.add(rs.getString("HealthCareNum"));
+                temp.add(rs.getString("Pname"));
+                temp.add(rs.getString("Allergies"));
+                temp.add(rs.getString("Notes"));
+                temp.add(rs.getString("Results"));
+
+                results.add(temp);
+            }
+
+            Object[][] objectArray = new Object[results.size()][];
+
+            for (int i = 0; i < results.size(); i++) {
+                ArrayList<String> innerList = results.get(i);
+                Object[] innerArray = new Object[innerList.size()];
+                for (int j = 0; j < innerList.size(); j++) {
+                    innerArray[j] = innerList.get(j);
+                }
+                objectArray[i] = innerArray;
+            }
+
+            return objectArray;
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
+
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return null;
+        }
+
+    }
 
     //CDD
     public Object[][] searchLabTest(String docId, String name, String healthCareNum) {
