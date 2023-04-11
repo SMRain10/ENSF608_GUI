@@ -1336,6 +1336,8 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
                 temp.add(rs.getString("invoiceNo"));
                 temp.add(rs.getString("costingCode"));
                 temp.add(rs.getString("companyID"));
+                temp.add(rs.getString("cost"));
+                
 
                 results.add(temp);
             }
