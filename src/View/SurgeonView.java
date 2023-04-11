@@ -32,7 +32,6 @@ public class SurgeonView extends javax.swing.JPanel {
         searchButton = new javax.swing.JButton();
         HcInput = new javax.swing.JTextField();
         noteLabel = new javax.swing.JLabel();
-        pInfoLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         exitButton = new javax.swing.JButton();
@@ -51,6 +50,8 @@ public class SurgeonView extends javax.swing.JPanel {
         successLabel = new javax.swing.JLabel();
         anestheticInput = new javax.swing.JComboBox<>();
         surgeryTypeInput = new javax.swing.JComboBox<>();
+        resolvedLabel = new javax.swing.JLabel();
+        resolvedInput = new javax.swing.JComboBox<>();
 
         updateButton.setText("Update");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +77,6 @@ public class SurgeonView extends javax.swing.JPanel {
 
         noteLabel.setText("Notes");
 
-        pInfoLabel.setText("Patient Info");
 
         //------------Samuel added this--------------
         dconn = new Create_DB();
@@ -120,6 +120,10 @@ public class SurgeonView extends javax.swing.JPanel {
 
         pNameLabel1.setText("Patient Name");
 
+        resolvedLabel.setText("Resolved");
+
+        resolvedInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
+
         notesInput.setColumns(20);
         notesInput.setRows(5);
         jScrollPane2.setViewportView(notesInput);
@@ -133,7 +137,7 @@ public class SurgeonView extends javax.swing.JPanel {
 
         successLabel.setText(" ");
 
-        anestheticInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "True", "False" }));
+        anestheticInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
 
         surgeryTypeInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Surgery", "Special Examination" }));
 
@@ -163,20 +167,13 @@ public class SurgeonView extends javax.swing.JPanel {
                                 .addGap(80, 80, 80)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
+                                                .addGap(20, 20, 20)
                                                 .addComponent(createPresButton)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(exitButton)
                                                 .addGap(42, 42, 42))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(anestheticLabel)
-                                                                        .addComponent(anestheticInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGap(140, 140, 140)
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(surgeryTypeLabel)
-                                                                        .addComponent(surgeryTypeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(35, 35, 35)
@@ -185,7 +182,6 @@ public class SurgeonView extends javax.swing.JPanel {
                                                                 .addComponent(docIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(50, 50, 50)
                                                                 .addComponent(searchButton))
-                                                        .addComponent(pInfoLabel)
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(pNameLabel1)
                                                                 .addGap(135, 135, 135)
@@ -196,13 +192,23 @@ public class SurgeonView extends javax.swing.JPanel {
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(anestheticLabel)
+                                                                        .addComponent(anestheticInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addGap(140, 140, 140)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(surgeryTypeLabel)
+                                                                        .addComponent(surgeryTypeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addComponent(resolvedLabel)
+                                                        .addComponent(resolvedInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(noteLabel)
+                                                        .addGroup(layout.createSequentialGroup()
                                                                 .addGap(181, 181, 181)
                                                                 .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(38, 38, 38)
                                                                 .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(38, 38, 38)
                                                                 .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addComponent(noteLabel)
                                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGap(263, 263, 263)
@@ -232,43 +238,44 @@ public class SurgeonView extends javax.swing.JPanel {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                                 .addComponent(pageLabel1)
-                                .addGap(24, 24, 24)
-                                .addComponent(pInfoLabel)
-                                .addGap(50, 50, 50)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(anestheticLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(anestheticInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(55, 55, 55)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 509, Short.MAX_VALUE)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(exitButton)
+                                                        .addComponent(createPresButton))
+                                                .addGap(21, 21, 21))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 342, Short.MAX_VALUE)
-                                                                .addComponent(exitButton)
-                                                                .addGap(21, 21, 21))
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGap(43, 43, 43)
-                                                                .addComponent(noteLabel)
+                                                                .addComponent(anestheticLabel)
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(48, 48, 48)
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                        .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                                .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                                .addGap(61, 61, 61)
-                                                                .addComponent(successLabel)
-                                                                .addGap(4, 4, 4)
-                                                                .addComponent(createPresButton)
-                                                                .addGap(29, 29, 29))))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(surgeryTypeLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(surgeryTypeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                                                .addComponent(anestheticInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(27, 27, 27)
+                                                                .addComponent(resolvedLabel)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(resolvedInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(surgeryTypeLabel)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                .addComponent(surgeryTypeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(65, 65, 65)))
+                                                .addGap(43, 43, 43)
+                                                .addComponent(noteLabel)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(48, 48, 48)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(61, 61, 61)
+                                                .addComponent(successLabel)
+                                                .addGap(29, 81, Short.MAX_VALUE))))
         );
     }// </editor-fold>
 
@@ -297,8 +304,8 @@ public class SurgeonView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Patient Name, HC# and Document ID must be completed");
         } else {
 
-            dconn.InsertProcedure(notesInput.getText(), Integer.parseInt(HcInput.getText()), "Yes", surgeryTypeInput.getSelectedItem().toString(), anestheticInput.getSelectedItem().toString());
-            //model.setDataVector(data, colNames);
+            dconn.InsertProcedure(notesInput.getText(), Integer.parseInt(HcInput.getText()), resolvedInput.getSelectedItem(), surgeryTypeInput.getSelectedItem().toString(), anestheticInput.getSelectedItem().toString());
+            model.setDataVector(data, colNames);
             data = dconn.searcAlldiagnosis(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
             model.setDataVector(data, colNames);
             successLabel.setText("Procedure inserted successfully");
@@ -330,7 +337,7 @@ public class SurgeonView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "HC# and Document ID must be completed");
         }
         else {
-            dconn.UpdateProcedure(notesInput.getText(), "Yes", Integer.parseInt(HcInput.getText()),
+            dconn.UpdateProcedure(notesInput.getText(), resolvedInput.getSelectedItem(), Integer.parseInt(HcInput.getText()),
                     Integer.parseInt(docIdInput.getText()), surgeryTypeInput.getSelectedItem().toString(),
                     anestheticInput.getSelectedItem().toString());
             System.out.println(notesInput.getText());
@@ -359,7 +366,6 @@ public class SurgeonView extends javax.swing.JPanel {
     private javax.swing.JTable jTable;
     private javax.swing.JLabel noteLabel;
     private javax.swing.JTextArea notesInput;
-    private javax.swing.JLabel pInfoLabel;
     private javax.swing.JTextField pNameInput;
     private javax.swing.JLabel pNameLabel1;
     private javax.swing.JLabel pageLabel;
@@ -370,6 +376,8 @@ public class SurgeonView extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> surgeryTypeInput;
     private javax.swing.JLabel surgeryTypeLabel;
     private javax.swing.JButton updateButton;
+    private javax.swing.JComboBox<String> resolvedInput;
+    private javax.swing.JLabel resolvedLabel;
 
     // End of variables declaration
 
