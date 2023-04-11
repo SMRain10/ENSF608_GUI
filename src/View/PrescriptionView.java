@@ -281,7 +281,7 @@ public class PrescriptionView extends javax.swing.JPanel {
     // SR Added declarations
     private Create_DB dconn;
     private Object[][] data;
-    private String[] colNames = {"Quantity","Drug Name", "DocumentID", "Patient Name", "Notes"};
+    private String[] colNames = {"Quantity","Drug Name", "DocumentID", "Patient Name"};
 
     private DefaultTableModel model;
     // End of variables declaration

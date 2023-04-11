@@ -586,10 +586,10 @@ public class AppointmentView extends javax.swing.JPanel {
 
 
 
-       if (adminSsnInput.getText().equals("") || drSSNInput.getText().equals("") || hospitalNameInput.getText().equals("") || wardInput.getText().equals("") || roomInput.getText().equals("") || confirmationIdTopInput.getText().equals("")) {
-               JOptionPane.showMessageDialog(null, "Must enter name, healthcare number, smoker status and gender.");
+       if (adminSsnInput.getText().equals("") || drSSNInput.getText().equals("") || hospitalNameInput.getText().equals("") || wardInput.getText().equals("") || roomInput.getText().equals("")) {
+               JOptionPane.showMessageDialog(null, "Missing adminSSN, doctorSSN, Hospital ID, Ward, or Room no.");
            } else {
-               dconn.InsertAppointment(confirmationIdTopInput.getText(), drSSNInput.getText(), adminSsnInput.getText(), hospitalNameInput.getText(), wardInput.getText(), roomInput.getText(),app_time,reasonVisitInput.getText());
+               dconn.InsertAppointment(healthCareNumberTopInput.getText(), drSSNInput.getText(), adminSsnInput.getText(), hospitalNameInput.getText(), wardInput.getText(), roomInput.getText(),app_time,reasonVisitInput.getText());
            }
 
 

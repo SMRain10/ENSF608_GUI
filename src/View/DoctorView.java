@@ -305,7 +305,7 @@ public class DoctorView extends javax.swing.JPanel {
             resolved = "false";
         }
         // TODO add your handling code here:
-        dconn.UpdateRoutineCheckUp(notesInput.getText(), resolved , (HcInput.getText()) , (docIdInput.getText()));
+        dconn.UpdateRoutineCheckUp(notesInput.getText(), resolved , (HcInput.getText()));
 
 
         data = dconn.searcAlldiagnosis(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );

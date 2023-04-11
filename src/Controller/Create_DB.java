@@ -9,7 +9,7 @@ public class Create_DB {
 
     static final String DB_URL = "jdbc:mysql://localhost:3306?allowMultiQueries=true";
     static final String USER = "root";
-    static final String PASS = "ensfsos";
+    static final String PASS = "ENSF608Rainbow";
 
     // Returns the maximum document ID for diagnosis doucment
     public int maxDocID() {
@@ -139,7 +139,7 @@ public class Create_DB {
     }
 
     // updates a single routine checkup document
-    public String UpdateRoutineCheckUp(String notes, String resolved, String healthCareNumber, String documentID) {
+    public String UpdateRoutineCheckUp(String notes, String resolved, String healthCareNumber) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
@@ -147,10 +147,12 @@ public class Create_DB {
 
             String table = "DIAGNOSIS";
 
+            int newDocID = maxDocID() + 1;
+
 
             if(!(notes.equals(""))){
                 String sql = "update  " + table
-                    + " SET Notes= '" + notes + "'  where DocumentID = " + documentID  + " and HealthCareNum = " + healthCareNumber;
+                    + " SET Notes= '" + notes + "'  where DocumentID = " + String.valueOf(newDocID)  + " and HealthCareNum = " + healthCareNumber;
                     Statement stmt = conn.prepareStatement(sql);
 
 
@@ -161,7 +163,7 @@ public class Create_DB {
 
             if(!(resolved.equals(""))){
                 String sql = "update  " + table
-                    + " SET Resolved = " + resolved  +" where DocumentID = " + documentID  + " and HealthCareNum = " + healthCareNumber;
+                    + " SET Resolved = " + resolved  +" where DocumentID = " + String.valueOf(newDocID) + " and HealthCareNum = " + healthCareNumber;
                     Statement stmt = conn.prepareStatement(sql);
 
 
@@ -374,7 +376,7 @@ public class Create_DB {
 
             Statement stmt = conn.createStatement();
 
-            String querey = "select distinct DocumentID, Pname, Allergies, Notes, Results, DocType from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum and DocType = 'Lab_Test'";
+            String querey = "select distinct DocumentID, Pname, Allergies, Notes, Results, TestType from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum and DocType = 'Lab_Test'";
             String docIDsearch = "and DocumentID like ";
             String nameSearh = "and Pname like ";
             String healthCareNumSearch = "and patient.HealthCareNum like";
@@ -399,10 +401,9 @@ public class Create_DB {
                 ArrayList<String> temp = new ArrayList<String>();
                 temp.add(rs.getString("DocumentID"));
                 temp.add(rs.getString("Pname"));
-                temp.add(rs.getString("Allergies"));
                 temp.add(rs.getString("Notes"));
                 temp.add(rs.getString("Results"));
-                temp.add(rs.getString("DocType"));
+                temp.add(rs.getString("TestType"));
 
                 results.add(temp);
             }
@@ -851,6 +852,7 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
         } catch (SQLIntegrityConstraintViolationException e) {
             // Handle duplicate primary key error
             System.out.println("Insert failed: Primary key already exists");
+            System.out.println(e.getMessage());
 
         } catch (SQLException e) {
             e.printStackTrace();

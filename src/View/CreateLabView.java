@@ -298,7 +298,7 @@ public class CreateLabView extends javax.swing.JPanel {
 
     private Create_DB dconn;
     private Object[][] data;
-    private String[] colNames = {"DocumentID","Name", "Allergies", "Notes", "Results", "DocType"};
+    private String[] colNames = {"DocumentID","Name", "Notes", "Results", "Test Type"};
 
     private DefaultTableModel model;
 }

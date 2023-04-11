@@ -300,7 +300,7 @@ public class SurgeonView extends javax.swing.JPanel {
     //+++++++++Samuel worked on this++++++++++++
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        if (pNameInput.getText().equals("") || HcInput.getText().equals("") ) {
+        if (HcInput.getText().equals("") ) {
             JOptionPane.showMessageDialog(null, "Patient Name, HC# and Document ID must be completed");
         } else {
 
@@ -384,7 +384,7 @@ public class SurgeonView extends javax.swing.JPanel {
     //----------------Samuel included these----
     private Create_DB dconn;
     private Object[][] data;
-    private String[] colNames = {"DocumentID","Name", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing conditions", "Notes", "Resolved"};
+    private String[] colNames = {"DocumentID","Notes", "Allergies", "Family History", "Smoker", "Birth Date", "Pre-existing conditions", "Notes", "Resolved"};
 
     private DefaultTableModel model;
 
