@@ -628,24 +628,23 @@ public class Create_DB {
         }
 
     }
-
-    public String UpdatePrescription(String notes, int quantity, String drugName, int docID) {
+public String UpdatePrescription(int quantity, String drugName, int docID) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
             stmt_use.executeUpdate("use HOSPITAL");
 
-            String sql = "update  DRUG_INFO as d inner join DIAGNOSIS as g on d.DocumentID = g.DocumentID SET g.Notes = ?, d.Quantity = ?, d.DrugName = ? where d.DocumentID = ?";
+            String sql = "update  DRUG_INFO as d inner join DIAGNOSIS as g on d.DocumentID = g.DocumentID " +
+                    "SET d.Quantity = ?, d.DrugName = ? where d.DocumentID = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             // String sql = "update insurance set companyid = 'asf' , taxcode = 'asdf',
             // insurancerate = 0.7 where companyid = 'testcomp'";
 
-            stmt.setString(1, notes);
-            stmt.setInt(2, quantity);
-            stmt.setString(3, drugName);
-            stmt.setInt(4, docID);
+            stmt.setInt(1, quantity);
+            stmt.setString(2, drugName);
+            stmt.setInt(3, docID);
 
             stmt.execute();
 
@@ -698,7 +697,7 @@ public class Create_DB {
             Statement stmt = conn.createStatement();
 
             String querey = "select distinct Quantity, DrugName, DRUG_INFO.DocumentID, patient.pname, Notes from DRUG_INFO, diagnosis, patient where DRUG_INFO.DocumentID = DIAGNOSIS.DocumentID and DIAGNOSIS.HealthCareNum = patient.HealthCareNum ";
-            String docIDsearch = "and DocumentID like ";
+            String docIDsearch = "and Diagnosis.DocumentID like ";
             String nameSearh = "and patient.Pname like ";
             String healthCareNumSearch = "and patient.HealthCareNum like ";
             String drugNameSearch = "and DRUG_INFO.drugName like ";
@@ -720,6 +719,7 @@ public class Create_DB {
                 drugNameSearch += "'%" + drugName + "%'";
                 querey += drugNameSearch;
             }
+            System.out.println(querey);
 
             ResultSet rs = stmt.executeQuery(querey);
             ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
@@ -760,7 +760,7 @@ public class Create_DB {
 
     }
 
-    public void InsertPrescription(String notes, int healthCareNum, int docID, boolean resolved, int quantity,
+    public void InsertPrescription(int healthCareNum, int quantity,
             String drugName) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 
@@ -770,16 +770,16 @@ public class Create_DB {
             String table = "DIAGNOSIS";
             String docType = "Prescription";
 
+            int docNum = maxDocID() + 1;
+
             String sql = " insert into " + table
-                    + " (DocumentID, HealthCareNum, Notes, Resolved, DocType)"
-                    + " values (?, ?, ?, ?, ?)";
+                    + " (DocumentID, HealthCareNum, DocType)"
+                    + " values (?, ?, ?)";
 
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
-            preparedStmt.setInt(1, docID);
+            preparedStmt.setInt(1, docNum);
             preparedStmt.setInt(2, healthCareNum);
-            preparedStmt.setString(3, notes);
-            preparedStmt.setBoolean(4, resolved);
-            preparedStmt.setString(5, docType);
+            preparedStmt.setString(3, docType);
 
             preparedStmt.execute();
 
@@ -788,7 +788,7 @@ public class Create_DB {
                     + " values (?, ?, ?)";
 
             PreparedStatement preparedStmt2 = conn.prepareStatement(sql2);
-            preparedStmt2.setInt(1, docID);
+            preparedStmt2.setInt(1, docNum);
             preparedStmt2.setInt(2, quantity);
             preparedStmt2.setString(3, drugName);
             preparedStmt2.execute();
