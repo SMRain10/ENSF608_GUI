@@ -575,21 +575,29 @@ public class Create_DB {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 
-            String phoneI = null;
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate("use HOSPITAL");
 
-            if (phone != "") {
-                phoneI = phone;
-            }
+
+
 
             String sql = " insert into Emergency_contact "
                     + " (HealthCareNum, Cname, PhoneNum, Relationship)"
                     + " values (?, ?, ?, ?)";
 
+
+
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
+            if (phone.equals("")) {
+                preparedStmt.setString(3, null);
+            } else {
+                preparedStmt.setString(3, phone);
+            }
             preparedStmt.setInt(1, healthCareNum);
             preparedStmt.setString(2, name);
-            preparedStmt.setString(3, phoneI);
             preparedStmt.setString(4, relationship);
+
+            preparedStmt.execute();
 
         } catch (SQLIntegrityConstraintViolationException e) {
             // Handle duplicate primary key error
