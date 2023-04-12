@@ -84,7 +84,7 @@ public class AppointmentView extends javax.swing.JPanel {
         confirmationIdLabel1 = new javax.swing.JLabel();
 
         pageLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        pageLabel.setText("View/Change Appointments");
+        pageLabel.setText("Add/Update/Delete Appointments");
 
         pInfoLabel.setText("Patient Info");
 
