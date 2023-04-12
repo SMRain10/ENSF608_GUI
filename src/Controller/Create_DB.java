@@ -1344,6 +1344,64 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
         }
 
     }
+    
+    
+    
+    
+    
+    public Object[][] unresolvedPrescription() {
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
+
+            Statement stmt = conn.createStatement();
+
+            String querey =     "select * from Pharmacy " +
+                                "where Pname in ( "+
+                                "select DIAGNOSIS.PharmName "+
+                                "from DIAGNOSIS "+
+                                "where Resolved = 'no' and DocType = 'Pescription' ";
+           
+
+            System.out.println(querey);
+
+            ResultSet rs = stmt.executeQuery(querey);
+            ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
+            while (rs.next()) {
+                ArrayList<String> temp = new ArrayList<String>();
+                temp.add(rs.getString("Pname"));
+                temp.add(rs.getString("StreetAddress"));
+                temp.add(rs.getString("City"));
+                temp.add(rs.getString("Province"));
+                results.add(temp);
+            }
+
+            Object[][] objectArray = new Object[results.size()][];
+
+            for (int i = 0; i < results.size(); i++) {
+                ArrayList<String> innerList = results.get(i);
+                Object[] innerArray = new Object[innerList.size()];
+                for (int j = 0; j < innerList.size(); j++) {
+                    innerArray[j] = innerList.get(j);
+                }
+                objectArray[i] = innerArray;
+            }
+
+            return objectArray;
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
+
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return null;
+        }
+
+    }
 
     
     
