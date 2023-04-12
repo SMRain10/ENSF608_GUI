@@ -26,6 +26,7 @@ public class PersonnelView extends javax.swing.JPanel {
         // Added by SR
         dconn = new Create_DB();
         model = new DefaultTableModel();
+        model2 = new DefaultTableModel();
         // End
 
 
@@ -33,9 +34,18 @@ public class PersonnelView extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         searchTable = new javax.swing.JTable();
         exitButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        searchTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         pageLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         pageLabel.setText("     View Personnel");
+
+        data2 = dconn.printHospitalNumbers();
+        model2.setDataVector(data2, colNames2);
+        searchTable1.setModel(model2);
+        jScrollPane2.setViewportView(searchTable1);
 
 
         data = dconn.printHospitalStaff();
@@ -50,34 +60,55 @@ public class PersonnelView extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setText("Personnel Table");
+
+        jLabel1.setText("Hospital Information");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(exitButton)
+                                .addGap(53, 53, 53))
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(366, 366, 366)
                                                 .addComponent(pageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(46, 46, 46)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 869, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(87, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(exitButton)
-                                .addGap(53, 53, 53))
+                                                .addGap(64, 64, 64)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel1)
+                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel2))))
+                                .addContainerGap(139, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(65, 65, 65)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(143, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addComponent(pageLabel)
-                                .addGap(249, 249, 249)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE)
+                                .addGap(52, 52, 52)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 347, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addGap(26, 26, 26)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(62, 62, 62)
                                 .addComponent(exitButton)
                                 .addGap(27, 27, 27))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(127, 127, 127)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(455, Short.MAX_VALUE)))
         );
     }// </editor-fold>
 
@@ -90,17 +121,24 @@ public class PersonnelView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify
     private javax.swing.JButton exitButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel pageLabel;
     private javax.swing.JTable searchTable;
+    private javax.swing.JTable searchTable1;
 
 
     //Added by SR ---------------------------------------------------------------
 
     private DefaultTableModel model;
+    private DefaultTableModel model2;
     private Create_DB dconn;
     private Object[][] data;
+    private Object[][] data2;
     private String[] colNames = {"Name","Role Type", "Job Type", "Department", "Residency"};
+    private String[] colNames2 = {"Staff Population" , "Hospital ID", "Hospital Name"};
 
     // End of variables declaration
 }

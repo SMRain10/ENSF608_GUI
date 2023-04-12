@@ -187,7 +187,7 @@ public class Create_DB {
     }
 
     // inserts a routine checkup document
-    public void InsertRoutineCheckUp(String notes, int healthCareNum, boolean resolved, String medicalSSN) {
+    public void InsertRoutineCheckUp(String notes, int healthCareNum, String resolved, String medicalSSN) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 
             Statement stmt = conn.createStatement();
@@ -204,7 +204,7 @@ public class Create_DB {
             preparedStmt.setInt(1, docNum);
             preparedStmt.setInt(2, healthCareNum);
             preparedStmt.setString(3, notes);
-            preparedStmt.setBoolean(4, resolved);
+            preparedStmt.setString(4, resolved);
             preparedStmt.setString(5, docType);
             preparedStmt.setString(6, medicalSSN);
 
@@ -296,7 +296,7 @@ public class Create_DB {
 
             Statement stmt = conn.createStatement();
 
-            String querey = "select distinct DocumentID, patient.HealthCareNum, Pname, Allergies, Notes, Results from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum and DocType = 'Lab_Test'";
+            String querey = "select distinct DocumentID, patient.HealthCareNum, Pname, TestType, Notes, Results from patient, diagnosis where patient.HealthCareNum = diagnosis.healthcarenum and DocType = 'Lab_Test'";
             String docIDsearch = "and DocumentID like ";
 //            String nameSearh = "and Pname like ";
             String healthCareNumSearch = "and patient.HealthCareNum like";
@@ -322,7 +322,7 @@ public class Create_DB {
                 temp.add(rs.getString("DocumentID"));
                 temp.add(rs.getString("HealthCareNum"));
                 temp.add(rs.getString("Pname"));
-                temp.add(rs.getString("Allergies"));
+                temp.add(rs.getString("TestType"));
                 temp.add(rs.getString("Notes"));
                 temp.add(rs.getString("Results"));
 
@@ -1156,12 +1156,9 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
 
         } catch (SQLIntegrityConstraintViolationException e) {
             // Handle duplicate primary key error
-            e.printStackTrace();
-            System.out.println("update failed");
 
             return "exists";
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         }
 

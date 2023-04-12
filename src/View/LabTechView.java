@@ -214,7 +214,7 @@ public class LabTechView extends javax.swing.JPanel {
     private DefaultTableModel model;
     private Create_DB dconn;
     private Object[][] data;
-    private String[] colNames = new String[]{"Document ID", "Health Care Number","Patient Name", "Allergies", "Notes", "Result"};
+    private String[] colNames = new String[]{"Document ID", "Health Care Number","Patient Name", "Test Type", "Notes", "Result"};
     private void updateLabButtonActionPerformed(ActionEvent evt) {
 
         dconn.UpdateLabTest(Integer.parseInt(HcnInput.getText()), Integer.parseInt(docIDInput.getText()), jTextArea1.getText());

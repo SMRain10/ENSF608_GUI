@@ -261,19 +261,11 @@ public class DoctorView extends javax.swing.JPanel {
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
-        String resolved = "";
-
-        if(resolveMenu.getSelectedItem().equals("Yes")){
-            resolved = "true";
-        } else if (resolveMenu.getSelectedItem().equals("No")){
-            resolved = "false";
-        }
-
-        if(notesInput.getText().equals("") || resolved.equals("") || HcInput.getText().equals("")){
+        if(notesInput.getText().equals("") || resolveMenu.getSelectedItem().toString().equals("") || HcInput.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Missing resolved, notes or healthcare number.");
 
         } else{
-            dconn.InsertRoutineCheckUp(notesInput.getText(),Integer.parseInt(HcInput.getText()) ,Boolean.parseBoolean(resolved), medSSNInput.getText() );
+            dconn.InsertRoutineCheckUp(notesInput.getText(),Integer.parseInt(HcInput.getText()) ,resolveMenu.getSelectedItem().toString(), medSSNInput.getText() );
         }
 
 
