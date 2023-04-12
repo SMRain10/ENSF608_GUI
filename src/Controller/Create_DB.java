@@ -994,8 +994,7 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
         }
 
     }
-
-    public Object[][] searchAppointment(String name, String healthCareNum, String date, String confirmationID, String reason) {
+public Object[][] searchAppointment(String name, String healthCareNum, String date, String confirmationID, String reason) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
@@ -1078,7 +1077,6 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
         }
 
     }
-
     public void DeleteAppointment(String ConfirmationID) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
