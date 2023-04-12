@@ -1318,10 +1318,10 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
 
             String querey = "select  patient.HealthCareNum, Bill.InvoiceNo, CostingCode, CompanyID, Cost from Send_to, Bill, patient, DIAGNOSIS where Send_to.InvoiceNo = Bill.InvoiceNo " + 
             " and Bill.InvoiceNo = DIAGNOSIS.DocumentID and DIAGNOSIS.HealthCareNum = patient.HealthCareNum ";
-            String invoiceNosearch = "and Send_to.InvoiceNo like ";
-            String costingCodeSearh = "and Send_to.CostingCode like ";
-            String companyIDSearch = "and Send_to.CompanyID like";
-            String healthCareNumDSearch = "and Send_to.CompanyID like";
+            String invoiceNosearch = " and Send_to.InvoiceNo like ";
+            String costingCodeSearh = " and Send_to.CostingCode like ";
+            String companyIDSearch = " and Send_to.CompanyID like ";
+            String healthCareNumDSearch = " and DIAGNOSIS.HealthCareNum like ";
 
             if (invoiceNo != "") {
                 invoiceNosearch += "'%" + invoiceNo + "%'";
