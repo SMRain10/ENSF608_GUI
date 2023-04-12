@@ -1150,46 +1150,6 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
              }
 
 
- 
-            String hopsitalName_q = "";
-            String ward_q = "";
-            String roomNo_q = "";
-            String roomType_q = "";
-            
-
-            
-
-            if(!(hopsitalName.isEmpty()) && roomNo.isEmpty() && ward.isEmpty()){
-                hopsitalName_q = " Hospital = " + hopsitalName;
-            } else if (hopsitalName.isEmpty())  {
-                hopsitalName_q = "";
-            } else {
-                hopsitalName_q = " Hospital = " + hopsitalName + ", ";
-            }
-
-            if(roomNo != "" && ward == ""){
-                roomNo_q = " RoomNo = " + roomNo;
-            } else {
-                roomNo_q = " RoomNo = " + roomNo + ", ";
-            }
-
-            if(ward != ""){
-                ward_q = " Ward = " + ward;
-            }
-
-
-            String querey_2 = "update CONDUCTED_IN SET " + hopsitalName_q + roomNo_q + ward_q + " where ConfirmationID = " + confirmationID;
-
-            if(!(hopsitalName.isEmpty()) || !(roomNo.isEmpty()) || !(ward.isEmpty())){
-                System.out.println( "-"+  hopsitalName+ "-");
-                System.out.println("-" + roomNo+ "-");
-                System.out.println("-" + ward + "-");
-
-                Statement stmt_new_2 = conn.createStatement();
-                stmt_new_2.executeUpdate(querey_2);
-            }
-
-
             return null;
 
         } catch (SQLIntegrityConstraintViolationException e) {
