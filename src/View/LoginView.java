@@ -37,7 +37,7 @@ public class LoginView extends javax.swing.JPanel {
 
         staffLabel.setText("Hospital Staff Login");
 
-        ssnLabel.setText("Enter SSN");
+        ssnLabel.setText("Enter Role Type:");
 
         billingButton.setText("Billing");
         billingButton.addActionListener(new java.awt.event.ActionListener() {

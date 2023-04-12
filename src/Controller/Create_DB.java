@@ -1361,7 +1361,7 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
                                 "where Pname in ( "+
                                 "select DIAGNOSIS.PharmName "+
                                 "from DIAGNOSIS "+
-                                "where Resolved = 'no' and DocType = 'Pescription' ";
+                                "where Resolved = 'no' and DocType = 'Prescription') ";
            
 
             System.out.println(querey);
