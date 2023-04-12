@@ -189,7 +189,7 @@ public class Create_DB {
     }
 
     // inserts a routine checkup document
-    public void InsertRoutineCheckUp(String notes, int healthCareNum, boolean resolved) {
+    public void InsertRoutineCheckUp(String notes, int healthCareNum, boolean resolved, String medicalSSN) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 
             Statement stmt = conn.createStatement();
@@ -199,8 +199,8 @@ public class Create_DB {
             String docType = "Routine_Checkup";
             int docNum = maxDocID() + 1;
 
-            String sql = " insert into " + table + " (DocumentID, HealthCareNum, Notes, Resolved, DocType)"
-                    + " values (?, ?, ?, ?, ?)";
+            String sql = " insert into " + table + " (DocumentID, HealthCareNum, Notes, Resolved, DocType, Medical_SSN)"
+                    + " values (?, ?, ?, ?, ?, ?)";
 
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
             preparedStmt.setInt(1, docNum);
@@ -208,6 +208,7 @@ public class Create_DB {
             preparedStmt.setString(3, notes);
             preparedStmt.setBoolean(4, resolved);
             preparedStmt.setString(5, docType);
+            preparedStmt.setString(6, medicalSSN);
 
             preparedStmt.execute();
             conn.close();
@@ -251,7 +252,7 @@ public class Create_DB {
     }
 
    // inserts a lab test document
-    public void InsertLabTest(String notes, int healthCareNum, String testType) {
+    public void InsertLabTest(String notes, int healthCareNum, String testType, String medicalSSN) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 
             Statement stmt = conn.createStatement();
@@ -263,8 +264,8 @@ public class Create_DB {
             int docNum = maxDocID() + 1;
 
             String sql = " insert into " + table
-                    + " (DocumentID, HealthCareNum, Notes, DocType, TestType)"
-                    + " values (?, ?, ?, ?, ?)";
+                    + " (DocumentID, HealthCareNum, Notes, DocType, TestType, Medical_SSN)"
+                    + " values (?, ?, ?, ?, ?, ?)";
 
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
             preparedStmt.setInt(1, docNum);
@@ -272,6 +273,7 @@ public class Create_DB {
             preparedStmt.setString(3, notes);
             preparedStmt.setString(4, docType);
             preparedStmt.setString(5, testType);
+            preparedStmt.setString(6, medicalSSN);
 
             preparedStmt.execute();
 
@@ -896,7 +898,7 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
     }
 
     public void InsertPrescription(int healthCareNum, int quantity,
-            String drugName) {
+            String drugName, String medicalSSN) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 
             Statement stmt = conn.createStatement();
@@ -908,13 +910,14 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
             int docNum = maxDocID() + 1;
 
             String sql = " insert into " + table
-                    + " (DocumentID, HealthCareNum, DocType)"
-                    + " values (?, ?, ?)";
+                    + " (DocumentID, HealthCareNum, DocType, Medical_SSN)"
+                    + " values (?, ?, ?, ?)";
 
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
             preparedStmt.setInt(1, docNum);
             preparedStmt.setInt(2, healthCareNum);
             preparedStmt.setString(3, docType);
+            preparedStmt.setString(4, medicalSSN);
 
             preparedStmt.execute();
 
@@ -1169,7 +1172,7 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
 
     // ++++++++++++Samuel worked on this+++++++++++++++++
     public void InsertProcedure(String notes, int healthCareNum, String resolved,
-            String procedureType, String anesthetic) {
+            String procedureType, String anesthetic, String medicalSSN, String nurseSSN) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
 
             Statement stmt = conn.createStatement();
@@ -1181,8 +1184,8 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
             int docNum = maxDocID() + 1;
 
             String sql = " insert into " + table
-                    + " (DocumentID, HealthCareNum, Notes, Resolved, DocType, ProcedureType, Anesthetic)"
-                    + " values (?, ?, ?, ?, ?,?,?)";
+                    + " (DocumentID, HealthCareNum, Notes, Resolved, DocType, ProcedureType, Anesthetic, Medical_SSN, Nurse_SSN)"
+                    + " values (?, ?, ?, ?, ?,?,?,?,?)";
 
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
             preparedStmt.setInt(1, docNum);
@@ -1192,6 +1195,8 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
             preparedStmt.setString(5, docType);
             preparedStmt.setString(6, procedureType);
             preparedStmt.setString(7, anesthetic);
+            preparedStmt.setString(8, medicalSSN);
+            preparedStmt.setString(9, nurseSSN);
 
             preparedStmt.execute();
             conn.close();
@@ -1404,9 +1409,10 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
     }
 
     
-    
-    
-       public Object[][] printHospitalStaff() {
+
+
+        
+    public Object[][] printHospitalStaff() {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
@@ -1456,9 +1462,13 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
         }
 
     }
-    
-    
-    
+
+
+
+
+
+
+
     
 }
 
