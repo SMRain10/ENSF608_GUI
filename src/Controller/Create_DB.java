@@ -1306,7 +1306,7 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
                 querey += healthCareNumDSearch;
             }
 
-            ResultSet rs = stmt.executeQuery(querey);
+            ResultSet rs = stmt.executeQuery(querey + " order by Cost");
             ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
             while (rs.next()) {
                 ArrayList<String> temp = new ArrayList<String>();
