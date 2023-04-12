@@ -1458,7 +1458,55 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
 
 
 
+public Object[][] printHospitalNumbers() {
 
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
+            Statement stmt_use = conn.createStatement();
+            stmt_use.executeUpdate("use HOSPITAL");
+
+            Statement stmt = conn.createStatement();
+
+            String querey =     "select count(*) as 'Staff Population', HOSPITAL_STAFF.HospitalID, HOSPITAL.hosp_name as 'Hospital Name' from HOSPITAL_STAFF, HOSPITAL where HOSPITAL_STAFF.HospitalID = HOSPITAL.HospitalID group by (HospitalID)";
+           
+
+            System.out.println(querey);
+
+            ResultSet rs = stmt.executeQuery(querey);
+            ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
+            while (rs.next()) {
+                ArrayList<String> temp = new ArrayList<String>();
+                temp.add(rs.getString("Staff Population"));
+                temp.add(rs.getString("HospitalID"));
+                temp.add(rs.getString("Hospital Name"));
+
+                results.add(temp);
+            }
+
+            Object[][] objectArray = new Object[results.size()][];
+
+            for (int i = 0; i < results.size(); i++) {
+                ArrayList<String> innerList = results.get(i);
+                Object[] innerArray = new Object[innerList.size()];
+                for (int j = 0; j < innerList.size(); j++) {
+                    innerArray[j] = innerList.get(j);
+                }
+                objectArray[i] = innerArray;
+            }
+
+            return objectArray;
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            // Handle duplicate primary key error
+            System.out.println("update failed");
+
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return null;
+        }
+
+    }
 
 
 
