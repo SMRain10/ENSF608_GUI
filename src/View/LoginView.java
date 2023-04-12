@@ -160,8 +160,8 @@ public class LoginView extends javax.swing.JPanel {
             mainView.setCard(6);
         } else if (ssnInput.getText().equals("admin")) {
             MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
-            mainView.setPersonnelView(new PersonnelView());
-            mainView.setCard(12);
+            mainView.setAppointmentView(new AppointmentView());
+            mainView.setCard(5);
         } else if (ssnInput.getText().equals("labtech")) {
             MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
             mainView.setLabTechView(new LabTechView());

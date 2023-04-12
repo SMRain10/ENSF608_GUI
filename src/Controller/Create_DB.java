@@ -140,7 +140,7 @@ public class Create_DB {
     }
 
     // updates a single routine checkup document
-    public String UpdateRoutineCheckUp(String notes, String resolved, String healthCareNumber) {
+    public String UpdateRoutineCheckUp(String notes, String resolved, String docID) {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);) {
             Statement stmt_use = conn.createStatement();
@@ -148,12 +148,10 @@ public class Create_DB {
 
             String table = "DIAGNOSIS";
 
-            int newDocID = maxDocID() + 1;
-
 
             if(!(notes.equals(""))){
                 String sql = "update  " + table
-                    + " SET Notes= '" + notes + "'  where DocumentID = " + String.valueOf(newDocID)  + " and HealthCareNum = " + healthCareNumber;
+                    + " SET Notes= '" + notes + "'  where DocumentID = " + String.valueOf(docID);
                     Statement stmt = conn.prepareStatement(sql);
 
 
@@ -164,7 +162,7 @@ public class Create_DB {
 
             if(!(resolved.equals(""))){
                 String sql = "update  " + table
-                    + " SET Resolved = " + resolved  +" where DocumentID = " + String.valueOf(newDocID) + " and HealthCareNum = " + healthCareNumber;
+                    + " SET Resolved = '" + resolved  +"' where DocumentID = " + String.valueOf(docID);
                     Statement stmt = conn.prepareStatement(sql);
 
 
@@ -216,6 +214,7 @@ public class Create_DB {
         } catch (SQLIntegrityConstraintViolationException e) {
             // Handle duplicate primary key error
             System.out.println("Insert failed: Primary key already exists");
+            e.printStackTrace();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1367,9 +1366,6 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
                                 "select DIAGNOSIS.PharmName "+
                                 "from DIAGNOSIS "+
                                 "where Resolved = 'no' and DocType = 'Prescription') ";
-           
-
-            System.out.println(querey);
 
             ResultSet rs = stmt.executeQuery(querey);
             ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
@@ -1421,9 +1417,6 @@ public Object[][] searchAppointment(String name, String healthCareNum, String da
             Statement stmt = conn.createStatement();
 
             String querey =     "select staff_name, RoleType, JobType, Department, Residency from HOSPITAL_STAFF";
-           
-
-            System.out.println(querey);
 
             ResultSet rs = stmt.executeQuery(querey);
             ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();

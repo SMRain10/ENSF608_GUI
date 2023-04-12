@@ -37,6 +37,8 @@ public class PersonnelView extends javax.swing.JPanel {
         pageLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         pageLabel.setText("     View Personnel");
 
+
+        data = dconn.printHospitalStaff();
         model.setDataVector(data, colNames);
         searchTable.setModel(model);
         jScrollPane1.setViewportView(searchTable);

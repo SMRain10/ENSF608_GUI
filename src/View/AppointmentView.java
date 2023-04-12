@@ -455,8 +455,8 @@ public class AppointmentView extends javax.swing.JPanel {
 
     private void personnelInputActionPerformed(ActionEvent evt) {
         MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
-        mainView.setRegisterPatientView(new RegisterPatientView());
-        mainView.setCard(1);
+        mainView.setPersonnelView(new PersonnelView());
+        mainView.setCard(12);
     }
 
     private void backButtonActionPerformed(ActionEvent evt) {

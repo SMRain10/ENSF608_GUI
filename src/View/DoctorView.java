@@ -50,6 +50,8 @@ public class DoctorView extends javax.swing.JPanel {
         updateButton = new javax.swing.JButton();
         HcInput = new javax.swing.JTextField();
         pInfoLabel = new javax.swing.JLabel();
+        docIDLabel1 = new javax.swing.JLabel();
+        medSSNInput = new javax.swing.JTextField();
 
         // Added code
         dconn = new Create_DB();
@@ -131,6 +133,8 @@ public class DoctorView extends javax.swing.JPanel {
 
         pInfoLabel.setText("Patient Info");
 
+        docIDLabel1.setText("Medical SSN");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,19 +164,9 @@ public class DoctorView extends javax.swing.JPanel {
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(35, 35, 35)
-                                                                .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(49, 49, 49)
-                                                                .addComponent(docIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(50, 50, 50)
-                                                                .addComponent(searchButton))
-                                                        .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(pNameLabel)
                                                                 .addGap(135, 135, 135)
-                                                                .addComponent(HCNumLabel)
-                                                                .addGap(170, 170, 170)
-                                                                .addComponent(docIDLabel))
+                                                                .addComponent(HCNumLabel))
                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                                 .addGroup(layout.createSequentialGroup()
                                                                         .addComponent(createPresButton)
@@ -183,7 +177,21 @@ public class DoctorView extends javax.swing.JPanel {
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 869, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(resolveMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(resolveLabel))))
+                                                                        .addComponent(resolveLabel)))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                        .addComponent(medSSNInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addGap(35, 35, 35)
+                                                                                .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addGap(49, 49, 49)
+                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                        .addComponent(docIDLabel1)
+                                                                                        .addComponent(docIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addComponent(docIDLabel))))
+                                                                .addGap(50, 50, 50)
+                                                                .addComponent(searchButton)))
                                                 .addGap(0, 51, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -202,7 +210,11 @@ public class DoctorView extends javax.swing.JPanel {
                                         .addComponent(HcInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(docIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(searchButton))
-                                .addGap(63, 63, 63)
+                                .addGap(12, 12, 12)
+                                .addComponent(docIDLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(medSSNInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1)
                                 .addComponent(pInfoLabel)
                                 .addGap(24, 24, 24)
                                 .addComponent(noteLabel)
@@ -219,7 +231,7 @@ public class DoctorView extends javax.swing.JPanel {
                                 .addComponent(resolveLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(resolveMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -228,7 +240,7 @@ public class DoctorView extends javax.swing.JPanel {
                                         .addComponent(createLabTestButton))
                                 .addGap(29, 29, 29))
         );
-    }
+    }// </editor-fold>
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if (pNameInput.getText().equals("") && HcInput.getText().equals("") && docIdInput.getText().equals("")) {
@@ -261,7 +273,7 @@ public class DoctorView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Missing resolved, notes or healthcare number.");
 
         } else{
-            dconn.InsertRoutineCheckUp(notesInput.getText(),Integer.parseInt(HcInput.getText()) ,Boolean.parseBoolean(resolved) );
+            dconn.InsertRoutineCheckUp(notesInput.getText(),Integer.parseInt(HcInput.getText()) ,Boolean.parseBoolean(resolved), medSSNInput.getText() );
         }
 
 
@@ -297,15 +309,8 @@ public class DoctorView extends javax.swing.JPanel {
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
-        String resolved = "";
-
-        if(resolveMenu.getSelectedItem().equals("Yes")){
-            resolved = "true";
-        } else if (resolveMenu.getSelectedItem().equals("No")){
-            resolved = "false";
-        }
         // TODO add your handling code here:
-        dconn.UpdateRoutineCheckUp(notesInput.getText(), resolved , (HcInput.getText()));
+        dconn.UpdateRoutineCheckUp(notesInput.getText(), resolveMenu.getSelectedItem().toString() , docIdInput.getText());
 
 
         data = dconn.searcAlldiagnosis(docIdInput.getText(), pNameInput.getText(), HcInput.getText() );
@@ -323,10 +328,12 @@ public class DoctorView extends javax.swing.JPanel {
     private javax.swing.JButton createPresButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JLabel docIDLabel;
+    private javax.swing.JLabel docIDLabel1;
     private javax.swing.JTextField docIdInput;
     private javax.swing.JButton finishButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
+    private javax.swing.JTextField medSSNInput;
     private javax.swing.JLabel noteLabel;
     private javax.swing.JTextField notesInput;
     private javax.swing.JLabel pInfoLabel;
