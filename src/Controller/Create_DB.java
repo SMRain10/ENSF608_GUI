@@ -605,10 +605,6 @@ public class Create_DB {
     
     
     
-    
-    
-
-
     public void Registration(String name, int healthCareNum, String phone, String allergies, String familyHistory,
             String smoker, String birthDate, String gender,
             String preExistingConditions, String city, String province, String streetAddress) {
@@ -652,19 +648,24 @@ public class Create_DB {
                 preparedStmt.setString(5, familyHistory);
             }
 
-            if (smoker.equals("")) {
-                preparedStmt.setString(6, null);
+
+            if (smoker == (null)) {
+                preparedStmt.setString(6, "unknown");
             } else {
                 preparedStmt.setString(6, smoker);
             }
 
-            preparedStmt.setString(7, birthDateNull);
-
-            if (gender.equals("")) {
-                preparedStmt.setString(8, null);
+            if (gender == (null)) {
+                preparedStmt.setString(8, "unknown");
             } else {
                 preparedStmt.setString(8, gender);
             }
+
+
+            preparedStmt.setString(7, birthDateNull);
+
+
+
 
             if (preExistingConditions.equals("")) {
                 preparedStmt.setString(9, null);
@@ -700,6 +701,11 @@ public class Create_DB {
         }
 
     }
+    
+    
+
+
+   
 
     public void AdminRegistration(String name, int healthCareNum, String phone, String allergies, String familyHistory,
             String smoker, String birthDate, String gender,
