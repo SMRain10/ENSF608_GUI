@@ -64,7 +64,7 @@ public class AppointmentView extends javax.swing.JPanel {
         roomInput = new javax.swing.JTextField();
         reasonSearchLabel = new javax.swing.JLabel();
         reasonSearchInput = new javax.swing.JTextField();
-        finishButton = new javax.swing.JButton();
+        personnelInput = new javax.swing.JButton();
         createApptButton = new javax.swing.JButton();
         deleteApptButton = new javax.swing.JButton();
         updateApptButton = new javax.swing.JButton();
@@ -154,8 +154,6 @@ public class AppointmentView extends javax.swing.JPanel {
 
         reasonVisitLabel.setText("Reason for Visit");
 
-        finishButton.setText("Finished");
-
         reasonVisitLabel.setText("Reason for Visit");
 
         jLabel2.setText("10001 - 01 - General Room");
@@ -167,11 +165,6 @@ public class AppointmentView extends javax.swing.JPanel {
         jLabel5.setText("10004 - 04 - Operation");
 
         jLabel6.setText("Rm No - Ward - Room Type");
-        finishButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                finishButtonActionPerformed(evt);
-            }
-        });
 
         createApptButton.setText("Create");
         createApptButton.addActionListener(new java.awt.event.ActionListener() {
@@ -199,50 +192,20 @@ public class AppointmentView extends javax.swing.JPanel {
                 backButtonActionPerformed(evt);
             }
         });
+        personnelInput.setText("View Personnel");
+        personnelInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                personnelInputActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(backButton)
-                                .addGap(30, 30, 30)
-                                .addComponent(finishButton)
-                                .addGap(60, 60, 60))
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(80, 80, 80)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(adminSsnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(adminSsnLabel)
-                                                        .addComponent(roomInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(roomLabel)
-                                                        .addComponent(confirmationIdTopInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(confirmationIdLabel)
-                                                        .addComponent(confirmationIdLabel1))
-                                                .addGap(35, 35, 35)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(drSSNInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(drSSNLabel)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(jLabel2)
-                                                                                        .addComponent(jLabel3)
-                                                                                        .addComponent(jLabel4)
-                                                                                        .addComponent(jLabel5))
-                                                                                .addGap(14, 14, 14))
-                                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                                        .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addGap(0, 0, Short.MAX_VALUE))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(layout.createSequentialGroup()
@@ -250,12 +213,11 @@ public class AppointmentView extends javax.swing.JPanel {
                                                                 .addComponent(healthCareNumberTopInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addContainerGap(68, Short.MAX_VALUE)
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addGroup(layout.createSequentialGroup()
                                                                                 .addGap(10, 10, 10)
-                                                                                .addComponent(step2LAbel)
-                                                                                .addGap(184, 184, 184))
+                                                                                .addComponent(step2LAbel))
                                                                         .addGroup(layout.createSequentialGroup()
                                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                                         .addComponent(monthDropInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,41 +259,77 @@ public class AppointmentView extends javax.swing.JPanel {
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addComponent(wardInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(wardLabel))))
-                                                .addGap(58, 58, 58)))
-                                .addContainerGap())
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGap(58, 58, 58))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(68, 68, 68)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(375, 375, 375)
-                                                .addComponent(pageLabel))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(108, 108, 108)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(layout.createSequentialGroup()
+                                                                .addGap(80, 80, 80)
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(pNameLabel))
+                                                                        .addComponent(adminSsnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(adminSsnLabel)
+                                                                        .addComponent(roomInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(roomLabel)
+                                                                        .addComponent(confirmationIdTopInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(confirmationIdLabel)
+                                                                        .addComponent(confirmationIdLabel1))
                                                                 .addGap(35, 35, 35)
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(HCNumLabel)
-                                                                        .addComponent(healthCareNumberBotInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGap(49, 49, 49)
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(docIDLabel)
+                                                                        .addComponent(drSSNInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(drSSNLabel)
                                                                         .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(confirmationIdBotInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(50, 50, 50)
-                                                                                .addComponent(searchButton))
-                                                                        .addComponent(reasonSearchLabel)
-                                                                        .addComponent(reasonSearchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                        .addComponent(pInfoLabel)
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                .addComponent(pageLabel1)
-                                                                .addGap(224, 224, 224)))))
-                                .addContainerGap(76, Short.MAX_VALUE))
+                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                                        .addComponent(jLabel2)
+                                                                                                        .addComponent(jLabel3)
+                                                                                                        .addComponent(jLabel4)
+                                                                                                        .addComponent(jLabel5))
+                                                                                                .addGap(14, 14, 14))
+                                                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                                                        .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
+                                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGap(108, 108, 108)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                        .addComponent(pNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                        .addComponent(pNameLabel))
+                                                                                .addGap(35, 35, 35)
+                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                        .addComponent(HCNumLabel)
+                                                                                        .addComponent(healthCareNumberBotInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                                .addGap(49, 49, 49)
+                                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                        .addComponent(docIDLabel)
+                                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                                .addComponent(confirmationIdBotInput, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                                .addGap(50, 50, 50)
+                                                                                                .addComponent(searchButton))
+                                                                                        .addComponent(reasonSearchLabel)
+                                                                                        .addComponent(reasonSearchInput, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                        .addComponent(pInfoLabel)
+                                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                                .addComponent(pageLabel1)
+                                                                                .addGap(224, 224, 224))))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGap(68, 68, 68)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                                .addComponent(backButton)
+                                                                                .addGap(89, 89, 89))
+                                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addContainerGap())
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(375, 375, 375)
+                                .addComponent(pageLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(personnelInput, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,8 +342,10 @@ public class AppointmentView extends javax.swing.JPanel {
                                                 .addComponent(adminSsnInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(16, 16, 16)
-                                                .addComponent(pageLabel)
-                                                .addGap(30, 30, 30)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(pageLabel)
+                                                        .addComponent(personnelInput))
+                                                .addGap(28, 28, 28)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(drSSNLabel)
@@ -448,12 +448,16 @@ public class AppointmentView extends javax.swing.JPanel {
                                 .addGap(26, 26, 26)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(backButton)
-                                        .addComponent(finishButton))
+                                .addComponent(backButton)
                                 .addGap(24, 24, 24))
         );
     }// </editor-fold>
+
+    private void personnelInputActionPerformed(ActionEvent evt) {
+        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+        mainView.setRegisterPatientView(new RegisterPatientView());
+        mainView.setCard(1);
+    }
 
     private void backButtonActionPerformed(ActionEvent evt) {
         MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
@@ -615,7 +619,6 @@ public class AppointmentView extends javax.swing.JPanel {
     private javax.swing.JLabel docIDLabel;
     private javax.swing.JTextField drSSNInput;
     private javax.swing.JLabel drSSNLabel;
-    private javax.swing.JButton finishButton;
     private javax.swing.JTextField healthCareNumberBotInput;
     private javax.swing.JTextField healthCareNumberTopInput;
     private javax.swing.JTextField hospitalNameInput;
@@ -637,6 +640,7 @@ public class AppointmentView extends javax.swing.JPanel {
     private javax.swing.JLabel pNameLabel;
     private javax.swing.JLabel pageLabel;
     private javax.swing.JLabel pageLabel1;
+    private javax.swing.JButton personnelInput;
     private javax.swing.JTextField reasonSearchInput;
     private javax.swing.JLabel reasonSearchLabel;
     private javax.swing.JTextField reasonVisitInput;

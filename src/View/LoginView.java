@@ -27,6 +27,7 @@ public class LoginView extends javax.swing.JPanel {
         loginButton = new javax.swing.JButton();
         ssnInput = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
+        registerPatient = new javax.swing.JButton();
         billingButton = new javax.swing.JButton();
 
 
@@ -54,6 +55,13 @@ public class LoginView extends javax.swing.JPanel {
             }
         });
 
+        registerPatient.setText("Register Patient");
+        registerPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerPatientActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -70,17 +78,22 @@ public class LoginView extends javax.swing.JPanel {
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGap(56, 56, 56)
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(staffLabel)
                                                                         .addGroup(layout.createSequentialGroup()
                                                                                 .addComponent(ssnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                                 .addGap(18, 18, 18)
                                                                                 .addComponent(loginButton))
-                                                                        .addComponent(ssnLabel)))
+                                                                        .addComponent(ssnLabel)
+                                                                        .addComponent(staffLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(100, 100, 100)
-                                                .addComponent(billingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(438, 438, 438)
+                                                .addComponent(registerPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(313, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(110, 110, 110)
+                                        .addComponent(billingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(800, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,10 +112,21 @@ public class LoginView extends javax.swing.JPanel {
                                         .addComponent(ssnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(55, 55, 55)
                                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
-                                .addComponent(billingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
+                                .addComponent(registerPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addContainerGap(804, Short.MAX_VALUE)
+                                        .addComponent(billingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(44, 44, 44)))
         );
+    }// </editor-fold>
+
+    private void registerPatientActionPerformed(ActionEvent evt) {
+        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
+        mainView.setRegisterPatientView(new RegisterPatientView());
+        mainView.setCard(1);
     }
 
     private void billingButtonActionPerformed(ActionEvent evt) {
@@ -118,6 +142,7 @@ public class LoginView extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel pageLabel;
+    private javax.swing.JButton registerPatient;
     private javax.swing.JTextField ssnInput;
     private javax.swing.JLabel ssnLabel;
     private javax.swing.JLabel staffLabel;
@@ -135,8 +160,8 @@ public class LoginView extends javax.swing.JPanel {
             mainView.setCard(6);
         } else if (ssnInput.getText().equals("admin")) {
             MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
-            mainView.setRegisterPatientView(new RegisterPatientView());
-            mainView.setCard(1);
+            mainView.setPersonnelView(new PersonnelView());
+            mainView.setCard(12);
         } else if (ssnInput.getText().equals("labtech")) {
             MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
             mainView.setLabTechView(new LabTechView());

@@ -62,14 +62,13 @@ public class RegisterPatientView extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         provinceInput = new javax.swing.JList<>();
         backButton = new javax.swing.JButton();
-        createApptButton = new javax.swing.JButton();
         successText = new javax.swing.JLabel();
         createEmergencyContactButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane4 = new javax.swing.JScrollPane();
         genderInput = new javax.swing.JList<>();
 
-        step1Label.setText("Please fill out all boxes below.");
+        step1Label.setText("Please fill out all boxes above.");
 
         bdMonthInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","January", "February", "March"
                 , "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
@@ -139,13 +138,6 @@ public class RegisterPatientView extends javax.swing.JPanel {
             }
         });
 
-        createApptButton.setText("Create Appointment");
-        createApptButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createApptButtonActionPerformed(evt);
-            }
-        });
-
         createEmergencyContactButton.setText("Create Emergency Contact");
         createEmergencyContactButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,7 +188,7 @@ public class RegisterPatientView extends javax.swing.JPanel {
                                                                                                         .addComponent(successText, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                                                                 .addGap(297, 297, 297)))))
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(createApptButton))
+                                                        )
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addGap(13, 13, 13)
                                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,7 +337,6 @@ public class RegisterPatientView extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(backButton)
-                                        .addComponent(createApptButton)
                                         .addComponent(createEmergencyContactButton))
                                 .addGap(26, 26, 26))
         );
@@ -412,12 +403,6 @@ public class RegisterPatientView extends javax.swing.JPanel {
         mainView.setCard(0);
     }
 
-    private void createApptButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
-        mainView.setAppointmentView(new AppointmentView());
-        mainView.setCard(5);
-    }
-
     private void createEmergencyContactButtonActionPerformed(java.awt.event.ActionEvent evt) {
         MainView mainView = (MainView) SwingUtilities.getWindowAncestor(this);
         mainView.setEmergencyContactView(new EmergencyContactView());
@@ -439,7 +424,6 @@ public class RegisterPatientView extends javax.swing.JPanel {
     private javax.swing.JLabel birthdateLabel;
     private javax.swing.JTextField cityInput;
     private javax.swing.JLabel cityLabel;
-    private javax.swing.JButton createApptButton;
     private javax.swing.JButton createEmergencyContactButton;
     private javax.swing.JLabel dayLabel;
     private javax.swing.JTextField famHistoryInput;
