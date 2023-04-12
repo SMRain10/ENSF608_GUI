@@ -1128,28 +1128,28 @@ public String UpdatePrescription(int quantity, String drugName, int docID) {
                 stmt_date.executeUpdate(date_u);
             }
 
-            // String appDate_q = "";
-            // String reasonForVisit_q = "";
+             String appDate_q = "";
+             String reasonForVisit_q = "";
 
-            // Statement stmt_new = conn.createStatement();
+             Statement stmt_new = conn.createStatement();
 
-            // if(!(appDate.isEmpty()) && reasonForVisit.isEmpty()){
-            //     appDate_q = " Appt_Date = " + appDate;
-            // } else if (!(appDate.isEmpty())){
-            //     appDate_q = " Appt_Date = " + appDate + ", ";
-            // }
+             if(!(appDate.isEmpty()) && reasonForVisit.isEmpty()){
+                 appDate_q = " Appt_Date = " + appDate;
+             } else if (!(appDate.isEmpty())){
+                 appDate_q = " Appt_Date = " + appDate + ", ";
+             }
 
-            // if(!(reasonForVisit.isEmpty())){
-            //     reasonForVisit_q = " ReasonForVisit = '" +  reasonForVisit + "'";
-            // }
+             if(!(reasonForVisit.isEmpty())){
+                 reasonForVisit_q = " ReasonForVisit = '" +  reasonForVisit + "'";
+             }
 
-            // String querey = "update APPOINTMENT SET " + appDate_q + reasonForVisit_q + " where ConfirmationID = " + confirmationID;
+             String querey = "update APPOINTMENT SET " + appDate_q + reasonForVisit_q + " where ConfirmationID = " + confirmationID;
 
-            // // String querey = "update APPOINTMENT SET ReasonForVisit = 'test' where ConfirmationID = " + confirmationID;
+             // String querey = "update APPOINTMENT SET ReasonForVisit = 'test' where ConfirmationID = " + confirmationID;
 
-            // if(!(appDate.isEmpty() && reasonForVisit.isEmpty())){
-            //     stmt_new.executeUpdate(querey);
-            // }
+             if(!(appDate.isEmpty() && reasonForVisit.isEmpty())){
+                 stmt_new.executeUpdate(querey);
+             }
 
 
  
