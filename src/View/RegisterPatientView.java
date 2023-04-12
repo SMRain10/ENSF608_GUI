@@ -385,12 +385,16 @@ public class RegisterPatientView extends javax.swing.JPanel {
         else if (bdMonthInput.getSelectedItem() == "December"){
                 monthToDigit = "12";
         }
-                
-
-
-
+        else if (bdMonthInput.getSelectedItem() == ""){
+            monthToDigit = "";
+        }
 
         String birthday = bdYearInput.getSelectedItem() + "-" + monthToDigit + "-" + bdDayInput.getSelectedItem();
+
+        if(bdYearInput.getSelectedItem().equals("") && monthToDigit.equals("") && bdDayInput.getSelectedItem().equals("")){
+            birthday = "";
+        }
+
         
         if (pNameInput.getText().equals("") || HcnInput.getText().equals("") ) {
                 JOptionPane.showMessageDialog(null, "Must enter name, healthcare number.");
